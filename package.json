@@ -1,0 +1,23 @@
+{
+  "name": "team9",
+  "version": "1.0.0",
+  "description": "sns",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon app"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kw-ic-web/teamproject-team9.git"
+  },
+  "author": "ayoung",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/kw-ic-web/teamproject-team9/issues"
+  },
+  "homepage": "https://github.com/kw-ic-web/teamproject-team9#readme",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
