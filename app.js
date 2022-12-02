@@ -12,13 +12,13 @@ var indexRouter = require("./routes/index");
 var signupRouter = require("./routes/signup");
 var switchRouter = require("./routes/switch");
 var feedRouter = require("./routes/feed");
+var homeRouter = require("./routes/home");
 
 // DB
 var userRouter = require("./routes/api/user");
 var profileRouter = require("./routes/api/profile");
 var contentsRouter = require("./routes/api/contents");
 var sessionsRouter = require("./routes/api/sessions");
-
 var app = express();
 
 // view engine setup
@@ -58,6 +58,7 @@ app.use("/", indexRouter);
 app.use("/signup", signupRouter);
 app.use("/switch", switchRouter);
 app.use("/feed", feedRouter);
+app.use("/home", homeRouter);
 
 // DB
 app.use("/api/user", userRouter);

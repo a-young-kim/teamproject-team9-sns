@@ -8,7 +8,11 @@ const router = express.Router();
 
 // get
 router.get('/', function(req, res){
-    fs.readFile('./views/index.html', function(err, data){
+
+    if(req.session.loginId){ //세션값에 로그인 정보가 남아있는 경우 바로 홈으로 이동
+      res.redirect("/home");
+    }else{
+      fs.readFile('./views/index.html', function(err, data){ //아닐경우 로그인 페이지를 띄운다.
         if(err){
             res.send('에러');
         }
@@ -18,6 +22,7 @@ router.get('/', function(req, res){
             res.end();
         }
     });
+    }
 });
 
 router.post('/', async(req, res) => {
@@ -76,13 +81,12 @@ router.post('/', async(req, res) => {
             }); 
 
             req.session.loginId = check_id;
-            req.session.loginUserName = 
             req.session.loginprofile = profile_DB.checkprofile;
             req.session.save(error => {if(error) console.log(error);});
 
             //res.json(token);
 
-            res.redirect('/feed');            
+            res.redirect('/home');            
           });
         }
       }
