@@ -15,9 +15,11 @@ router.post('/insert', async(req, res) => {
 });
 
 router.post('/checkDB', async(req, res) => {
+    
     const users = await  mysql.query("userCheckDB", req.body.id);
     
     res.send(JSON.stringify(users));
 });
+
 
 module.exports = router;

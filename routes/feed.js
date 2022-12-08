@@ -5,10 +5,15 @@ const request = require("request");
 const router = express.Router();
 
 // get
-router.get("/", function (req, res) {
-  if (req.session.loginId) {
-    //세션에 로그인 아이디가 존재하는 경우 성공적으로 피드 화면 진입.
-    output = `
+
+router.get('/', function(req, res){
+
+  //const url = req.headers.origin + '/api/profile/check';
+
+  console.log(req.url);
+
+    if(req.session.loginId){ //세션에 로그인 아이디가 존재하는 경우 성공적으로 피드 화면 진입.
+        output =`
                 
 <!doctype html>
 <html lang="en">
@@ -124,8 +129,10 @@ router.get("/", function (req, res) {
                       </div>
       
                       <div class = "col-7 mt-1">
-                          <p id = "user_id">${req.session.loginId}</p>
-                          <p id = "user_name">${req.session.loginUserName}</p>
+                          <p id = "user_id">${req.session.loginId}</p>`;
+
+
+                          output += `<p id = "user_name">${req.session.loginUserName}</p>
                           <p id = "instruction"> </p>
                       </div>
       

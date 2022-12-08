@@ -20,6 +20,7 @@
     "mysql": "^2.18.1",
     "nodemon": "^2.0.20",
     "request": "^2.88.2"
+
   },
   "description": "사용자 프리셋 기능을 가진 SNS",
   "main": "app.js",
