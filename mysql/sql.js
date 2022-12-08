@@ -7,12 +7,11 @@ module.exports = {
   profileInsert: `insert into profile set ?`,
   profileCheck: `select * from profile where id = ?`,
 
-  contentsList: `select * from contents where id = ?`,
 
-    contentsList: `select * from contents where id = ? and username = ? order by incre ASC`,
-    contentsInsert: `insert into contents set ?`,
-    
-    sessionList: `select * from sessions`
-  }
+  contentsList: `select * from contents where id = ? and username = ? order by incre ASC`,
+  contentsInsert: `insert into contents set ?`,
+  
+  sessionList: `select * from sessions`
+
 };
 
