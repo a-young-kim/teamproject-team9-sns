@@ -27,7 +27,7 @@ window.onload = function(){
         }
         }
     
-        output = output + `</div></div>`
+        output = output + `</div></div>`;
     
         contents_list.innerHTML = output; 
     });

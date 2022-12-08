@@ -57,7 +57,7 @@ router.post('/', async(req, res) => {
       else{
           // profile 
           const check_profile = {
-            url: req.headers.origin + '/api/profile/check', 
+            url: req.headers.origin + '/api/user/CheckDB', 
             method: 'POST',
             form: {
               id: check_id,
@@ -80,8 +80,9 @@ router.post('/', async(req, res) => {
                 issuer: "토큰발급자",
             }); 
 
+            console.log(profile_DB);
             req.session.loginId = check_id;
-            req.session.loginprofile = profile_DB.checkprofile;
+            req.session.username = profile_DB.username;
             req.session.save(error => {if(error) console.log(error);});
 
             //res.json(token);

@@ -46,9 +46,9 @@ app.use(
       store :  new MySQLStore({ //session 파일을 mysql에 저장해주는 작업
         host : 'localhost',
         port : 3306,
-        user: 'root',
+        user: 'dev02',
         password: '1234',
-        database: 'Team9',
+        database: 'team9',
         path : './sessions'})
   })
 );

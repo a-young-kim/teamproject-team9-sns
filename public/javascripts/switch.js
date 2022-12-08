@@ -36,3 +36,52 @@ function Switch(){
     document.getElementById(firstID).style.backgroundColor = 'white';
     document.getElementById(secondID).style.backgroundColor = 'white';
 }
+
+window.onload = function(){
+    const url = window.location.origin + '/api/contents/show_contents';
+
+    const res = fetch(url)
+    .then((response) => response.json())
+    .then(data => set_Contents(data));
+};
+
+function set_Contents(data){
+    let contents = document.getElementById('contents');
+    var output = '';
+    var i = 0;
+
+    while(i < data.length){
+     
+        if( i % 2 == 0){
+            output += `<div class="row p-1" id="div${i}">`;
+
+            output += `<div class="col-6 card p-1 context" id="${i}_1" onclick="readyToSwitch(this.id)">
+                        <div class="card-header">header${i}</div>
+                        <div class="card-body">
+                        <h5 class="card-title">${data[i].title}</h5>
+                        <p class="card-text">${data[i].contents}</p>
+                        </div>
+                    </div>`;
+        }
+
+        else{
+            output += `<div class="col-6 card p-1 context" id="${i}_2" onclick="readyToSwitch(this.id)">
+                        <div class="card-header">header${i}</div>
+                        <div class="card-body">
+                        <h5 class="card-title">${data[i].title}</h5>
+                        <p class="card-text">${data[i].contents}</p>
+                        </div>
+                    </div>`;
+        }
+        
+
+        if(i % 2 == 1){
+            output += `</div>`;
+        }
+        i = i + 1;
+    }
+
+    output += `</div>`;
+    contents.innerHTML = output;
+}
+
