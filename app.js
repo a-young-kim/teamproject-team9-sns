@@ -3,11 +3,11 @@ var express = require("express");
 var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
-var sessionParser = require('express-session');
-var bodyParser = require('body-parser');
-var MySQLStore = require('express-mysql-session')(sessionParser);
+var sessionParser = require("express-session");
+var bodyParser = require("body-parser");
+var MySQLStore = require("express-mysql-session")(sessionParser);
 
-// 
+//
 var indexRouter = require("./routes/index");
 var signupRouter = require("./routes/signup");
 var switchRouter = require("./routes/switch");
@@ -19,6 +19,7 @@ var userRouter = require("./routes/api/user");
 var profileRouter = require("./routes/api/profile");
 var contentsRouter = require("./routes/api/contents");
 var sessionsRouter = require("./routes/api/sessions");
+
 var app = express();
 
 // view engine setup
@@ -30,26 +31,31 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
+app.use("/public/images", express.static("images")); //이미지 로딩에 필요함
+app.use("/public/fonts", express.static("fonts")); //폰트 로딩에 필요함
 
+app.use(bodyParser.urlencoded({ extended: false }));
 
-app.use(bodyParser.urlencoded({extended: false}));
-// session
 app.use(
   sessionParser({
-      key: "login",
-      secret: "loginID",
-      resave: false,
-      saveUninitialized: false,
-      cookies:{
-          expires: 60 * 60 *24
-      },
-      store :  new MySQLStore({ //session 파일을 mysql에 저장해주는 작업
-        host : 'localhost',
-        port : 3306,
-        user: 'dev02',
-        password: '1234',
-        database: 'team9',
-        path : './sessions'})
+
+    key: "login",
+    secret: "loginID",
+    resave: false,
+    saveUninitialized: false,
+    cookies: {
+      expires: 60 * 60 * 24,
+    },
+    store: new MySQLStore({
+      //session 파일을 mysql에 저장해주는 작업
+      host: "localhost",
+      port: 3306,
+      user: "root",
+      password: "1234",
+      database: "kwic", //본인이 사용하는 DB 이름으로 바꿔주기!(예. team9)
+      path: "./sessions",
+    }),
+
   })
 );
 
