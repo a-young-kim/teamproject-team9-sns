@@ -35,9 +35,10 @@ app.use("/public/images", express.static("images")); //이미지 로딩에 필�
 app.use("/public/fonts", express.static("fonts")); //폰트 로딩에 필요함
 
 app.use(bodyParser.urlencoded({ extended: false }));
-// session
+
 app.use(
   sessionParser({
+
     key: "login",
     secret: "loginID",
     resave: false,
@@ -54,6 +55,7 @@ app.use(
       database: "kwic", //본인이 사용하는 DB 이름으로 바꿔주기!(예. team9)
       path: "./sessions",
     }),
+
   })
 );
 
