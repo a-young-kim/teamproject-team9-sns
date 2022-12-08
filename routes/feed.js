@@ -1,14 +1,14 @@
 const express = require("express");
 const fs = require("fs");
-const request = require('request');
+const request = require("request");
 
 const router = express.Router();
 
 // get
-router.get('/', function(req, res){
-
-    if(req.session.loginId){ //세션에 로그인 아이디가 존재하는 경우 성공적으로 피드 화면 진입.
-        output =`
+router.get("/", function (req, res) {
+  if (req.session.loginId) {
+    //세션에 로그인 아이디가 존재하는 경우 성공적으로 피드 화면 진입.
+    output = `
                 
 <!doctype html>
 <html lang="en">
@@ -17,26 +17,106 @@ router.get('/', function(req, res){
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>LetterBox</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
-  </head>
-  <body>
+    <link rel="stylesheet" href="/stylesheets/style_yumin.css" />
+    </head>
+  <body id="font_basic">
 
     <script src="/javascripts/feed.js"></script>
     
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container-fluid">
-          <a class="navbar-brand" href="/">LetterBox</a>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
-      
-                  <!--여기에 리스트 아이템으로 메뉴 아아템 삽입-->
-      
-            </ul>
-          </div>
+    
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+    <script>
+      //툴팁 관련 함수
+      $(function () {
+        $('[data-toggle="tooltip"]').tooltip();
+      });
+    </script>
+
+    <!-- 왼쪽 사이드바 -->
+    <nav style="z-index: 2" id="nav_left">
+    
+      <a href="/home">
+        <img src="../images/logo/logo2.png" id="logo_img" />
+      </a>
+
+      <span data-toggle="tooltip" data-placement="right" title="새 게시글 생성"
+        ><img
+          src="../images/icon/more.png"
+          id="menu_img"
+          data-toggle="modal"
+          data-target="#modal_new_post"
+          style="cursor: pointer"
+      /></span>
+      <br />
+
+      <span
+        data-toggle="tooltip"
+        data-placement="right"
+        title="홈 화면으로 가기"
+      >
+        <a href="/home"> <img src="../images/icon/home.png" id="menu_img" /></a
+      ></span>
+      <br />
+
+      <span data-toggle="tooltip" data-placement="right" title="사용자 페이지">
+        <a href="/feed"> <img src="../images/icon/user.png" id="menu_img" /></a>
+      </span>
+      <br />
+
+      <span data-toggle="tooltip" data-placement="right" title="환경설정">
+        <a href="#html">
+          <img src="../images/icon/settings.png" id="menu_img"
+        /></a>
+      </span>
+      <br />
+
+      <div style="bottom: 0px; position: absolute">
+        <span data-toggle="tooltip" data-placement="right" title="로그아웃">
+          <a href="/home/logout">
+            <img src="../images/icon/logout.png" id="menu_img"
+          /></a>
+        </span>
+      </div>
+    </nav>
+
+    <!-- 상단 네비게이션바 -->
+    <header>
+      <nav
+        class="navbar bg-light"
+        style="
+          width: 100%;
+          height: 70px;
+          border-right: 2px solid #989898;
+          z-index: 1;
+          position: fixed;
+        "
+      >
+        <div class="container-fluid" style="margin-left: 70px">
+          <!-- 로고  -->
+          <a href="/home">
+            <img src="../images/logo/logo1.png" style="height: 20px" />
+          </a>
+
+          <!-- 검색창 -->
+          <form class="d-flex" role="search">
+            <input
+              class="form-control me-2"
+              type="search"
+              placeholder="사용자 검색"
+              aria-label="Search"
+            />
+            <button class="btn btn-outline-success" type="submit">
+              Search
+            </button>
+          </form>
         </div>
       </nav>
+    </header>
+
+    <!-- 그 외 게시글 표시될 곳-->
+    <main style="margin-left: 70px; padding-top: 80px">
               <div class = "container justify-content-center mt-3">
                   <div class = "row">
                       <div class="col-2">
@@ -51,19 +131,25 @@ router.get('/', function(req, res){
       
                       <div class="col-3 row">
                           <div class = "row">
-                          <div class="col-4">
-                              <p>게시물</p>
-                              <p id="contents_num">&nbsp </p>
+                          <div class="col-4" >
+                              <p >게시물</p>
+                              <p id="contents_num">&nbsp  </p>
                             </div>
       
-                          <div class="col-4">
+                          <div class="col-4"
+                          data-toggle="modal"
+                          data-target="#modal_follower"
+                          style="cursor: pointer">
                               <p>팔로워</p>
                               <p id = "follower_num">&nbsp </p>
                             </div>
       
-                          <div class="col-4">
+                          <div class="col-4"
+                          data-toggle="modal"
+                          data-target="#modal_following"
+                          style="cursor: pointer">
                               <p>팔로잉</p>
-                              <p id ="following_num">&nbsp </p>
+                              <p id ="following_num">&nbsp  </p>
                             </div>
                           </div>
       
@@ -78,8 +164,8 @@ router.get('/', function(req, res){
                   <div class = "row">
                       <form class="d-flex" role="search">
                           <input class="form-control" type="search" placeholder="게시글 검색" aria-label="Search">
-                          <button class="btn btn-outline-dark" type="submit">
-                              <img src="../images/search_img.png" alt="#" width="30" height="24" class="d-inline-block align-text-top">
+                          <button class="btn btn-outline-success" type="submit">
+                            Search
                           </button>
                         </form>
                   </div>
@@ -162,7 +248,7 @@ router.get('/', function(req, res){
                           </div>
       
                           <div class = "col-10 mt-2"> 
-                              <a href="/edit_writing" class="btn btn-dark" tabindex="-1" role="button">게시글 편집</a>
+                              <a href="/switch" class="btn btn-dark" tabindex="-1" role="button">게시글 편집</a>
                           </div>
       
                         </div>
@@ -285,35 +371,155 @@ router.get('/', function(req, res){
         </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
-</body>
+    </main>
+
+    <!--추가 modal--!
+    <!-- 게시글 생성 버튼 클릭 -->
+    <div
+      class="modal fade"
+      id="modal_new_post"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">새 게시글 생성</h5>
+          </div>
+          <div class="modal-body">
+            <h5>게시글 제목</h5>
+            <div class="input-group mb-3">
+              <input
+                type="text"
+                class="form-control"
+                aria-describedby="basic-addon1"
+                name="title"
+                id="title"
+              />
+            </div>
+
+            <h5>게시글 내용</h5>
+            <div class="input-group">
+              <textarea
+                class="form-control"
+                style="height: 250px"
+                name="contents"
+                id="cpmtents"
+              ></textarea>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary">저장</button>
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-dismiss="modal"
+            >
+              취소
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 팔로잉 클릭 -->
+    <div
+      class="modal fade"
+      id="modal_following"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">팔로잉</h5>
+          </div>
+          <div class="modal-body">
+            <div class="card">
+              <div class="card-body">
+                팔로잉하는 유저 표시
+                <button type="button" class="btn btn-outline-dark" style="float: right">팔로잉</button>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-dismiss="modal"
+            >
+              닫기
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 팔로워 클릭 -->
+    <div
+      class="modal fade"
+      id="modal_follower"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">팔로워</h5>
+          </div>
+          <div class="modal-body">
+            <div class="card">
+              <div class="card-body">
+                나를 팔로워하는 유저 표시
+                <button type="button" class="btn btn-outline-dark" style="float: right">삭제</button>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-dismiss="modal"
+            >
+              닫기
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    </body>
 </html>
         `;
 
-        res.send(output);
-    }
-    else
-    {
-        res.redirect("/"); //세션에 로그인 아이디가 존재하지 않는 경우 로그인 페이지로 보낸다.
-    }
+    res.send(output);
+  } else {
+    res.redirect("/"); //세션에 로그인 아이디가 존재하지 않는 경우 로그인 페이지로 보낸다.
+  }
 
-    // if(req.session.loginId){ //세션에 로그인 아이디가 존재하는 경우 성공적으로 피드 화면 진입.
-    //     fs.readFile('./views/feed.html', function(err, data){
-    //         if(err){
-    //             res.send('에러');
-    //         }
-    //         else{
-    //             let loginId = req.session.loginId;
+  // if(req.session.loginId){ //세션에 로그인 아이디가 존재하는 경우 성공적으로 피드 화면 진입.
+  //     fs.readFile('./views/feed.html', function(err, data){
+  //         if(err){
+  //             res.send('에러');
+  //         }
+  //         else{
+  //             let loginId = req.session.loginId;
 
-    //             res.writeHead(200, {'Content-Type': 'feed.html'});
-    //             res.write(data);
-    //             res.end();
-    //         }
-    //     });
-    // }
-    // else
-    // {
-    //     res.redirect("/"); //세션에 로그인 아이디가 존재하지 않는 경우 로그인 페이지로 보낸다.
-    // }
+  //             res.writeHead(200, {'Content-Type': 'feed.html'});
+  //             res.write(data);
+  //             res.end();
+  //         }
+  //     });
+  // }
+  // else
+  // {
+  //     res.redirect("/"); //세션에 로그인 아이디가 존재하지 않는 경우 로그인 페이지로 보낸다.
+  // }
 });
 
 module.exports = router;
