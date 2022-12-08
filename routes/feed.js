@@ -7,6 +7,10 @@ const router = express.Router();
 // get
 router.get('/', function(req, res){
 
+  //const url = req.headers.origin + '/api/profile/check';
+
+  console.log(req.url);
+
     if(req.session.loginId){ //세션에 로그인 아이디가 존재하는 경우 성공적으로 피드 화면 진입.
         output =`
                 
@@ -44,8 +48,10 @@ router.get('/', function(req, res){
                       </div>
       
                       <div class = "col-7 mt-1">
-                          <p id = "user_id">${req.session.loginId}</p>
-                          <p id = "user_name">${req.session.loginUserName}</p>
+                          <p id = "user_id">${req.session.loginId}</p>`;
+
+
+                          output += `<p id = "user_name">${req.session.loginUserName}</p>
                           <p id = "instruction"> </p>
                       </div>
       
@@ -162,7 +168,7 @@ router.get('/', function(req, res){
                           </div>
       
                           <div class = "col-10 mt-2"> 
-                              <a href="/edit_writing" class="btn btn-dark" tabindex="-1" role="button">게시글 편집</a>
+                              <a href="/switch" class="btn btn-dark" tabindex="-1" role="button">게시글 편집</a>
                           </div>
       
                         </div>

@@ -19,4 +19,11 @@ router.post('/check', async(req, res) => {
 
     res.send(JSON.stringify(users));
 });
+
+router.get('/check', async(req, res) => {
+    const users = await  mysql.query("profileCheck", req.session.loginId);
+
+    res.send(JSON.stringify(users));
+});
+
 module.exports = router;
