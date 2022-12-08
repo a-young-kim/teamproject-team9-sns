@@ -12,6 +12,5 @@ module.exports = {
   contentsInsert: `insert into contents set ?`,
   
   sessionList: `select * from sessions`
-
 };
 
