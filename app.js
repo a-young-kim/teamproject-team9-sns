@@ -38,7 +38,6 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use(
   sessionParser({
-
     key: "login",
     secret: "loginID",
     resave: false,
@@ -50,12 +49,11 @@ app.use(
       //session 파일을 mysql에 저장해주는 작업
       host: "localhost",
       port: 3306,
-      user: "dev02",
+      user: "root",
       password: "1234",
-      database: "team9", //본인이 사용하는 DB 이름으로 바꿔주기!(예. team9)
+      database: "kwic", //본인이 사용하는 DB 이름으로 바꿔주기!(예. team9)
       path: "./sessions",
     }),
-
   })
 );
 
