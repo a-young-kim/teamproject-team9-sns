@@ -19,6 +19,7 @@ var userRouter = require("./routes/api/user");
 var profileRouter = require("./routes/api/profile");
 var contentsRouter = require("./routes/api/contents");
 var sessionsRouter = require("./routes/api/sessions");
+var user_detailRouter = require("./routes/api/user_detail");
 
 var app = express();
 
@@ -38,7 +39,6 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use(
   sessionParser({
-
     key: "login",
     secret: "loginID",
     resave: false,
@@ -50,12 +50,11 @@ app.use(
       //session 파일을 mysql에 저장해주는 작업
       host: "localhost",
       port: 3306,
-      user: "dev02",
+      user: "root",
       password: "1234",
-      database: "team9", //본인이 사용하는 DB 이름으로 바꿔주기!(예. team9)
+      database: "kwic", //본인이 사용하는 DB 이름으로 바꿔주기!(예. team9)
       path: "./sessions",
     }),
-
   })
 );
 
@@ -71,6 +70,7 @@ app.use("/api/user", userRouter);
 app.use("/api/profile", profileRouter);
 app.use("/api/contents", contentsRouter);
 app.use("/api/sessions", sessionsRouter);
+app.use("/api/user_detail", user_detailRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

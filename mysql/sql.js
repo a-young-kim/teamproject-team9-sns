@@ -12,6 +12,10 @@ module.exports = {
   contentsInsert: `insert into contents set ?`,
   contentsSwitch: `update contents set incre = ? where contents_id = ?`,
   
-  sessionList: `select * from sessions`
+  sessionList: `select * from sessions`,
+
+  user_detail_List:`select * from user_detail where id = ?`,
+  user_detail_follow_check:`select * from user_detail where id = ? and username = ?`
+
 };
 
