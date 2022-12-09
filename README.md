@@ -1,5 +1,6 @@
-# CHECKBOX 
-사용자 프리셋 기능을 가진 SNS 
+# LetterBox
+
+사용자 프리셋 기능을 가진 SNS
 
 ## Installation
 

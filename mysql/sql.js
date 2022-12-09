@@ -7,7 +7,6 @@ module.exports = {
   profileInsert: `insert into profile set ?`,
   profileCheck: `select * from profile where id = ?`,
 
-  contentsList: `select * from contents where id = ?`,
 
   contentsList: `select * from contents where id = ? and username = ? order by incre ASC`,
   contentsInsert: `insert into contents set ?`,
@@ -16,6 +15,6 @@ module.exports = {
 
   user_detail_List:`select * from user_detail where id = ?`,
   user_detail_follow_check:`select * from user_detail where id = ? and username = ?`
- 
+
 };
 

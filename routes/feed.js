@@ -6,14 +6,14 @@ const router = express.Router();
 
 // get
 
-router.get('/', function(req, res){
-
+router.get("/", function (req, res) {
   //const url = req.headers.origin + '/api/profile/check';
 
   console.log(req.url);
 
-    if(req.session.loginId){ //세션에 로그인 아이디가 존재하는 경우 성공적으로 피드 화면 진입.
-        output =`
+  if (req.session.loginId) {
+    //세션에 로그인 아이디가 존재하는 경우 성공적으로 피드 화면 진입.
+    output = `
                 
 <!doctype html>
 <html lang="en">
@@ -130,9 +130,9 @@ router.get('/', function(req, res){
       
                       <div class = "col-7 mt-1">
                           <p id = "user_id">${req.session.loginId}</p>`;
-
-
+                          
                           output += `<p id = "user_name">${req.session.username}</p>
+
                           <p id = "instruction"> </p>
                       </div>
       
@@ -370,8 +370,14 @@ router.get('/', function(req, res){
       
               </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
-                <a href="/" class="btn btn-dark m-1" role="button">적용</a>
+              <button type="button" class="btn btn-primary">저장</button>
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-dismiss="modal"
+              >
+                취소
+              </button>
               </div>
             </div>
           </div>
@@ -412,10 +418,16 @@ router.get('/', function(req, res){
               <textarea
                 class="form-control"
                 style="height: 250px"
-                name="contents"
-                id="cpmtents"
+                name="subject"
+                id="subject"
               ></textarea>
             </div>
+            <br />
+
+              <h5>
+                이미지 업로드 &nbsp;
+                <button type="button" class="btn btn-outline-dark">추가</button>
+              </h5>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-primary">저장</button>

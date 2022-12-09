@@ -39,7 +39,6 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use(
   sessionParser({
-
     key: "login",
     secret: "loginID",
     resave: false,
@@ -56,7 +55,6 @@ app.use(
       database: "kwic", //본인이 사용하는 DB 이름으로 바꿔주기!(예. team9)
       path: "./sessions",
     }),
-
   })
 );
 
