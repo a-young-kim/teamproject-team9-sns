@@ -132,7 +132,7 @@ router.get('/', function(req, res){
                           <p id = "user_id">${req.session.loginId}</p>`;
 
 
-                          output += `<p id = "user_name">${req.session.loginUserName}</p>
+                          output += `<p id = "user_name">${req.session.username}</p>
                           <p id = "instruction"> </p>
                       </div>
       
@@ -225,16 +225,16 @@ router.get('/', function(req, res){
                               <div class="input-group mb-3">
                                   <span class="input-group-text">아이디</span>
                                   <div class="form-floating">
-                                    <input type="text" class="form-control" id="floatingInputGroup1" placeholder="Username" disabled>
-                                    <label for="floatingInputGroup1"> </label>
+                                    <input type="text" class="form-control" id="user_id_1" placeholder="Username" disabled>
+                                    <label for="user_id_1">${req.session.loginId}</label>
                                   </div>
                                 </div>
       
                                 <div class="input-group mb-3">
                                   <span class="input-group-text">이름</span>
                                   <div class="form-floating">
-                                    <input type="text" class="form-control" id="floatingInputGroup1" placeholder="Username">
-                                    <label for="floatingInputGroup1"> </label>
+                                    <input type="text" class="form-control" id="user_name_1" placeholder="Username">
+                                    <label for="user_name_1"><p id = "user_name1_label">이게 라벨인가</p></label>
                                   </div>
                                 </div>
                           </div>
@@ -243,8 +243,8 @@ router.get('/', function(req, res){
                       <div class = "container  justify-content-center mt-3">
                           <div class = "mb-3">소개</div>
                           <div class="form-floating">
-                              <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea"></textarea>
-                              <label for="floatingTextarea"> </label>
+                              <textarea class="form-control" placeholder="Leave a comment here" id="user_intro_1"></textarea>
+                              <label for="user_intro_1"> </label>
                             </div>
                         </div>
       
@@ -276,16 +276,16 @@ router.get('/', function(req, res){
                           <div class="input-group mb-3">
                               <span class="input-group-text">아이디</span>
                               <div class="form-floating">
-                                <input type="text" class="form-control" id="floatingInputGroup1" placeholder="Username" disabled>
-                                <label for="floatingInputGroup1"> </label>
+                                <input type="text" class="form-control" id="user_id_2" placeholder="Username" disabled>
+                                <label for="user_id_2">${req.session.loginId}</label>
                               </div>
                             </div>
       
                             <div class="input-group mb-3">
                               <span class="input-group-text">이름</span>
                               <div class="form-floating">
-                                <input type="text" class="form-control" id="floatingInputGroup1" placeholder="Username">
-                                <label for="floatingInputGroup1">   </label>
+                                <input type="text" class="form-control" id="user_name_2" placeholder="Username">
+                                <label for="user_name_2"><p id = "user_name2_label">이게 라벨인가</p></label>
                               </div>
                             </div>
                       </div>
@@ -294,8 +294,8 @@ router.get('/', function(req, res){
                   <div class = "container  justify-content-center mt-3">
                       <div class = "mb-3">소개</div>
                       <div class="form-floating">
-                          <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea"></textarea>
-                          <label for="floatingTextarea"> </label>
+                          <textarea class="form-control" placeholder="Leave a comment here" id="user_intro_2"></textarea>
+                          <label for="user_intro_2"> </label>
                         </div>
                     </div>
       
@@ -329,16 +329,16 @@ router.get('/', function(req, res){
                           <div class="input-group mb-3">
                               <span class="input-group-text">아이디</span>
                               <div class="form-floating">
-                                <input type="text" class="form-control" id="floatingInputGroup1" placeholder="Username" disabled>
-                                <label for="floatingInputGroup1"> </label>
+                                <input type="text" class="form-control" id="user_id_3" placeholder="Username" disabled>
+                                <label for="user_id_3">${req.session.loginId}</label>
                               </div>
                             </div>
       
                             <div class="input-group mb-3">
                               <span class="input-group-text">이름</span>
                               <div class="form-floating">
-                                <input type="text" class="form-control" id="floatingInputGroup1" placeholder="Username">
-                                <label for="floatingInputGroup1">  </label>
+                                <input type="text" class="form-control" id="user_name_3" placeholder="Username">
+                                <label for="user_name_3"><p id = "user_name3_label">이게 라벨인가</p></label>
                               </div>
                             </div>
                       </div>
@@ -347,8 +347,8 @@ router.get('/', function(req, res){
                   <div class = "container  justify-content-center mt-3">
                       <div class = "mb-3">소개</div>
                       <div class="form-floating">
-                          <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea"></textarea>
-                          <label for="floatingTextarea"> </label>
+                          <textarea class="form-control" placeholder="Leave a comment here" id="user_intro_3"></textarea>
+                          <label for="user_intro_3"> </label>
                         </div>
                     </div>
       

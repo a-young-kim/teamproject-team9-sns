@@ -19,6 +19,7 @@ var userRouter = require("./routes/api/user");
 var profileRouter = require("./routes/api/profile");
 var contentsRouter = require("./routes/api/contents");
 var sessionsRouter = require("./routes/api/sessions");
+var user_detailRouter = require("./routes/api/user_detail");
 
 var app = express();
 
@@ -71,6 +72,7 @@ app.use("/api/user", userRouter);
 app.use("/api/profile", profileRouter);
 app.use("/api/contents", contentsRouter);
 app.use("/api/sessions", sessionsRouter);
+app.use("/api/user_detail", user_detailRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
