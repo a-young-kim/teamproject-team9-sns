@@ -10,6 +10,7 @@ module.exports = {
 
   contentsList: `select * from contents where id = ? and username = ? order by incre ASC`,
   contentsInsert: `insert into contents set ?`,
+  contentsSwitch: `update contents set incre = ? where contents_id = ?`,
   
   sessionList: `select * from sessions`,
 
