@@ -48,7 +48,6 @@ window.onload = function(){
             }
 
             output = output + `<div class="col-6 card p-1 context">
-            <div class="card-header"></div>
               <div class="card-body">
               <h5 class="card-title">${data[i].title}</h5>
               <p class="card-text"></p>

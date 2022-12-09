@@ -139,24 +139,24 @@ router.get('/', function(req, res){
                       <div class="col-3 row">
                           <div class = "row">
                           <div class="col-4" >
-                              <p >게시물</p>
-                              <p id="contents_num">&nbsp  </p>
+                              <p class="border" align="center">게시물</p>
+                              <p class="border" align="center" id="contents_num"></p>
                             </div>
       
                           <div class="col-4"
                           data-toggle="modal"
                           data-target="#modal_follower"
                           style="cursor: pointer">
-                              <p>팔로워</p>
-                              <p id = "follower_num">&nbsp </p>
+                              <p class="border" align="center">팔로워</p>
+                              <p class="border" align="center" id = "follower_num"></p>
                             </div>
       
                           <div class="col-4"
                           data-toggle="modal"
                           data-target="#modal_following"
                           style="cursor: pointer">
-                              <p>팔로잉</p>
-                              <p id ="following_num">&nbsp  </p>
+                              <p class="border" align="center">팔로잉</p>
+                              <p class="border" align="center" id ="following_num"></p>
                             </div>
                           </div>
       
