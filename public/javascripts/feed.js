@@ -11,26 +11,8 @@ window.onload = function(){
     list = fetch(url) //mysql에 담긴 데이터를 json형식으로 받아와서 조회하고 저장.
     .then((response) => {return response.json();})
     .then((data) => {
-        // var output =``;
-        // output = `    <div class="container justify-content-center mt-3">
-        // <div class="row">`;
-    
-        // var i = 0;
-    
-        // while(i<data.length){
-        // output = output + `<div class="col-5 m-2 border border-dark" >
-        // <h3>${data[i].title}</h3>
-        // <p>입력 날짜</p>
-        // </div>`;
-        // i = i + 1;
-        // if(i>1 && i % 2 == 0){
-        // output = output + `<div class="w-100 d-none d-md-block"></div>`;
-        // }
-        // }
     
         output = output + `</div></div>`;
-
-        // contents_list.innerHTML = output; 
 
         var output = ``;
 
@@ -88,7 +70,7 @@ window.onload = function(){
         user_name_1_label.innerText = data[0].username1;
         user_name_2_label.innerText = data[0].username2;
         user_name_3_label.innerText = data[0].username3;
-    })
+    });
 
 
     const url_3 = window.location.origin + '/api/user_detail';
@@ -103,7 +85,7 @@ window.onload = function(){
         user_intro_1.value = data[0].introduction;
         user_intro_2.value = data[1].introduction;
         user_intro_3.value = data[2].introduction;
-    })
+    });
 
     const url_4 = window.location.origin + '/api/user_detail/check_follow';
 
@@ -117,7 +99,7 @@ window.onload = function(){
         follower_num.innerText =data[0].follower_num;
         following_num.innerText =data[0].following_num;
         current_introduction.innerText = data[0].introduction;
-    })
+    });
 
 
 

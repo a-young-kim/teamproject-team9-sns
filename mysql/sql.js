@@ -15,7 +15,9 @@ module.exports = {
   sessionList: `select * from sessions`,
 
   user_detail_List:`select * from user_detail where id = ?`,
-  user_detail_follow_check:`select * from user_detail where id = ? and username = ?`
+  user_detail_follow_check:`select * from user_detail where id = ? and username = ?`,
+
+  followingList: `select * from following where id = ? and username = ?`,
 
 };
 

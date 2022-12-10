@@ -56,10 +56,8 @@ window.onload = function(){
 function set_Contents(data){
     let contents = document.getElementById('contents');
     var output = '';
-    var i = 0;
 
-    
-    while(i < data.length){
+    for(let i = 0; i < data.length; i ++){
         ContentsData[data[i].incre] = data[i];
 
         if( i % 2 == 0){
@@ -86,7 +84,6 @@ function set_Contents(data){
         if(i % 2 == 1){
             output += `</div>`;
         }
-        i = i + 1;
     }
 
     output += `</div>`;
@@ -103,7 +100,7 @@ function SaveData(){
 
         // firstID change
         const url = window.location.origin + '/api/contents/update_incre';
-        const res1 = fetch(url, {
+        fetch(url, {
             method: "POST",
             headers: {
                 "Content-Type":"application/json",
@@ -115,7 +112,7 @@ function SaveData(){
         }).then((response) => response.json());
 
         // secondID change
-        const res2 = fetch(url, {
+        fetch(url, {
             method: "POST",
             headers: {
                 "Content-Type":"application/json",

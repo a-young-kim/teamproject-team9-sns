@@ -11,6 +11,7 @@
       crossorigin="anonymous"
     />
     <link rel="stylesheet" href="/stylesheets/style_yumin.css" />
+    <script src="/javascripts/home.js"></script>
     <script>
       function post_expansion() {
         var contents = document.getElementById("post_contents");
@@ -143,37 +144,17 @@
           </div>
         </aside>
       </div>
-
-      <!-- 아래의 container 하나하나가 게시글 하나 -->
-      <!-- <div class="container" id="post_box">
-        <div id="profile_circle"></div>
-        <h5 id="post_username">사용자 이름</h5>
-        <h3>게시글 제목</h3>
-        <p id="post_contents" style="display: none">
-          웹서비스설계및구현 team9 파이팅
-        </p>
-        <img
-          src="./src/icon/download.png"
-          id="view_more"
-          onclick="post_expansion()"
-        />
-      </div> -->
-
-      <div
-        class="card"
-        id="post_box"
-        data-toggle="modal"
-        data-target="#exampleModal"
-      >
-        <div class="card-header">
-          <div id="profile_circle"></div>
-          <h5 id="post_username">사용자 이름</h5>
-        </div>
-        <div class="card-body">
-          <h5 class="card-title">게시글 제목</h5>
+      <div id="contents">
+        <div class="card" id="post_box" data-toggle="modal" data-target="#exampleModal">
+          <div class="card-header">
+            <div id="profile_circle"></div>
+            <h5 id="post_username">사용자 이름</h5>
+          </div>
+          <div class="card-body">
+            <h5 class="card-title">게시글 제목</h5>
+          </div>
         </div>
       </div>
-
       <!-- Modal -->
       <div
         class="modal fade"

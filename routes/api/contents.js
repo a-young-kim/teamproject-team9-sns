@@ -8,6 +8,10 @@ router.get('/show_contents', async(req, res) => {
     res.send(JSON.stringify(contents));
 });
 
+router.post('/show_contents', async(req, res) => {
+    const contents = await  mysql.query("contentsList", [req.body.id, req.body.username]); //나중에 testid 부분을 req.session.id로 바꿔준다.
+    res.send(JSON.stringify(contents));
+});
 
 router.post('/update_incre', async(req, res) => {
 
