@@ -2,9 +2,11 @@ let switchID = [];
 let SaveID = [];
 let ContentsData = {};
 
-function readyToSwitch(id){
-    const context = document.getElementById(id);
 
+function readyToSwitch(id){
+    const context =  document.getElementById(id);
+
+    //console.log(switchID);
     if(switchID.includes(id)){
         context.style.backgroundColor = 'white';
 
@@ -13,7 +15,7 @@ function readyToSwitch(id){
         });
     }
     else{
-        console.log(id);
+        //console.log(id);
         context.style.backgroundColor = 'gray';
         switchID.push(id);
 
@@ -24,7 +26,7 @@ function readyToSwitch(id){
 }
 
 function Switch(){
-    console.log(ContentsData);
+    //console.log(ContentsData);
 
     let firstID = switchID[0];
     let secondID = switchID[1];
@@ -58,7 +60,7 @@ function set_Contents(data){
     var output = '';
 
     for(let i = 0; i < data.length; i ++){
-        ContentsData[data[i].incre] = data[i];
+        ContentsData[data.length - data[i].incre -1] = data[i];
 
         if( i % 2 == 0){
             output += `<div class="row p-1" id="div${i}">`;
@@ -88,15 +90,20 @@ function set_Contents(data){
 
     output += `</div>`;
     contents.innerHTML = output;
+    console.log(ContentsData);
 }
 
 function SaveData(){
-    SaveID = Array.from(new Set(SaveID));
    
     for(let i = 0; i < SaveID.length; i++){
 
         let firstID = SaveID[i][0];
         let secondID = SaveID[i][1];
+        let firstData = ContentsData[firstID];
+        let secondData = ContentsData[secondID];
+
+        console.log(firstID);
+        console.log(secondID);
 
         // firstID change
         const url = window.location.origin + '/api/contents/update_incre';
@@ -106,7 +113,7 @@ function SaveData(){
                 "Content-Type":"application/json",
             },
             body: JSON.stringify({
-                incre: Number(secondID),
+                incre: Object.keys(ContentsData).length - Number(secondID) -1,
                 contents_id: ContentsData[firstID].contents_id
             }),
         }).then((response) => response.json());
@@ -118,11 +125,17 @@ function SaveData(){
                 "Content-Type":"application/json",
             },
             body: JSON.stringify({
-                incre: firstID,
+                incre: Object.keys(ContentsData).length - Number(firstID) -1,
                 contents_id: ContentsData[secondID].contents_id
             }),
         }).then((response) => response.json());
+        console.log(Object.keys(ContentsData).length - Number(secondID) -1);
+        console.log(Object.keys(ContentsData).length - Number(firstID) -1);
+
+        ContentsData[Number(secondID)] = firstData;
+        ContentsData[Number(firstID)] = secondData;
     }
 
+    console.log(ContentsData);
     SaveID = [];
 }
