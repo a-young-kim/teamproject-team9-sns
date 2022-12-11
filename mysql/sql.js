@@ -6,8 +6,8 @@ module.exports = {
   profileList: `select * from profile`,
   profileInsert: `insert into profile set ?`,
   profileCheck: `select * from profile where id = ?`,
+  contentsList: `select * from contents where id = ? and username = ? order by incre DESC`,
 
-  contentsList: `select * from contents where id = ? and username = ? order by incre ASC`,
   contentsInsert: `insert into contents set ?`,
   contentsSwitch: `update contents set incre = ? where contents_id = ?`,
   contentsUpdate: `update contents set title = ?, contents = ? where contents_id = ?`,
@@ -20,6 +20,10 @@ module.exports = {
   user_detail_follow_check: `select * from user_detail where id = ? and username = ?`,
   user_detail_following_num_Update: `update user_detail, (select count(*) as cnt from following where id=?) as F set following_num = F.cnt where id=?`, //following 수 업데이트
   user_detail_follower_num_Update: `update user_detail, (select count(*) as cnt from follower where id=?) as F set follower_num = F.cnt where id=?`, //follower 수 업데이트
+
+  commentsList: `select * from comments where contents_id = ? order by incre DESC `,
+  commentsInsert: `insert into comments set contents_id =?, id = ?, username = ?, contents = ?`,
+
 
   followerList: `select * from follower where id = ? and username = ?`,
   followerInsert: `insert into follower set ?`,

@@ -72,6 +72,7 @@ window.onload = function () {
           output +
           `<div class="col-6 card p-1 context">
               <div class="card-body" id="${i}" onclick="Contents_update(this.id)" style="cursor: pointer">
+
               <h5 class="card-title">${data[i].title}</h5>
               <p class="card-text"></p>
               </div></div>`;
@@ -110,6 +111,7 @@ window.onload = function () {
       user_name_1_label.innerText = data[0].username1;
       user_name_2_label.innerText = data[0].username2;
       user_name_3_label.innerText = data[0].username3;
+
     });
 
   const url_3 = window.location.origin + "/api/user_detail";
@@ -156,6 +158,7 @@ window.onload = function () {
       var output = ``;
 
       var i = 0;
+
 
       while (i < data.length) {
         output =
@@ -225,6 +228,7 @@ function follower_delete(id) {
           follower_id: data[id].follower_id,
         }),
       }).then((response) => response.json());
+
     });
 
   const url_following = window.location.origin + "/api/following";
