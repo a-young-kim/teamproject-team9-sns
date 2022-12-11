@@ -52,7 +52,7 @@ async function setFollowing(data){
             data-toggle="modal" data-target="#contentModal${contents[time[i]][j].contents_id}" onclick="setComments(this.id)">
                             <div class="card-header">
                                 <div id="profile_circle"></div>
-                                <h5 id="post_username">${contents[time[i]][j].id} : ${contents[time[i]][j].username}</h5>
+                                <h5 id="post_username">${contents[time[i]][j].username}</h5>
                             </div>
                             <div class="card-body">
                                 <h5 class="card-title">${contents[time[i]][j].title}</h5>
@@ -63,7 +63,7 @@ async function setFollowing(data){
                             <div class="modal-dialog" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">${contents[time[i]][j].id} : ${contents[time[i]][j].username}</h5>
+                                <h5 class="modal-title" id="exampleModalLabel">${contents[time[i]][j].username}</h5>
                                 </div>
                                 <div class="modal-body">
                                 <h5>${contents[time[i]][j].title}</h5>
@@ -176,13 +176,13 @@ function ShowComments(data, contents_id, time){
                 <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">${contents_data.id} - ${contents_data.username} : ${contents_data.title}</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">${contents_data.username} : ${contents_data.title}</h5>
                     </div>
                     <div class="modal-body" id='main-body'>`;
     
     if( data.length != 0){
         for(let i = 0; i < data.length ; i ++){
-            output += ` <p><b>${data[i].id} (${data[i].username}): </b>${data[i].contents} </p>`;
+            output += ` <p><b>${data[i].username}: </b>${data[i].contents} </p>`;
         }
     }
     else{
