@@ -21,5 +21,13 @@ router.post('/checkDB', async(req, res) => {
     res.send(JSON.stringify(users));
 });
 
+router.post('/update_username', async(req, res) => {
+    
+    const users = await  mysql.query("userUpdate", [req.body.username, req.body.id ]);
+    
+    res.send(JSON.stringify(users));
+});
+
+
 
 module.exports = router;

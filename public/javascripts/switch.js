@@ -48,10 +48,10 @@ window.onload = function(){
 function set_Contents(data){
     let contents = document.getElementById('contents');
     var output = '';
-    var i = 0;
 
-    while(i < data.length){
-     
+    for(let i = 0; i < data.length; i ++){
+        ContentsData[data[i].incre] = data[i];
+
         if( i % 2 == 0){
             output += `<div class="row p-1" id="div${i}">`;
 
@@ -78,10 +78,45 @@ function set_Contents(data){
         if(i % 2 == 1){
             output += `</div>`;
         }
-        i = i + 1;
     }
 
     output += `</div>`;
     contents.innerHTML = output;
 }
 
+function SaveData(){
+    SaveID = Array.from(new Set(SaveID));
+   
+    for(let i = 0; i < SaveID.length; i++){
+
+        let firstID = SaveID[i][0];
+        let secondID = SaveID[i][1];
+
+        // firstID change
+        const url = window.location.origin + '/api/contents/update_incre';
+        fetch(url, {
+            method: "POST",
+            headers: {
+                "Content-Type":"application/json",
+            },
+            body: JSON.stringify({
+                incre: Number(secondID),
+                contents_id: ContentsData[firstID].contents_id
+            }),
+        }).then((response) => response.json());
+
+        // secondID change
+        fetch(url, {
+            method: "POST",
+            headers: {
+                "Content-Type":"application/json",
+            },
+            body: JSON.stringify({
+                incre: firstID,
+                contents_id: ContentsData[secondID].contents_id
+            }),
+        }).then((response) => response.json());
+    }
+
+    SaveID = [];
+}

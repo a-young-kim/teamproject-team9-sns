@@ -74,9 +74,15 @@ window.onload = function(){
     let user_name_2 = document.getElementById("user_name_2");
     let user_name_3 = document.getElementById("user_name_3");
 
+    let user_name_1_hidden = document.getElementById("user_name_1_hidden");
+    let user_name_2_hidden = document.getElementById("user_name_2_hidden");
+    let user_name_3_hidden = document.getElementById("user_name_3_hidden");
+
     let user_name_1_label = document.getElementById("user_name1_label");
     let user_name_2_label = document.getElementById("user_name2_label");
     let user_name_3_label = document.getElementById("user_name3_label");
+
+
 
     list = fetch(url_2) //mysql에 담긴 데이터를 json형식으로 받아와서 조회하고 저장.
     .then((response) => {return response.json();})
@@ -85,25 +91,74 @@ window.onload = function(){
         user_name_2.value = data[0].username2;
         user_name_3.value = data[0].username3;
 
+        user_name_1_hidden.value = data[0].username1;
+        user_name_2_hidden.value = data[0].username2;
+        user_name_3_hidden.value = data[0].username3;
+
         user_name_1_label.innerText = data[0].username1;
         user_name_2_label.innerText = data[0].username2;
         user_name_3_label.innerText = data[0].username3;
+
+        let user_intro_1 = document.getElementById("user_intro_1");
+        let user_intro_2 = document.getElementById("user_intro_2");
+        let user_intro_3 = document.getElementById("user_intro_3");
+    
+        const url_3 = window.location.origin + '/api/user_detail/indtroductions';
+    
+        const res = fetch(url_3, {
+            method: "POST",
+            headers: {
+                "Content-Type":"application/json",
+            },
+            body: JSON.stringify({
+                username: user_name_1.value
+            }),
+        }).then((response) => response.json())
+        .then(data => 
+            user_intro_1.value = data[0].introduction
+            );
+    
+            console.log()
+    
+            const res2 = fetch(url_3, {
+                method: "POST",
+                headers: {
+                    "Content-Type":"application/json",
+                },
+                body: JSON.stringify({
+                    username: user_name_2.value
+                }),
+            }).then((response) => response.json())
+            .then(data => 
+                user_intro_2.value = data[0].introduction
+                );
+    
+    
+                const res3 = fetch(url_3, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type":"application/json",
+                    },
+                    body: JSON.stringify({
+                        username: user_name_3.value
+                    }),
+                }).then((response) => response.json())
+                .then(data => 
+                    user_intro_3.value = data[0].introduction
+                    );
     })
 
 
-    const url_3 = window.location.origin + '/api/user_detail';
 
-    let user_intro_1 = document.getElementById("user_intro_1");
-    let user_intro_2 = document.getElementById("user_intro_2");
-    let user_intro_3 = document.getElementById("user_intro_3");
+    
 
-    list = fetch(url_3) //mysql에 담긴 데이터를 json형식으로 받아와서 조회하고 저장.
-    .then((response) => {return response.json();})
-    .then((data) => {
-        user_intro_1.value = data[0].introduction;
-        user_intro_2.value = data[1].introduction;
-        user_intro_3.value = data[2].introduction;
-    })
+    // list = fetch(url_3) //mysql에 담긴 데이터를 json형식으로 받아와서 조회하고 저장.
+    // .then((response) => {return response.json();})
+    // .then((data) => {
+    //     user_intro_1.value = data[0].introduction;
+    //     user_intro_2.value = data[1].introduction;
+    //     user_intro_3.value = data[2].introduction;
+    // })
 
     const url_4 = window.location.origin + '/api/user_detail/check_follow';
 
