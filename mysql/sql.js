@@ -8,14 +8,19 @@ module.exports = {
   profileCheck: `select * from profile where id = ?`,
 
 
-  contentsList: `select * from contents where id = ? and username = ? order by incre ASC`,
+  contentsList: `select * from contents where id = ? and username = ? order by incre DESC`,
   contentsInsert: `insert into contents set ?`,
   contentsSwitch: `update contents set incre = ? where contents_id = ?`,
   
   sessionList: `select * from sessions`,
 
   user_detail_List:`select * from user_detail where id = ?`,
-  user_detail_follow_check:`select * from user_detail where id = ? and username = ?`
+  user_detail_follow_check:`select * from user_detail where id = ? and username = ?`,
+
+  followingList: `select * from following where id = ? and username = ?`,
+
+  commentsList: `select * from comments where contents_id = ? order by incre DESC `,
+  commentsInsert: `insert into comments set contents_id =?, id = ?, username = ?, contents = ?`,
 
 };
 

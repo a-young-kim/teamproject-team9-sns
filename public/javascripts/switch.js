@@ -2,9 +2,11 @@ let switchID = [];
 let SaveID = [];
 let ContentsData = {};
 
-function readyToSwitch(id){
-    const context = document.getElementById(id);
 
+function readyToSwitch(id){
+    const context =  document.getElementById(id);
+
+    //console.log(switchID);
     if(switchID.includes(id)){
         context.style.backgroundColor = 'white';
 
@@ -13,7 +15,7 @@ function readyToSwitch(id){
         });
     }
     else{
-        console.log(id);
+        //console.log(id);
         context.style.backgroundColor = 'gray';
         switchID.push(id);
 
@@ -24,7 +26,7 @@ function readyToSwitch(id){
 }
 
 function Switch(){
-    console.log(ContentsData);
+    //console.log(ContentsData);
 
     let firstID = switchID[0];
     let secondID = switchID[1];
@@ -56,16 +58,14 @@ window.onload = function(){
 function set_Contents(data){
     let contents = document.getElementById('contents');
     var output = '';
-    var i = 0;
 
-    
-    while(i < data.length){
+    for(let i = 0; i < data.length; i ++){
         ContentsData[data[i].incre] = data[i];
 
         if( i % 2 == 0){
-            output += `<div class="row p-1" id="div${i}">`;
+            output += `<div class="row p-1" id="div${data[i].incre}">`;
 
-            output += `<div class="col-6 card p-1 context" id="${i}" onclick="readyToSwitch(this.id)">
+            output += `<div class="col-6 card p-1 context" id="${data[i].incre}" onclick="readyToSwitch(this.id)">
                         <div class="card-body">
                         <h5 class="card-title">${data[i].title}</h5>
                         <p class="card-text">${data[i].contents}</p>
@@ -74,7 +74,7 @@ function set_Contents(data){
         }
 
         else{
-            output += `<div class="col-6 card p-1 context" id="${i}" onclick="readyToSwitch(this.id)">
+            output += `<div class="col-6 card p-1 context" id="${data[i].incre}" onclick="readyToSwitch(this.id)">
                         <div class="card-body">
                         <h5 class="card-title">${data[i].title}</h5>
                         <p class="card-text">${data[i].contents}</p>
@@ -86,46 +86,57 @@ function set_Contents(data){
         if(i % 2 == 1){
             output += `</div>`;
         }
-        i = i + 1;
     }
 
     output += `</div>`;
     contents.innerHTML = output;
+    console.log(ContentsData);
 }
 
 function SaveData(){
-    SaveID = Array.from(new Set(SaveID));
    
     for(let i = 0; i < SaveID.length; i++){
 
         let firstID = SaveID[i][0];
         let secondID = SaveID[i][1];
+        let firstData = ContentsData[firstID];
+        let secondData = ContentsData[secondID];
+
+        console.log(firstID);
+        console.log(secondID);
 
         // firstID change
         const url = window.location.origin + '/api/contents/update_incre';
-        const res1 = fetch(url, {
+        fetch(url, {
             method: "POST",
             headers: {
                 "Content-Type":"application/json",
             },
             body: JSON.stringify({
-                incre: Number(secondID),
+                incre: Number(secondID) ,
                 contents_id: ContentsData[firstID].contents_id
             }),
         }).then((response) => response.json());
 
         // secondID change
-        const res2 = fetch(url, {
+        fetch(url, {
             method: "POST",
             headers: {
                 "Content-Type":"application/json",
             },
             body: JSON.stringify({
-                incre: firstID,
+                incre:  Number(firstID),
                 contents_id: ContentsData[secondID].contents_id
             }),
         }).then((response) => response.json());
+
+        //console.log(Object.keys(ContentsData).length - Number(secondID) -1);
+        //console.log(Object.keys(ContentsData).length - Number(firstID) -1);
+
+        ContentsData[Number(secondID)] = firstData;
+        ContentsData[Number(firstID)] = secondData;
     }
 
+    console.log(ContentsData);
     SaveID = [];
 }
