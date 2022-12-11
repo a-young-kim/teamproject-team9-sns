@@ -106,14 +106,19 @@ router.get("/", function (req, res) {
 
           <!-- 검색창 -->
           <form class="d-flex" role="search">
-            <input
-              class="form-control me-2"
-              type="search"
-              placeholder="사용자 검색"
-              aria-label="Search"
-            />
-            <button class="btn btn-outline-success" type="submit">
-              Search
+            <button
+              type="button"
+              class="btn btn-light"
+              data-toggle="modal"
+              data-target="#Modal_search"
+              style="
+                width: 200px;
+                text-align: left;
+                border: 1px solid #b9b9b9;
+                color: #898989;
+              "
+            >
+              사용자 검색
             </button>
           </form>
         </div>
@@ -130,8 +135,8 @@ router.get("/", function (req, res) {
       
                       <div class = "col-7 mt-1">
                           <p id = "user_id">${req.session.loginId}</p>`;
-                          
-                          output += `<p id = "user_name">${req.session.username}</p>
+
+    output += `<p id = "user_name">${req.session.username}</p>
 
                           <p id = "instruction"> </p>
                       </div>
@@ -146,6 +151,7 @@ router.get("/", function (req, res) {
                           <div class="col-4"
                           data-toggle="modal"
                           data-target="#modal_follower"
+                          id="mark_follower"
                           style="cursor: pointer">
                               <p align="center">팔로워</p>
                               <p align="center" id = "follower_num"></p>
@@ -154,6 +160,7 @@ router.get("/", function (req, res) {
                           <div class="col-4"
                           data-toggle="modal"
                           data-target="#modal_following"
+                          id="mark_following"
                           style="cursor: pointer">
                               <p align="center">팔로잉</p>
                               <p align="center" id ="following_num"></p>
@@ -181,7 +188,9 @@ router.get("/", function (req, res) {
       
                 <!--아래에 적힌 내용은 모두 예시로 실제 js에 적용시 함수화 한다음 데이터를 받아와서 적용할 예정임-->
                 
-            <div id = "contents">
+            <div id = "contents" 
+            data-toggle="modal"
+            data-target="#modal_post_update">
                 1
             </div>
       
@@ -192,7 +201,6 @@ router.get("/", function (req, res) {
             <div class="modal-content">
               <div class="modal-header">
                 <h5 class="modal-title" id="staticBackdropLabel">프로필 편집</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div class="modal-body">
                 <!--여기에 프로필 편집창 내용물을 삽입-->
@@ -374,7 +382,7 @@ router.get("/", function (req, res) {
               <button
                 type="button"
                 class="btn btn-secondary"
-                data-dismiss="modal"
+                data-bs-dismiss="modal"
               >
                 취소
               </button>
@@ -386,7 +394,56 @@ router.get("/", function (req, res) {
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
     </main>
 
-    <!--추가 modal--!
+    <!--추가 modal-->
+    <!-- 팔로잉 클릭 -->
+    <div
+      class="modal fade"
+      id="modal_following"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">팔로잉</h5>
+            <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close" onclick="location.reload()" id="following_close"></button>
+          </div>
+          <div class="modal-body">
+          <div id = "following_view">
+                1
+            </div>
+          </div>
+          
+        </div>
+      </div>
+    </div>
+
+    <!-- 팔로워 클릭 -->
+    <div
+      class="modal fade"
+      id="modal_follower"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">팔로워</h5>
+            <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close" onclick="location.reload()" id="follower_close"></button>
+          </div>
+          <div class="modal-body">
+          <div id = "follower_view">
+                1
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- 게시글 생성 버튼 클릭 -->
     <div
       class="modal fade"
@@ -443,10 +500,10 @@ router.get("/", function (req, res) {
       </div>
     </div>
 
-    <!-- 팔로잉 클릭 -->
+    <!-- 게시글 수정 모달창 -->
     <div
       class="modal fade"
-      id="modal_following"
+      id="modal_post_update"
       tabindex="-1"
       role="dialog"
       aria-labelledby="exampleModalLabel"
@@ -455,63 +512,85 @@ router.get("/", function (req, res) {
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">팔로잉</h5>
+            <h5 class="modal-title" id="exampleModalLabel">게시글 수정</h5>
           </div>
           <div class="modal-body">
-            <div class="card">
-              <div class="card-body">
-                팔로잉하는 유저 표시
-                <button type="button" class="btn btn-outline-dark" style="float: right">팔로잉</button>
+            <div class = "container  justify-content-center mt-3">
+              <h5 class = "mb-3">
+                게시글 제목
+              </h5>
+              <div class="form-floating">
+                <textarea class="form-control" placeholder="Leave a comment here" id="post_subject"></textarea>
+                <label for="post_subject"> </label>
               </div>
-            </div>
-          </div>
-          <div class="modal-footer">
-            <button
-              type="button"
-              class="btn btn-secondary"
-              data-dismiss="modal"
-            >
-              닫기
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
 
-    <!-- 팔로워 클릭 -->
-    <div
-      class="modal fade"
-      id="modal_follower"
-      tabindex="-1"
-      role="dialog"
-      aria-labelledby="exampleModalLabel"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">팔로워</h5>
-          </div>
-          <div class="modal-body">
-            <div class="card">
-              <div class="card-body">
-                나를 팔로워하는 유저 표시
-                <button type="button" class="btn btn-outline-dark" style="float: right">삭제</button>
+              <br />
+              <h5 class = "mb-3">
+                게시글 내용
+              </h5>
+              <div class="form-floating">
+                <textarea class="form-control" placeholder="Leave a comment here" id="post_detail"></textarea>
+                <label for="post_detail"> </label>
               </div>
             </div>
           </div>
           <div class="modal-footer">
+            <button type="submit" class="btn btn-primary" data-dismiss="modal" id="btn_post_update">저장</button>
+            <button type="button" class="btn btn-danger" data-dismiss="modal" id="btn_post_delete">삭제</button>
             <button
               type="button"
               class="btn btn-secondary"
               data-dismiss="modal"
+              id="btn_cancel"
             >
-              닫기
+              취소
             </button>
-          </div>
         </div>
       </div>
     </div>
+    
+    <!-- 검색창 -->
+      <div
+        class="modal fade"
+        id="Modal_search"
+        tabindex="-1"
+        role="dialog"
+        aria-labelledby="ModalLabelSearch"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <div
+                class="modal-title"
+                id="ModalLabelSearch"
+                style="margin: 0 auto"
+              >
+                <input
+                  class="form-control me-2"
+                  type="search"
+                  placeholder="사용자 검색"
+                  aria-label="Search"
+                  style="width: 450px"
+                />
+              </div>
+            </div>
+            <div class="modal-body">
+              <h5>게시글 제목</h5>
+              <p>게시글 내용 ...</p>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-dismiss="modal"
+              >
+                닫기
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
     </body>
 </html>
         `;
