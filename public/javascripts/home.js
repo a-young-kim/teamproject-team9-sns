@@ -170,7 +170,7 @@ function ShowComments(data, contents_id, time){
             contents_data = contents[timestamp][i];
         }
     }
-
+    
     output += `
             <div class="modal fade" id="commentModal${contents_id}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
@@ -200,7 +200,7 @@ function ShowComments(data, contents_id, time){
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#contentModal${contents_id}" 
                     data-dismiss="modal"> 뒤로 </button>
             
-                    <button type="button" class="btn btn-secondary" onclick='deleteComment(${contents_id})' data-dismiss="modal"> 
+                    <button type="button" class="btn btn-secondary" onclick='deleteComment()' data-dismiss="modal"> 
                     닫기 </button>
                        
                 </div>
@@ -260,3 +260,4 @@ function newComments(data){
    
     $('#main-body').prepend(`<p><b>${id} (${username}): </b>${contents} </p>`);
 }
+

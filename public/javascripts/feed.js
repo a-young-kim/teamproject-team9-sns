@@ -34,26 +34,8 @@ window.onload = function () {
       return response.json();
     })
     .then((data) => {
-      // var output =``;
-      // output = `    <div class="container justify-content-center mt-3">
-      // <div class="row">`;
-
-      // var i = 0;
-
-      // while(i<data.length){
-      // output = output + `<div class="col-5 m-2 border border-dark" >
-      // <h3>${data[i].title}</h3>
-      // <p>입력 날짜</p>
-      // </div>`;
-      // i = i + 1;
-      // if(i>1 && i % 2 == 0){
-      // output = output + `<div class="w-100 d-none d-md-block"></div>`;
-      // }
-      // }
 
       output = output + `</div></div>`;
-
-      // contents_list.innerHTML = output;
 
       var output = ``;
 
@@ -70,12 +52,33 @@ window.onload = function () {
 
         output =
           output +
-          `<div class="col-6 card p-1 context">
-              <div class="card-body" id="${i}" onclick="Contents_update(this.id)" style="cursor: pointer">
+          `<div class="col-6 card p-1 context" data-toggle="modal" data-target="#contentModal${data[i].contents_id}">
+              <div class="card-body" id="${i}" style="cursor: pointer">
 
               <h5 class="card-title">${data[i].title}</h5>
               <p class="card-text"></p>
-              </div></div>`;
+              </div></div>
+              
+                        <!-- Modal -->
+                        <div class="modal fade" id="contentModal${data[i].contents_id}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">${data[i].username}</h5>
+                                </div>
+                                <div class="modal-body">
+                                <h5>${data[i].title}</h5>
+                                <p>${data[i].contents}</p>
+                                </div>
+                                <div class="modal-footer">
+                                <button type="button" class="btn btn-primary" data-toggle="modal"
+                                data-target="#modal_post_update" id=${i} onclick="Contents_update(this.id)" data-dismiss="modal">수정</button>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal"> 닫기 </button>
+                                </div>
+                            </div>
+                            </div>
+                        </div>             
+              `;
 
         if (i % 2 == 1) {
           output += `</div>`;

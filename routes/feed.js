@@ -188,9 +188,7 @@ router.get("/", function (req, res) {
       
                 <!--아래에 적힌 내용은 모두 예시로 실제 js에 적용시 함수화 한다음 데이터를 받아와서 적용할 예정임-->
                 
-            <div id = "contents" 
-            data-toggle="modal"
-            data-target="#modal_post_update">
+            <div id = "contents">
                 1
             </div>
       
@@ -600,24 +598,7 @@ router.get("/", function (req, res) {
     res.redirect("/"); //세션에 로그인 아이디가 존재하지 않는 경우 로그인 페이지로 보낸다.
   }
 
-  // if(req.session.loginId){ //세션에 로그인 아이디가 존재하는 경우 성공적으로 피드 화면 진입.
-  //     fs.readFile('./views/feed.html', function(err, data){
-  //         if(err){
-  //             res.send('에러');
-  //         }
-  //         else{
-  //             let loginId = req.session.loginId;
-
-  //             res.writeHead(200, {'Content-Type': 'feed.html'});
-  //             res.write(data);
-  //             res.end();
-  //         }
-  //     });
-  // }
-  // else
-  // {
-  //     res.redirect("/"); //세션에 로그인 아이디가 존재하지 않는 경우 로그인 페이지로 보낸다.
-  // }
+  
 });
 
 module.exports = router;
