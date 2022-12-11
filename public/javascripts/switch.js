@@ -60,12 +60,12 @@ function set_Contents(data){
     var output = '';
 
     for(let i = 0; i < data.length; i ++){
-        ContentsData[data.length - data[i].incre -1] = data[i];
+        ContentsData[data[i].incre] = data[i];
 
         if( i % 2 == 0){
-            output += `<div class="row p-1" id="div${i}">`;
+            output += `<div class="row p-1" id="div${data[i].incre}">`;
 
-            output += `<div class="col-6 card p-1 context" id="${i}" onclick="readyToSwitch(this.id)">
+            output += `<div class="col-6 card p-1 context" id="${data[i].incre}" onclick="readyToSwitch(this.id)">
                         <div class="card-body">
                         <h5 class="card-title">${data[i].title}</h5>
                         <p class="card-text">${data[i].contents}</p>
@@ -74,7 +74,7 @@ function set_Contents(data){
         }
 
         else{
-            output += `<div class="col-6 card p-1 context" id="${i}" onclick="readyToSwitch(this.id)">
+            output += `<div class="col-6 card p-1 context" id="${data[i].incre}" onclick="readyToSwitch(this.id)">
                         <div class="card-body">
                         <h5 class="card-title">${data[i].title}</h5>
                         <p class="card-text">${data[i].contents}</p>
@@ -113,7 +113,7 @@ function SaveData(){
                 "Content-Type":"application/json",
             },
             body: JSON.stringify({
-                incre: Object.keys(ContentsData).length - Number(secondID) -1,
+                incre: Number(secondID) ,
                 contents_id: ContentsData[firstID].contents_id
             }),
         }).then((response) => response.json());
@@ -125,12 +125,13 @@ function SaveData(){
                 "Content-Type":"application/json",
             },
             body: JSON.stringify({
-                incre: Object.keys(ContentsData).length - Number(firstID) -1,
+                incre:  Number(firstID),
                 contents_id: ContentsData[secondID].contents_id
             }),
         }).then((response) => response.json());
-        console.log(Object.keys(ContentsData).length - Number(secondID) -1);
-        console.log(Object.keys(ContentsData).length - Number(firstID) -1);
+
+        //console.log(Object.keys(ContentsData).length - Number(secondID) -1);
+        //console.log(Object.keys(ContentsData).length - Number(firstID) -1);
 
         ContentsData[Number(secondID)] = firstData;
         ContentsData[Number(firstID)] = secondData;
