@@ -4,6 +4,11 @@ const request = require("request");
 
 const router = express.Router();
 
+const multer = require("multer");
+const { isFloat32Array } = require("util/types");
+
+var upload = multer({dest: 'profile_images/'})
+
 // get
 
 router.get("/", function (req, res) {
@@ -144,8 +149,10 @@ router.get("/", function (req, res) {
                       <div class="col-3 row">
                           <div class = "row">
                           <div class="col-4" >
-                              <p align="center">게시물</p>
-                              <p align="center" id="contents_num"></p>
+
+                              <p  align="center">게시물</p>
+                              <p  align="center" id="contents_num"></p>
+
                             </div>
       
                           <div class="col-4"
@@ -153,8 +160,10 @@ router.get("/", function (req, res) {
                           data-target="#modal_follower"
                           id="mark_follower"
                           style="cursor: pointer">
-                              <p align="center">팔로워</p>
-                              <p align="center" id = "follower_num"></p>
+
+                              <p  align="center">팔로워</p>
+                              <p  align="center" id = "follower_num"></p>
+
                             </div>
       
                           <div class="col-4"
@@ -162,8 +171,10 @@ router.get("/", function (req, res) {
                           data-target="#modal_following"
                           id="mark_following"
                           style="cursor: pointer">
-                              <p align="center">팔로잉</p>
-                              <p align="center" id ="following_num"></p>
+
+                              <p  align="center">팔로잉</p>
+                              <p  align="center" id ="following_num"></p>
+
                             </div>
                           </div>
       
@@ -194,6 +205,7 @@ router.get("/", function (req, res) {
       
                   
         <!-- Modal -->
+
         <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
           <div class="modal-dialog">
             <div class="modal-content">
@@ -214,11 +226,16 @@ router.get("/", function (req, res) {
                   </li>
                 </ul>
       
+
       
                 <div class="tab-content" id="myTabContent">        
+
+                
+
                   <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab">
                 
                 
+                  <form action="./feed/profile1" method="post" enctype="multipart/form-data" >
                   <!--프로필1번 내용물-->
       
                   <div class = "container justify-content-center mt-3">
@@ -231,7 +248,7 @@ router.get("/", function (req, res) {
                               <div class="input-group mb-3">
                                   <span class="input-group-text">아이디</span>
                                   <div class="form-floating">
-                                    <input type="text" class="form-control" id="user_id_1" placeholder="Username" disabled>
+                                    <input type="text" class="form-control" id="user_id_1" name="user_id_1" placeholder="Username" disabled>
                                     <label for="user_id_1">${req.session.loginId}</label>
                                   </div>
                                 </div>
@@ -239,7 +256,8 @@ router.get("/", function (req, res) {
                                 <div class="input-group mb-3">
                                   <span class="input-group-text">이름</span>
                                   <div class="form-floating">
-                                    <input type="text" class="form-control" id="user_name_1" placeholder="Username">
+                                    <input type="text" class="form-control" id="user_name_1" name="user_name_1" placeholder="Username">
+                                    <input type="hidden" class="form-control" id="user_name_1_hidden" name="user_name_1_hidden" placeholder="Username">
                                     <label for="user_name_1"><p id = "user_name1_label">이게 라벨인가</p></label>
                                   </div>
                                 </div>
@@ -249,7 +267,7 @@ router.get("/", function (req, res) {
                       <div class = "container  justify-content-center mt-3">
                           <div class = "mb-3">소개</div>
                           <div class="form-floating">
-                              <textarea class="form-control" placeholder="Leave a comment here" id="user_intro_1"></textarea>
+                              <textarea class="form-control" placeholder="Leave a comment here" id="user_intro_1" name="user_intro_1"></textarea>
                               <label for="user_intro_1"> </label>
                             </div>
                         </div>
@@ -263,13 +281,19 @@ router.get("/", function (req, res) {
                           <div class = "col-10 mt-2"> 
                               <a href="/switch" class="btn btn-dark" tabindex="-1" role="button">게시글 편집</a>
                           </div>
+
+                          <button type="submit" class="btn btn-dark">저장</button>
+                          </form>
       
                         </div>
                         </div>              
                   </div>
                   </div>
-      
+
+
+            
                   <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab">
+                  <form action="./feed/profile2" method="post" enctype="multipart/form-data" >
                   <!--프로필 2번 내용물-->
       
                   <div class = "container justify-content-center mt-3">
@@ -282,7 +306,7 @@ router.get("/", function (req, res) {
                           <div class="input-group mb-3">
                               <span class="input-group-text">아이디</span>
                               <div class="form-floating">
-                                <input type="text" class="form-control" id="user_id_2" placeholder="Username" disabled>
+                                <input type="text" class="form-control" id="user_id_2" name="user_id_2" placeholder="Username" disabled>
                                 <label for="user_id_2">${req.session.loginId}</label>
                               </div>
                             </div>
@@ -290,7 +314,8 @@ router.get("/", function (req, res) {
                             <div class="input-group mb-3">
                               <span class="input-group-text">이름</span>
                               <div class="form-floating">
-                                <input type="text" class="form-control" id="user_name_2" placeholder="Username">
+                                <input type="text" class="form-control" id="user_name_2" name="user_name_2" placeholder="Username">
+                                <input type="hidden" class="form-control" id="user_name_2_hidden" name="user_name_2_hidden" placeholder="Username">
                                 <label for="user_name_2"><p id = "user_name2_label">이게 라벨인가</p></label>
                               </div>
                             </div>
@@ -300,7 +325,7 @@ router.get("/", function (req, res) {
                   <div class = "container  justify-content-center mt-3">
                       <div class = "mb-3">소개</div>
                       <div class="form-floating">
-                          <textarea class="form-control" placeholder="Leave a comment here" id="user_intro_2"></textarea>
+                          <textarea class="form-control" placeholder="Leave a comment here" id="user_intro_2" name="user_intro_2"></textarea>
                           <label for="user_intro_2"> </label>
                         </div>
                     </div>
@@ -312,17 +337,21 @@ router.get("/", function (req, res) {
                       </div>
       
                       <div class = "col-10 mt-2"> 
-                          <a href="/edit_writing" class="btn btn-dark" tabindex="-1" role="button">게시글 편집</a>
+                          <a href="/s" class="btn btn-dark" tabindex="-1" role="button">게시글 편집</a>
                       </div>
+
+                      <button type="submit" class="btn btn-dark">저장</button>
+                      </form>
       
                     </div>
                     </div>              
               </div>
       
-      
                   </div>
-      
+
+                 
                   <div class="tab-pane fade" id="contact-tab-pane" role="tabpanel" aria-labelledby="contact-tab">
+                  <form action="./feed/profile3" method="post" enctype="multipart/form-data" >
                   <!--프로필 3번 내용물-->
       
                   <div class = "container justify-content-center mt-3">
@@ -335,7 +364,7 @@ router.get("/", function (req, res) {
                           <div class="input-group mb-3">
                               <span class="input-group-text">아이디</span>
                               <div class="form-floating">
-                                <input type="text" class="form-control" id="user_id_3" placeholder="Username" disabled>
+                                <input type="text" class="form-control" id="user_id_3" name="user_id_1" placeholder="Username" disabled>
                                 <label for="user_id_3">${req.session.loginId}</label>
                               </div>
                             </div>
@@ -343,7 +372,8 @@ router.get("/", function (req, res) {
                             <div class="input-group mb-3">
                               <span class="input-group-text">이름</span>
                               <div class="form-floating">
-                                <input type="text" class="form-control" id="user_name_3" placeholder="Username">
+                                <input type="text" class="form-control" id="user_name_3" name="user_name_3" placeholder="Username">
+                                <input type="hidden" class="form-control" id="user_name_3_hidden" name="user_name_3_hidden" placeholder="Username">
                                 <label for="user_name_3"><p id = "user_name3_label">이게 라벨인가</p></label>
                               </div>
                             </div>
@@ -353,7 +383,7 @@ router.get("/", function (req, res) {
                   <div class = "container  justify-content-center mt-3">
                       <div class = "mb-3">소개</div>
                       <div class="form-floating">
-                          <textarea class="form-control" placeholder="Leave a comment here" id="user_intro_3"></textarea>
+                          <textarea class="form-control" placeholder="Leave a comment here" id="user_intro_3" name="user_intro_3"></textarea>
                           <label for="user_intro_3"> </label>
                         </div>
                     </div>
@@ -365,16 +395,22 @@ router.get("/", function (req, res) {
                       </div>
       
                       <div class = "col-10 mt-2"> 
-                          <a href="/edit_writing" class="btn btn-dark" tabindex="-1" role="button">게시글 편집</a>
+                          <a href="/switch" class="btn btn-dark" tabindex="-1" role="button">게시글 편집</a>
                       </div>
-      
+
+                      
+              <button type="submit" class="btn btn-dark">저장</button>
+
                     </div>
                     </div>              
               </div>
                   
                   </div>
+                  
+              </form>
       
               </div>
+
               <div class="modal-footer">
               <button type="button" class="btn btn-primary">저장</button>
               <button
@@ -385,10 +421,13 @@ router.get("/", function (req, res) {
                 취소
               </button>
               </div>
+
             </div>
           </div>
         </div>
-
+        
+   
+        
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
     </main>
 
@@ -443,6 +482,8 @@ router.get("/", function (req, res) {
     </div>
 
     <!-- 게시글 생성 버튼 클릭 -->
+    <form action="./feed/write" method="post" enctype="multipart/form-data" >
+
     <div
       class="modal fade"
       id="modal_new_post"
@@ -459,6 +500,7 @@ router.get("/", function (req, res) {
           <div class="modal-body">
             <h5>게시글 제목</h5>
             <div class="input-group mb-3">
+
               <input
                 type="text"
                 class="form-control"
@@ -479,13 +521,11 @@ router.get("/", function (req, res) {
             </div>
             <br />
 
-              <h5>
-                이미지 업로드 &nbsp;
-                <button type="button" class="btn btn-outline-dark">추가</button>
-              </h5>
-          </div>
+
+            <input type="file"  class="form-control" name ="image" >
+
           <div class="modal-footer">
-            <button type="button" class="btn btn-primary">저장</button>
+            <button type="submit" class="btn btn-primary">저장</button>
             <button
               type="button"
               class="btn btn-secondary"
@@ -497,6 +537,8 @@ router.get("/", function (req, res) {
         </div>
       </div>
     </div>
+
+</form>
 
     <!-- 게시글 수정 모달창 -->
     <div
@@ -599,6 +641,501 @@ router.get("/", function (req, res) {
   }
 
   
+});
+
+
+router.post("/profile1", upload.single('profile_image'), function (req, res) { //프로필1
+
+
+  const username = req.body.user_name_1;
+  const introduction = req.body.user_intro_1;
+
+  const options = { //user_detail의 username과 introduction을 변경해주는 작업
+    url: req.headers.origin + '/api/user_detail/update', 
+    method: 'POST',
+    form: {
+      username1: username ,
+      introduction1: introduction,
+      id: req.session.loginId,
+      username: req.body.user_name_1_hidden
+    }
+  };
+
+  request.post(options, function(err, httpResponse, body){ 
+    if(err) console.log(err);
+  });
+
+  const options2 = { //profile의 username1을 수정해주는 작업
+    url: req.headers.origin + '/api/profile/update1', 
+    method: 'POST',
+    form: {
+      username1: username ,
+      id: req.session.loginId,
+      username: req.body.user_name_1_hidden
+    }
+  };
+
+  request.post(options2, function(err, httpResponse, body){
+    if(err) console.log(err);
+  });
+
+
+  const options3 = { //contents의 username을 수정해주는 작업
+    url: req.headers.origin + '/api/contents/update_username', 
+    method: 'POST',
+    form: {
+      username1: username ,
+      id: req.session.loginId,
+      username: req.body.user_name_1_hidden
+    }
+  };
+
+  request.post(options3, function(err, httpResponse, body){
+    if(err) console.log(err);
+  });
+  
+  //여기서부터 다시 작업해야함
+
+  const options4 = { //comments의 username을 수정해주는 작업
+    url: req.headers.origin + '/api/comments/update_username', 
+    method: 'POST',
+    form: {
+      username1: username ,
+      id: req.session.loginId,
+      username: req.body.user_name_1_hidden
+    }
+  };
+
+  request.post(options4, function(err, httpResponse, body){
+    if(err) console.log(err);
+  });
+
+  const options5 = { //follower의 username을 수정해주는 작업
+    url: req.headers.origin + '/api/follower/update_username', 
+    method: 'POST',
+    form: {
+      username1: username ,
+      id: req.session.loginId,
+      username: req.body.user_name_1_hidden
+    }
+  };
+
+  request.post(options5, function(err, httpResponse, body){
+    if(err) console.log(err);
+
+    const options52 = { //follower의 username을 수정해주는 작업
+      url: req.headers.origin + '/api/follower/update_username2', 
+      method: 'POST',
+      form: {
+        username1: username ,
+        id: req.session.loginId,
+        username: req.body.user_name_1_hidden
+      }
+    };
+  
+    request.post(options52, function(err, httpResponse, body){
+      if(err) console.log(err);
+    });
+  
+  });
+
+  const options6 = { //following의 username을 수정해주는 작업
+    url: req.headers.origin + '/api/following/update_username', 
+    method: 'POST',
+    form: {
+      username1: username ,
+      id: req.session.loginId,
+      username: req.body.user_name_1_hidden
+    }
+  };
+
+  request.post(options6, function(err, httpResponse, body){
+    if(err) console.log(err);
+
+    const options62 = { //following의 username을 수정해주는 작업
+      url: req.headers.origin + '/api/following/update_username2', 
+      method: 'POST',
+      form: {
+        username1: username ,
+        id: req.session.loginId,
+        username: req.body.user_name_1_hidden
+      }
+    };
+  
+    request.post(options62, function(err, httpResponse, body){
+      if(err) console.log(err);
+    });
+  });
+
+
+  if(req.session.username == req.body.user_name_1_hidden)
+  {
+    req.session.username = req.body.user_name_1;
+
+    let options12 = { //following의 username을 수정해주는 작업
+      url: req.headers.origin + '/api/user/update_username', 
+      method: 'POST',
+      form: {
+        id: req.session.loginId,
+        username: req.body.user_name_1
+      }
+    };
+  
+    request.post(options12, function(err, httpResponse, body){
+      if(err) console.log(err);
+    });
+  }
+
+
+  res.redirect("/feed");
+});
+
+
+
+router.post("/profile2", upload.single('profile_image'), function (req, res) {
+
+  const username2 = req.body.user_name_2;
+  const introduction2 = req.body.user_intro_2;
+
+  let options = { //user_detail의 username과 introduction을 변경해주는 작업
+    url: req.headers.origin + '/api/user_detail/update', 
+    method: 'POST',
+    form: {
+      username1: username2 ,
+      introduction1: introduction2,
+      id: req.session.loginId,
+      username: req.body.user_name_2_hidden
+    }
+  };
+
+  request.post(options, function(err, httpResponse, body){ 
+    if(err) console.log(err);
+  });
+
+  let options2 = { //profile의 username1을 수정해주는 작업
+    url: req.headers.origin + '/api/profile/update2', 
+    method: 'POST',
+    form: {
+      username1: username2 ,
+      id: req.session.loginId,
+      username: req.body.user_name_2_hidden
+    }
+  };
+
+  request.post(options2, function(err, httpResponse, body){
+    if(err) console.log(err);
+  });
+
+
+  let options3 = { //contents의 username을 수정해주는 작업
+    url: req.headers.origin + '/api/contents/update_username', 
+    method: 'POST',
+    form: {
+      username1: username2 ,
+      id: req.session.loginId,
+      username: req.body.user_name_2_hidden
+    }
+  };
+
+  request.post(options3, function(err, httpResponse, body){
+    if(err) console.log(err);
+  });
+  
+  //여기서부터 다시 작업해야함
+
+  let options4 = { //comments의 username을 수정해주는 작업
+    url: req.headers.origin + '/api/comments/update_username', 
+    method: 'POST',
+    form: {
+      username1: username2 ,
+      id: req.session.loginId,
+      username: req.body.user_name_2_hidden
+    }
+  };
+
+  request.post(options4, function(err, httpResponse, body){
+    if(err) console.log(err);
+  });
+
+  let options5 = { //follower의 username을 수정해주는 작업
+    url: req.headers.origin + '/api/follower/update_username', 
+    method: 'POST',
+    form: {
+      username1: username2 ,
+      id: req.session.loginId,
+      username: req.body.user_name_2_hidden
+    }
+  };
+
+  request.post(options5, function(err, httpResponse, body){
+    if(err) console.log(err);
+
+    let options52 = { //follower의 username을 수정해주는 작업
+      url: req.headers.origin + '/api/follower/update_username2', 
+      method: 'POST',
+      form: {
+        username1: username2 ,
+        id: req.session.loginId,
+        username: req.body.user_name_2_hidden
+      }
+    };
+  
+    request.post(options52, function(err, httpResponse, body){
+      if(err) console.log(err);
+    });
+  });
+
+  let options6 = { //following의 username을 수정해주는 작업
+    url: req.headers.origin + '/api/following/update_username', 
+    method: 'POST',
+    form: {
+      username1: username2 ,
+      id: req.session.loginId,
+      username: req.body.user_name_2_hidden
+    }
+  };
+
+  request.post(options6, function(err, httpResponse, body){
+    if(err) console.log(err);
+
+    let options62 = { //following의 username을 수정해주는 작업
+      url: req.headers.origin + '/api/following/update_username2', 
+      method: 'POST',
+      form: {
+        username1: username2 ,
+        id: req.session.loginId,
+        username: req.body.user_name_2_hidden
+      }
+    };
+  
+    request.post(options62, function(err, httpResponse, body){
+      if(err) console.log(err);
+    });
+  });
+
+
+  if(req.session.username == req.body.user_name_2_hidden)
+  {
+    req.session.username = req.body.user_name_2;
+
+    let options12 = { //following의 username을 수정해주는 작업
+      url: req.headers.origin + '/api/user/update_username', 
+      method: 'POST',
+      form: {
+        id: req.session.loginId,
+        username: req.body.user_name_2
+      }
+    };
+  
+    request.post(options12, function(err, httpResponse, body){
+      if(err) console.log(err);
+    });
+  }
+
+
+  res.redirect("/feed");
+});
+
+router.post("/profile3", upload.single('profile_image'), function (req, res) {
+
+
+  const username3 = req.body.user_name_3;
+  const introduction3 = req.body.user_intro_3;
+
+  let options = { //user_detail의 username과 introduction을 변경해주는 작업
+    url: req.headers.origin + '/api/user_detail/update', 
+    method: 'POST',
+    form: {
+      username1: username3 ,
+      introduction1: introduction3,
+      id: req.session.loginId,
+      username: req.body.user_name_3_hidden
+    }
+  };
+
+  request.post(options, function(err, httpResponse, body){ 
+    if(err) console.log(err);
+  });
+
+  let options2 = { //profile의 username1을 수정해주는 작업
+    url: req.headers.origin + '/api/profile/update3', 
+    method: 'POST',
+    form: {
+      username1: username3 ,
+      id: req.session.loginId,
+      username: req.body.user_name_3_hidden
+    }
+  };
+
+  request.post(options2, function(err, httpResponse, body){
+    if(err) console.log(err);
+  });
+
+
+  let options3 = { //contents의 username을 수정해주는 작업
+    url: req.headers.origin + '/api/contents/update_username', 
+    method: 'POST',
+    form: {
+      username1: username3 ,
+      id: req.session.loginId,
+      username: req.body.user_name_3_hidden
+    }
+  };
+
+  request.post(options3, function(err, httpResponse, body){
+    if(err) console.log(err);
+  });
+  
+  //여기서부터 다시 작업해야함
+
+  let options4 = { //comments의 username을 수정해주는 작업
+    url: req.headers.origin + '/api/comments/update_username', 
+    method: 'POST',
+    form: {
+      username1: username3 ,
+      id: req.session.loginId,
+      username: req.body.user_name_3_hidden
+    }
+  };
+
+  request.post(options4, function(err, httpResponse, body){
+    if(err) console.log(err);
+  });
+
+  let options5 = { //follower의 username을 수정해주는 작업
+    url: req.headers.origin + '/api/follower/update_username', 
+    method: 'POST',
+    form: {
+      username1: username3 ,
+      id: req.session.loginId,
+      username: req.body.user_name_3_hidden
+    }
+  };
+
+  request.post(options5, function(err, httpResponse, body){
+    if(err) console.log(err);
+
+    let options52 = { //follower의 username을 수정해주는 작업
+      url: req.headers.origin + '/api/follower/update_username2', 
+      method: 'POST',
+      form: {
+        username1: username3 ,
+        id: req.session.loginId,
+        username: req.body.user_name_3_hidden
+      }
+    };
+  
+    request.post(options52, function(err, httpResponse, body){
+      if(err) console.log(err);
+    });
+  });
+
+  let options6 = { //following의 username을 수정해주는 작업
+    url: req.headers.origin + '/api/following/update_username', 
+    method: 'POST',
+    form: {
+      username1: username3 ,
+      id: req.session.loginId,
+      username: req.body.user_name_3_hidden
+    }
+  };
+
+  request.post(options6, function(err, httpResponse, body){
+    if(err) console.log(err);
+
+    let options62 = { //following의 username을 수정해주는 작업
+      url: req.headers.origin + '/api/following/update_username2', 
+      method: 'POST',
+      form: {
+        username1: username3 ,
+        id: req.session.loginId,
+        username: req.body.user_name_3_hidden
+      }
+    };
+  
+    request.post(options62, function(err, httpResponse, body){
+      if(err) console.log(err);
+    });
+  });
+
+
+  if(req.session.username == req.body.user_name_3_hidden)
+  {
+    req.session.username = req.body.user_name_3;
+
+    let options12 = { //following의 username을 수정해주는 작업
+      url: req.headers.origin + '/api/user/update_username', 
+      method: 'POST',
+      form: {
+        id: req.session.loginId,
+        username: req.body.user_name_3
+      }
+    };
+  
+    request.post(options12, function(err, httpResponse, body){
+      if(err) console.log(err);
+    });
+  }
+
+
+
+  res.redirect("/feed");
+});
+
+router.post("/write", upload.single('image'),function (req, res, next) { //게시글 작성 버튼을 눌렀을 시
+
+  const title = req.body.title;
+  const subject = req.body.subject;
+
+  console.log(req.file.filename);
+
+  const options = {
+    url: req.headers.origin + '/api/contents/insert', 
+    method: 'POST',
+    form: {
+      id: req.session.loginId,
+      username: req.session.username,
+      title: title,
+      contents: subject,
+      image: req.file.filename //나중에 여기에 png를 붙이면 이미지 정상 출력
+    }
+  };
+
+  request.post(options, function(err, httpResponse, body){
+    if(err) console.log(err);
+
+    const options2 = {
+      url: req.headers.origin + '/api/contents/select_insertid', 
+      method: 'post',
+      form: {
+      }
+    };
+  
+    request.post(options2, function(err, httpResponse, body){
+      if(err) console.log(err);
+  
+      const last_id = JSON.parse(body.slice(1, -1));
+  
+      insert_incre = Object.values(last_id);
+
+      console.log(insert_incre);
+
+      const options3 = {
+        url: req.headers.origin + '/api/contents/update_incre', 
+        method: 'POST',
+        form: {
+          incre: insert_incre[0],
+          contents_id: insert_incre[0]
+        }
+      };
+
+      request.post(options3, function(err, httpResponse, body){
+        if(err) console.log(err);
+      });
+    });
+  });
+  
+  res.redirect("/feed");
 });
 
 module.exports = router;

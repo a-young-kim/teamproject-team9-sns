@@ -156,6 +156,8 @@
       </div>
 
       <!-- 게시글 생성 버튼 클릭 -->
+      <form action="./home/write" method="post" enctype="multipart/form-data" >
+
       <div
         class="modal fade"
         id="modal_new_post"
@@ -172,6 +174,7 @@
             <div class="modal-body">
               <h5>게시글 제목</h5>
               <div class="input-group mb-3">
+
                 <input
                   type="text"
                   class="form-control"
@@ -192,13 +195,11 @@
               </div>
               <br />
 
-              <h5>
-                이미지 업로드 &nbsp;
-                <button type="button" class="btn btn-outline-dark">추가</button>
-              </h5>
-            </div>
+
+              <input type="file"  class="form-control" name ="image" >
+
             <div class="modal-footer">
-              <button type="button" class="btn btn-primary">저장</button>
+              <button type="submit" class="btn btn-primary">저장</button>
               <button
                 type="button"
                 class="btn btn-secondary"
@@ -256,5 +257,8 @@
         </div>
       </div>
     </main>
+
+  </form>
+
   </body>
 </html>

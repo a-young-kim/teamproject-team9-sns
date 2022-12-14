@@ -133,6 +133,19 @@ window.onload = function () {
       user_intro_3.value = data[2].introduction;
     });
 
+    let user_name_1_hidden = document.getElementById("user_name_1_hidden");
+    let user_name_2_hidden = document.getElementById("user_name_2_hidden");
+    let user_name_3_hidden = document.getElementById("user_name_3_hidden");
+
+    let user_name_1_label = document.getElementById("user_name1_label");
+    let user_name_2_label = document.getElementById("user_name2_label");
+    let user_name_3_label = document.getElementById("user_name3_label");
+
+
+
+    list = fetch(url_2) //mysql에 담긴 데이터를 json형식으로 받아와서 조회하고 저장.
+    .then((response) => {return response.json();})
+
   const url_4 = window.location.origin + "/api/user_detail/check_follow";
 
   let follower_num = document.getElementById("follower_num");
@@ -148,6 +161,62 @@ window.onload = function () {
       following_num.innerText = data[0].following_num;
       current_introduction.innerText = data[0].introduction;
     });
+    
+        user_name_1_hidden.value = data[0].username1;
+        user_name_2_hidden.value = data[0].username2;
+        user_name_3_hidden.value = data[0].username3;
+
+        user_name_1_label.innerText = data[0].username1;
+        user_name_2_label.innerText = data[0].username2;
+        user_name_3_label.innerText = data[0].username3;
+
+        let user_intro_1 = document.getElementById("user_intro_1");
+        let user_intro_2 = document.getElementById("user_intro_2");
+        let user_intro_3 = document.getElementById("user_intro_3");
+    
+        const url_3 = window.location.origin + '/api/user_detail/indtroductions';
+    
+        const res = fetch(url_3, {
+            method: "POST",
+            headers: {
+                "Content-Type":"application/json",
+            },
+            body: JSON.stringify({
+                username: user_name_1.value
+            }),
+        }).then((response) => response.json())
+        .then(data => 
+            user_intro_1.value = data[0].introduction
+            );
+    
+            console.log()
+    
+            const res2 = fetch(url_3, {
+                method: "POST",
+                headers: {
+                    "Content-Type":"application/json",
+                },
+                body: JSON.stringify({
+                    username: user_name_2.value
+                }),
+            }).then((response) => response.json())
+            .then(data => 
+                user_intro_2.value = data[0].introduction
+                );
+    
+    
+                const res3 = fetch(url_3, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type":"application/json",
+                    },
+                    body: JSON.stringify({
+                        username: user_name_3.value
+                    }),
+                }).then((response) => response.json())
+                .then(data => 
+                    user_intro_3.value = data[0].introduction
+                    );
 
   // 팔로워 클릭했을 때 팔로워 읽어오는 코드
   const url_follower = window.location.origin + "/api/follower";
@@ -161,8 +230,6 @@ window.onload = function () {
       var output = ``;
 
       var i = 0;
-
-
       while (i < data.length) {
         output =
           output +
@@ -231,7 +298,6 @@ function follower_delete(id) {
           follower_id: data[id].follower_id,
         }),
       }).then((response) => response.json());
-
     });
 
   const url_following = window.location.origin + "/api/following";
