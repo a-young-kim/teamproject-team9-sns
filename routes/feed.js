@@ -5,7 +5,7 @@ const request = require("request");
 const router = express.Router();
 
 const multer = require("multer");
-const { isFloat32Array } = require("util/types");
+
 
 var upload = multer({dest: 'uploads/'})
 
@@ -14,7 +14,7 @@ var upload = multer({dest: 'uploads/'})
 router.get("/", function (req, res) {
   //const url = req.headers.origin + '/api/profile/check';
 
-  console.log(req.url);
+  //console.log(req.url);
 
   if (req.session.loginId) {
     //세션에 로그인 아이디가 존재하는 경우 성공적으로 피드 화면 진입.
@@ -187,13 +187,12 @@ router.get("/", function (req, res) {
                 <!--아래에 적힌 내용은 모두 예시로 실제 js에 적용시 함수화 한다음 데이터를 받아와서 적용할 예정임-->
                 
             <div id = "contents">
-                1
+              
             </div>
       
                   
         <!-- Modal -->
-
-        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal fade" id="staticBackdrop" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
           <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-header">
@@ -214,12 +213,9 @@ router.get("/", function (req, res) {
                   </li>
                 </ul>
       
-
-      
                 <div class="tab-content" id="myTabContent">        
 
                 
-
                   <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab">
                 
                 
@@ -412,14 +408,7 @@ router.get("/", function (req, res) {
     <!-- 게시글 생성 버튼 클릭 -->
     <form action="./feed/write" method="post" enctype="multipart/form-data" >
 
-    <div
-      class="modal fade"
-      id="modal_new_post"
-      tabindex="-1"
-      role="dialog"
-      aria-labelledby="exampleModalLabel"
-      aria-hidden="true"
-    >
+    <div class="modal fade" id="modal_new_post" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
@@ -428,7 +417,6 @@ router.get("/", function (req, res) {
           <div class="modal-body">
             <h5>게시글 제목</h5>
             <div class="input-group mb-3">
-
               <input
                 type="text"
                 class="form-control"
@@ -449,13 +437,13 @@ router.get("/", function (req, res) {
                 required
               ></textarea>
             </div>
+
             <br />
 
-
-            
             <input type="file"  class="form-control" id="image" name ="image" accept=".png, .jpeg, .jpg" required>
 
             <br />
+
 
           <div class="modal-footer">
             <button type="submit" class="btn btn-primary">저장</button>
@@ -470,10 +458,9 @@ router.get("/", function (req, res) {
         </div>
       </div>
     </div>
-
 </form>
 
-    <!-- 팔로잉 클릭 -->
+    <!-- 팔로잉 클릭 
     <div
       class="modal fade"
       id="modal_following"
@@ -506,9 +493,9 @@ router.get("/", function (req, res) {
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
 
-    <!-- 팔로워 클릭 -->
+    <!-- 팔로워 클릭 
     <div
       class="modal fade"
       id="modal_follower"
@@ -526,7 +513,33 @@ router.get("/", function (req, res) {
             <div class="card">
               <div class="card-body">
                 나를 팔로워하는 유저 표시
-                <button type="button" class="btn btn-outline-dark" style="float: right">삭제</button>
+                <button type="button" class="btn btn-outline-dark" style="float: right">삭제</button> -->
+    
+    <!-- 검색창 -->
+      <div
+        class="modal fade"
+        id="Modal_search"
+        tabindex="-1"
+        role="dialog"
+        aria-labelledby="ModalLabelSearch"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <div
+                class="modal-title"
+                id="ModalLabelSearch"
+                style="margin: 0 auto"
+              >
+                <input
+                  class="form-control me-2"
+                  type="search"
+                  placeholder="사용자 검색"
+                  aria-label="Search"
+                  style="width: 450px"
+                />
+
               </div>
             </div>
           </div>
@@ -550,26 +563,6 @@ router.get("/", function (req, res) {
   } else {
     res.redirect("/"); //세션에 로그인 아이디가 존재하지 않는 경우 로그인 페이지로 보낸다.
   }
-
-  // if(req.session.loginId){ //세션에 로그인 아이디가 존재하는 경우 성공적으로 피드 화면 진입.
-  //     fs.readFile('./views/feed.html', function(err, data){
-  //         if(err){
-  //             res.send('에러');
-  //         }
-  //         else{
-  //             let loginId = req.session.loginId;
-
-  //             res.writeHead(200, {'Content-Type': 'feed.html'});
-  //             res.write(data);
-  //             res.end();
-  //         }
-  //     });
-  // }
-  // else
-  // {
-  //     res.redirect("/"); //세션에 로그인 아이디가 존재하지 않는 경우 로그인 페이지로 보낸다.
-  // }
-});
 
 
 router.post("/profile1", upload.single('profile_image'), function (req, res) { //프로필1
