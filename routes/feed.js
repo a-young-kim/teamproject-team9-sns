@@ -370,7 +370,7 @@ router.get("/", function (req, res) {
                       </div>
       
                       <div class = "col-10 mt-2"> 
-                          <a href="/s" class="btn btn-dark" tabindex="-1" role="button">게시글 편집</a>
+                          <a href="/switch" class="btn btn-dark" tabindex="-1" role="button">게시글 편집</a>
                       </div>
 
                       <button type="submit" class="btn btn-dark">저장</button>
