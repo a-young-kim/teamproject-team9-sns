@@ -65,8 +65,23 @@ window.onload = function () {
                                 <div class="modal-header">
                                   <h5 class="modal-title" id="exampleModalLabel">${data[i].username}</h5>
                                 </div>
-                                <div class="modal-body">
-                                  <h5>${data[i].title}</h5>
+                                <div class="modal-body">`;
+
+
+                                if(data[i].image)
+                                {
+                                  output+=`
+                                  <div class="d-flex justify-content-center">
+                                  <div class="align-self-center">
+                                  <img src="../uploads/${data[i].image}" alt="#" width="400">
+                                  </div>
+                                  </div>
+                                  `;
+                                }
+                        
+
+
+                  output+=      `<h5>${data[i].title}</h5>
                                   <p>${data[i].contents}</p>
                                 </div>
                                 <div class="modal-footer">

@@ -6,7 +6,8 @@ const router = express.Router();
 
 const multer = require("multer");
 
-var upload = multer({ dest: "profile_images/" });
+
+var upload = multer({dest: 'public/uploads/'});
 
 router.get("/", function (req, res) {
   output = `
