@@ -7,7 +7,7 @@ const router = express.Router();
 const multer = require("multer");
 const { isFloat32Array } = require("util/types");
 
-var upload = multer({dest: 'profile_images/'})
+var upload = multer({dest: 'uploads/'})
 
 // get
 
@@ -111,19 +111,14 @@ router.get("/", function (req, res) {
 
           <!-- 검색창 -->
           <form class="d-flex" role="search">
-            <button
-              type="button"
-              class="btn btn-light"
-              data-toggle="modal"
-              data-target="#Modal_search"
-              style="
-                width: 200px;
-                text-align: left;
-                border: 1px solid #b9b9b9;
-                color: #898989;
-              "
-            >
-              사용자 검색
+            <input
+              class="form-control me-2"
+              type="search"
+              placeholder="사용자 검색"
+              aria-label="Search"
+            />
+            <button class="btn btn-outline-success" type="submit">
+              Search
             </button>
           </form>
         </div>
@@ -140,8 +135,8 @@ router.get("/", function (req, res) {
       
                       <div class = "col-7 mt-1">
                           <p id = "user_id">${req.session.loginId}</p>`;
-
-    output += `<p id = "user_name">${req.session.username}</p>
+                          
+                          output += `<p id = "user_name">${req.session.username}</p>
 
                           <p id = "instruction"> </p>
                       </div>
@@ -149,32 +144,24 @@ router.get("/", function (req, res) {
                       <div class="col-3 row">
                           <div class = "row">
                           <div class="col-4" >
-
                               <p  align="center">게시물</p>
                               <p  align="center" id="contents_num"></p>
-
                             </div>
       
                           <div class="col-4"
                           data-toggle="modal"
                           data-target="#modal_follower"
-                          id="mark_follower"
                           style="cursor: pointer">
-
                               <p  align="center">팔로워</p>
                               <p  align="center" id = "follower_num"></p>
-
                             </div>
       
                           <div class="col-4"
                           data-toggle="modal"
                           data-target="#modal_following"
-                          id="mark_following"
                           style="cursor: pointer">
-
                               <p  align="center">팔로잉</p>
                               <p  align="center" id ="following_num"></p>
-
                             </div>
                           </div>
       
@@ -211,6 +198,7 @@ router.get("/", function (req, res) {
             <div class="modal-content">
               <div class="modal-header">
                 <h5 class="modal-title" id="staticBackdropLabel">프로필 편집</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div class="modal-body">
                 <!--여기에 프로필 편집창 내용물을 삽입-->
@@ -411,17 +399,6 @@ router.get("/", function (req, res) {
       
               </div>
 
-              <div class="modal-footer">
-              <button type="button" class="btn btn-primary">저장</button>
-              <button
-                type="button"
-                class="btn btn-secondary"
-                data-bs-dismiss="modal"
-              >
-                취소
-              </button>
-              </div>
-
             </div>
           </div>
         </div>
@@ -431,56 +408,7 @@ router.get("/", function (req, res) {
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
     </main>
 
-    <!--추가 modal-->
-    <!-- 팔로잉 클릭 -->
-    <div
-      class="modal fade"
-      id="modal_following"
-      tabindex="-1"
-      role="dialog"
-      aria-labelledby="exampleModalLabel"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">팔로잉</h5>
-            <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close" onclick="location.reload()" id="following_close"></button>
-          </div>
-          <div class="modal-body">
-          <div id = "following_view">
-                1
-            </div>
-          </div>
-          
-        </div>
-      </div>
-    </div>
-
-    <!-- 팔로워 클릭 -->
-    <div
-      class="modal fade"
-      id="modal_follower"
-      tabindex="-1"
-      role="dialog"
-      aria-labelledby="exampleModalLabel"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">팔로워</h5>
-            <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close" onclick="location.reload()" id="follower_close"></button>
-          </div>
-          <div class="modal-body">
-          <div id = "follower_view">
-                1
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
+    <!--추가 modal--!
     <!-- 게시글 생성 버튼 클릭 -->
     <form action="./feed/write" method="post" enctype="multipart/form-data" >
 
@@ -507,6 +435,7 @@ router.get("/", function (req, res) {
                 aria-describedby="basic-addon1"
                 name="title"
                 id="title"
+                required
               />
             </div>
 
@@ -517,12 +446,16 @@ router.get("/", function (req, res) {
                 style="height: 250px"
                 name="subject"
                 id="subject"
+                required
               ></textarea>
             </div>
             <br />
 
 
-            <input type="file"  class="form-control" name ="image" >
+            
+            <input type="file"  class="form-control" id="image" name ="image" accept=".png, .jpeg, .jpg" required>
+
+            <br />
 
           <div class="modal-footer">
             <button type="submit" class="btn btn-primary">저장</button>
@@ -540,10 +473,10 @@ router.get("/", function (req, res) {
 
 </form>
 
-    <!-- 게시글 수정 모달창 -->
+    <!-- 팔로잉 클릭 -->
     <div
       class="modal fade"
-      id="modal_post_update"
+      id="modal_following"
       tabindex="-1"
       role="dialog"
       aria-labelledby="exampleModalLabel"
@@ -552,85 +485,63 @@ router.get("/", function (req, res) {
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">게시글 수정</h5>
+            <h5 class="modal-title" id="exampleModalLabel">팔로잉</h5>
           </div>
           <div class="modal-body">
-            <div class = "container  justify-content-center mt-3">
-              <h5 class = "mb-3">
-                게시글 제목
-              </h5>
-              <div class="form-floating">
-                <textarea class="form-control" placeholder="Leave a comment here" id="post_subject"></textarea>
-                <label for="post_subject"> </label>
-              </div>
-
-              <br />
-              <h5 class = "mb-3">
-                게시글 내용
-              </h5>
-              <div class="form-floating">
-                <textarea class="form-control" placeholder="Leave a comment here" id="post_detail"></textarea>
-                <label for="post_detail"> </label>
+            <div class="card">
+              <div class="card-body">
+                팔로잉하는 유저 표시
+                <button type="button" class="btn btn-outline-dark" style="float: right">팔로잉</button>
               </div>
             </div>
           </div>
           <div class="modal-footer">
-            <button type="submit" class="btn btn-primary" data-dismiss="modal" id="btn_post_update">저장</button>
-            <button type="button" class="btn btn-danger" data-dismiss="modal" id="btn_post_delete">삭제</button>
             <button
               type="button"
               class="btn btn-secondary"
               data-dismiss="modal"
-              id="btn_cancel"
             >
-              취소
+              닫기
             </button>
-        </div>
-      </div>
-    </div>
-    
-    <!-- 검색창 -->
-      <div
-        class="modal fade"
-        id="Modal_search"
-        tabindex="-1"
-        role="dialog"
-        aria-labelledby="ModalLabelSearch"
-        aria-hidden="true"
-      >
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <div
-                class="modal-title"
-                id="ModalLabelSearch"
-                style="margin: 0 auto"
-              >
-                <input
-                  class="form-control me-2"
-                  type="search"
-                  placeholder="사용자 검색"
-                  aria-label="Search"
-                  style="width: 450px"
-                />
-              </div>
-            </div>
-            <div class="modal-body">
-              <h5>게시글 제목</h5>
-              <p>게시글 내용 ...</p>
-            </div>
-            <div class="modal-footer">
-              <button
-                type="button"
-                class="btn btn-secondary"
-                data-dismiss="modal"
-              >
-                닫기
-              </button>
-            </div>
           </div>
         </div>
       </div>
+    </div>
+
+    <!-- 팔로워 클릭 -->
+    <div
+      class="modal fade"
+      id="modal_follower"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">팔로워</h5>
+          </div>
+          <div class="modal-body">
+            <div class="card">
+              <div class="card-body">
+                나를 팔로워하는 유저 표시
+                <button type="button" class="btn btn-outline-dark" style="float: right">삭제</button>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-dismiss="modal"
+            >
+              닫기
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
     </body>
 </html>
         `;
@@ -640,7 +551,24 @@ router.get("/", function (req, res) {
     res.redirect("/"); //세션에 로그인 아이디가 존재하지 않는 경우 로그인 페이지로 보낸다.
   }
 
-  
+  // if(req.session.loginId){ //세션에 로그인 아이디가 존재하는 경우 성공적으로 피드 화면 진입.
+  //     fs.readFile('./views/feed.html', function(err, data){
+  //         if(err){
+  //             res.send('에러');
+  //         }
+  //         else{
+  //             let loginId = req.session.loginId;
+
+  //             res.writeHead(200, {'Content-Type': 'feed.html'});
+  //             res.write(data);
+  //             res.end();
+  //         }
+  //     });
+  // }
+  // else
+  // {
+  //     res.redirect("/"); //세션에 로그인 아이디가 존재하지 않는 경우 로그인 페이지로 보낸다.
+  // }
 });
 
 
@@ -771,6 +699,7 @@ router.post("/profile1", upload.single('profile_image'), function (req, res) { /
   if(req.session.username == req.body.user_name_1_hidden)
   {
     req.session.username = req.body.user_name_1;
+    req.session.save(error => {if(error) console.log(error);});
 
     let options12 = { //following의 username을 수정해주는 작업
       url: req.headers.origin + '/api/user/update_username', 
@@ -917,6 +846,7 @@ router.post("/profile2", upload.single('profile_image'), function (req, res) {
   if(req.session.username == req.body.user_name_2_hidden)
   {
     req.session.username = req.body.user_name_2;
+    req.session.save(error => {if(error) console.log(error);});
 
     let options12 = { //following의 username을 수정해주는 작업
       url: req.headers.origin + '/api/user/update_username', 
@@ -1062,6 +992,7 @@ router.post("/profile3", upload.single('profile_image'), function (req, res) {
   if(req.session.username == req.body.user_name_3_hidden)
   {
     req.session.username = req.body.user_name_3;
+    req.session.save(error => {if(error) console.log(error);});
 
     let options12 = { //following의 username을 수정해주는 작업
       url: req.headers.origin + '/api/user/update_username', 
