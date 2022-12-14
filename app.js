@@ -12,7 +12,7 @@ var indexRouter = require("./routes/index");
 var signupRouter = require("./routes/signup");
 var switchRouter = require("./routes/switch");
 var feedRouter = require("./routes/feed");
-var feedOtherRouter = require("./routes/feed_other");
+var feed2Router = require("./routes/feed2");
 var homeRouter = require("./routes/home");
 
 // DB
@@ -70,6 +70,7 @@ app.use("/switch", switchRouter);
 app.use("/feed", feedRouter);
 app.use("/feed_others", feedOtherRouter);
 app.use("/home", homeRouter);
+app.use("/feed2", feed2Router);
 
 // DB
 app.use("/api/user", userRouter);

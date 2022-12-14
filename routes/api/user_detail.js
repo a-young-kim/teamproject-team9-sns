@@ -20,6 +20,15 @@ router.get("/check_follow", async (req, res) => {
   res.send(user_follow);
 });
 
+router.post("/check_follow", async (req, res) => {
+  const user_follow = await mysql.query("user_detail_follow_check", [
+    req.body.id,
+    req.body.username,
+  ]);
+
+  res.send(user_follow);
+});
+
 router.post("/insert", async (req, res) => {
   const user_details = await mysql.query("user_detail_Insert", req.body);
 

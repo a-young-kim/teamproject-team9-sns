@@ -28,7 +28,15 @@ router.get("/", async (req, res) => {
   res.send(followings);
 });
 
-//팔로잉 추가할 때 팔로잉 추가됨
+router.post("/", async (req, res) => {
+  const followings = await mysql.query("followingList", [
+    req.body.id,
+    req.body.username,
+  ]);
+
+  res.send(followings);
+});
+
 router.post("/insert", async (req, res) => {
   const users = await mysql.query("followingInsert", [
     req.session.loginId,
@@ -53,6 +61,17 @@ router.post("/update_num", async (req, res) => {
     req.session.username,
     req.session.loginId,
     req.session.username,
+  ]);
+
+  res.send(JSON.stringify(users));
+});
+
+router.post("/update_num2", async (req, res) => {
+  const users = await mysql.query("user_detail_following_num_Update", [
+    req.body.id,
+    req.body.username,
+    req.body.id,
+    req.body.username,
   ]);
 
   res.send(JSON.stringify(users));

@@ -25,6 +25,7 @@ function get(data, num){
             }),
         }).then((response) => response.json())
         .then(data => {
+            console.log(data);
             SaveContents(data);
             resolve(data);
         });

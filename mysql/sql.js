@@ -53,4 +53,6 @@ module.exports = {
   commentsList: `select * from comments where contents_id = ? order by incre DESC `,
   commentsInsert: `insert into comments set contents_id =?, id = ?, username = ?, contents = ?`,
   comments_update_username:`update comments set username = ? where id = ? and username = ?`,
+
+  followingList: `select * from following where id = ? and username = ?`,
 };
