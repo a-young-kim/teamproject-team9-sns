@@ -99,11 +99,9 @@ function SaveData(){
 
         let firstID = SaveID[i][0];
         let secondID = SaveID[i][1];
+
         let firstData = ContentsData[firstID];
         let secondData = ContentsData[secondID];
-
-        console.log(firstID);
-        console.log(secondID);
 
         // firstID change
         const url = window.location.origin + '/api/contents/update_incre';
@@ -113,7 +111,9 @@ function SaveData(){
                 "Content-Type":"application/json",
             },
             body: JSON.stringify({
-                incre: Number(secondID) ,
+            
+                incre: Number(secondID),
+
                 contents_id: ContentsData[firstID].contents_id
             }),
         }).then((response) => response.json());
@@ -125,13 +125,11 @@ function SaveData(){
                 "Content-Type":"application/json",
             },
             body: JSON.stringify({
+
                 incre:  Number(firstID),
                 contents_id: ContentsData[secondID].contents_id
             }),
         }).then((response) => response.json());
-
-        //console.log(Object.keys(ContentsData).length - Number(secondID) -1);
-        //console.log(Object.keys(ContentsData).length - Number(firstID) -1);
 
         ContentsData[Number(secondID)] = firstData;
         ContentsData[Number(firstID)] = secondData;

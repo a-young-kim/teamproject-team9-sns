@@ -21,9 +21,10 @@ var profileRouter = require("./routes/api/profile");
 var contentsRouter = require("./routes/api/contents");
 var sessionsRouter = require("./routes/api/sessions");
 var user_detailRouter = require("./routes/api/user_detail");
+
+var commentsRouter = require("./routes/api/comments");
 var followerRouter = require("./routes/api/follower");
 var followingRouter = require("./routes/api/following");
-var commentsRouter = require("./routes/api/comments");
 
 var app = express();
 
@@ -51,13 +52,13 @@ app.use(
       expires: 60 * 60 * 24,
     },
     store: new MySQLStore({
-      //session 파일을 mysql에 저장해주는 작업
-      host: "localhost",
-      port: 3306,
-      user: "root", //본인이 사용하는 user 이름으로 바꿔주기!(예. root, dev01, ...)
-      password: "1234",
-      database: "kwic", //본인이 사용하는 DB 이름으로 바꿔주기!(예. team9, kwic, ...)
-      path: "./sessions",
+        //session 파일을 mysql에 저장해주는 작업
+        host: process.env.MYSQL_HOST,
+        port: process.env.MYSQL_PORT,
+        user: process.env.MYSQL_USERNAME,
+        password: process.env.MYSQL_PASSWORD,
+        database: process.env.MYSQL_DB, //본인이 사용하는 DB 이름으로 바꿔주기!(예. team9)
+        path: "./sessions",
     }),
   })
 );
@@ -76,9 +77,10 @@ app.use("/api/profile", profileRouter);
 app.use("/api/contents", contentsRouter);
 app.use("/api/sessions", sessionsRouter);
 app.use("/api/user_detail", user_detailRouter);
+
+app.use("/api/comments", commentsRouter);
 app.use("/api/follower", followerRouter);
 app.use("/api/following", followingRouter);
-app.use("/api/comments", commentsRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

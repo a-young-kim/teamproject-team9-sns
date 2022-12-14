@@ -70,10 +70,20 @@ function check_Password(){
 
 function is_blank(){
     const nickname = document.getElementById('nickname').value;
+    const nickname2 = document.getElementById('nickname2').value;
+    const nickname3 = document.getElementById('nickname3').value;
 
+    if(nickname == "" || nickname2 == "" || nickname3 == ""){
     if(nickname == ""){
-        alert('nickname을 입력하세요');
+        alert('username1을 입력하세요');
         return false;
+    }else if(nickname2 == ""){
+        alert('username2를 입력하세요');
+        return false;
+    }else if(nickname3 == ""){
+        alert('username3을 입력하세요');
+        return false;
+    }
     }
     else return true;
 }

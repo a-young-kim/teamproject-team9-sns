@@ -26,4 +26,25 @@ router.get('/check', async(req, res) => {
     res.send(JSON.stringify(users));
 });
 
+router.post('/update1', async(req, res) => {
+    const users = await  mysql.query("profileUpdate1", [req.body.username1, req.body.id ,req.body.username]);
+
+    res.send(JSON.stringify(users));
+});
+
+router.post('/update2', async(req, res) => {
+    const users = await  mysql.query("profileUpdate2", [req.body.username1, req.body.id ,req.body.username]);
+
+    res.send(JSON.stringify(users));
+});
+
+
+router.post('/update3', async(req, res) => {
+    const users = await  mysql.query("profileUpdate3", [req.body.username1, req.body.id ,req.body.username]);
+
+    res.send(JSON.stringify(users));
+});
+
+
+
 module.exports = router;
