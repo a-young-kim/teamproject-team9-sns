@@ -2,10 +2,10 @@ let list = [];
 
 window.onload = function () {
   //feed 화면 새로고침될 때마다 팔로워 수, 팔로잉 수 변경되도록 함
-  {
     const url_follower_num_update =
       window.location.origin + "/api/follower/update_num";
-    const res_follower_num_update = fetch(url_follower_num_update, {
+
+    fetch(url_follower_num_update, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -15,14 +15,15 @@ window.onload = function () {
 
     const url_following_num_update =
       window.location.origin + "/api/following/update_num";
-    const res_following_num_update = fetch(url_following_num_update, {
+
+    fetch(url_following_num_update, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({}),
     }).then((response) => response.json());
-  } //여기까지 팔로워 수, 팔로잉 수 업데이트 코드
+   //여기까지 팔로워 수, 팔로잉 수 업데이트 코드
 
   let contents_list = document.getElementById("contents");
   let contests_num = document.getElementById("contents_num");
@@ -35,8 +36,7 @@ window.onload = function () {
     })
     .then((data) => {
 
-      output = output + `</div></div>`;
-
+      //output = output + `</div></div>`;
       var output = ``;
 
       output += `<div class="row p-1">`;
@@ -119,10 +119,6 @@ window.onload = function () {
 
   const url_3 = window.location.origin + "/api/user_detail";
 
-  let user_intro_1 = document.getElementById("user_intro_1");
-  let user_intro_2 = document.getElementById("user_intro_2");
-  let user_intro_3 = document.getElementById("user_intro_3");
-
   list = fetch(url_3) //mysql에 담긴 데이터를 json형식으로 받아와서 조회하고 저장.
     .then((response) => {
       return response.json();
@@ -136,15 +132,6 @@ window.onload = function () {
     let user_name_1_hidden = document.getElementById("user_name_1_hidden");
     let user_name_2_hidden = document.getElementById("user_name_2_hidden");
     let user_name_3_hidden = document.getElementById("user_name_3_hidden");
-
-    let user_name_1_label = document.getElementById("user_name1_label");
-    let user_name_2_label = document.getElementById("user_name2_label");
-    let user_name_3_label = document.getElementById("user_name3_label");
-
-
-
-    list = fetch(url_2) //mysql에 담긴 데이터를 json형식으로 받아와서 조회하고 저장.
-    .then((response) => {return response.json();})
 
   const url_4 = window.location.origin + "/api/user_detail/check_follow";
 
@@ -174,9 +161,9 @@ window.onload = function () {
         let user_intro_2 = document.getElementById("user_intro_2");
         let user_intro_3 = document.getElementById("user_intro_3");
     
-        const url_3 = window.location.origin + '/api/user_detail/indtroductions';
+        const url_5 = window.location.origin + '/api/user_detail/indtroductions';
     
-        const res = fetch(url_3, {
+        fetch(url_5, {
             method: "POST",
             headers: {
                 "Content-Type":"application/json",
@@ -189,9 +176,7 @@ window.onload = function () {
             user_intro_1.value = data[0].introduction
             );
     
-            console.log()
-    
-            const res2 = fetch(url_3, {
+            fetch(url_5, {
                 method: "POST",
                 headers: {
                     "Content-Type":"application/json",
@@ -205,7 +190,7 @@ window.onload = function () {
                 );
     
     
-                const res3 = fetch(url_3, {
+               fetch(url_5, {
                     method: "POST",
                     headers: {
                         "Content-Type":"application/json",
