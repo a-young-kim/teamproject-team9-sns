@@ -30,7 +30,7 @@ window.onload = function () {
 
   const url = window.location.origin + "/api/contents/show_contents";
 
-  list = fetch(url) //mysql에 담긴 데이터를 json형식으로 받아와서 조회하고 저장.
+ fetch(url) //mysql에 담긴 데이터를 json형식으로 받아와서 조회하고 저장.
     .then((response) => {
       return response.json();
     })
@@ -89,6 +89,7 @@ window.onload = function () {
 
       output += `</div>`;
 
+
       contents_list.innerHTML = output;
     });
 
@@ -116,22 +117,10 @@ window.onload = function () {
       user_name_3_label.innerText = data[0].username3;
 
     });
-
-  const url_3 = window.location.origin + "/api/user_detail";
-
-  list = fetch(url_3) //mysql에 담긴 데이터를 json형식으로 받아와서 조회하고 저장.
-    .then((response) => {
-      return response.json();
-    })
-    .then((data) => {
-      user_intro_1.value = data[0].introduction;
-      user_intro_2.value = data[1].introduction;
-      user_intro_3.value = data[2].introduction;
-    });
-
-    let user_name_1_hidden = document.getElementById("user_name_1_hidden");
-    let user_name_2_hidden = document.getElementById("user_name_2_hidden");
-    let user_name_3_hidden = document.getElementById("user_name_3_hidden");
+    
+  let user_name_1_hidden = document.getElementById("user_name_1_hidden");
+  let user_name_2_hidden = document.getElementById("user_name_2_hidden");
+  let user_name_3_hidden = document.getElementById("user_name_3_hidden");
 
   const url_4 = window.location.origin + "/api/user_detail/check_follow";
 
@@ -147,61 +136,65 @@ window.onload = function () {
       follower_num.innerText = data[0].follower_num;
       following_num.innerText = data[0].following_num;
       current_introduction.innerText = data[0].introduction;
+
+      user_name_1_hidden.value = data[0].username1;
+      user_name_2_hidden.value = data[0].username2;
+      user_name_3_hidden.value = data[0].username3;
+
+      user_name_1_label.innerText = data[0].username1;
+      user_name_2_label.innerText = data[0].username2;
+      user_name_3_label.innerText = data[0].username3;
     });
-    
-        user_name_1_hidden.value = data[0].username1;
-        user_name_2_hidden.value = data[0].username2;
-        user_name_3_hidden.value = data[0].username3;
 
-        user_name_1_label.innerText = data[0].username1;
-        user_name_2_label.innerText = data[0].username2;
-        user_name_3_label.innerText = data[0].username3;
+  const url_5 = window.location.origin + '/api/user_detail/introductions';
 
-        let user_intro_1 = document.getElementById("user_intro_1");
-        let user_intro_2 = document.getElementById("user_intro_2");
-        let user_intro_3 = document.getElementById("user_intro_3");
+  let user_intro_1 = document.getElementById("user_intro_1");
+  let user_intro_2 = document.getElementById("user_intro_2");
+  let user_intro_3 = document.getElementById("user_intro_3");
+  
+  user_name_1 = document.getElementById("user_name_1");
+  user_name_2 = document.getElementById("user_name_2");
+  user_name_3 = document.getElementById("user_name_3");
+
+  fetch(url_5, {
+      method: "POST",
+      headers: {
+          "Content-Type":"application/json",
+      },
+      body: JSON.stringify({
+          username: user_name_1.value
+      }),
+  }).then((response) => response.json())
+  .then(data => 
+      user_intro_1.value = data[0].introduction
+      );
     
-        const url_5 = window.location.origin + '/api/user_detail/indtroductions';
-    
-        fetch(url_5, {
-            method: "POST",
-            headers: {
-                "Content-Type":"application/json",
-            },
-            body: JSON.stringify({
-                username: user_name_1.value
-            }),
-        }).then((response) => response.json())
-        .then(data => 
-            user_intro_1.value = data[0].introduction
-            );
-    
-            fetch(url_5, {
-                method: "POST",
-                headers: {
-                    "Content-Type":"application/json",
-                },
-                body: JSON.stringify({
-                    username: user_name_2.value
-                }),
-            }).then((response) => response.json())
-            .then(data => 
-                user_intro_2.value = data[0].introduction
-                );
+  fetch(url_5, {
+      method: "POST",
+      headers: {
+          "Content-Type":"application/json",
+      },
+      body: JSON.stringify({
+          username: user_name_2.value
+      }),
+  }).then((response) => response.json())
+  .then(data => 
+      user_intro_2.value = data[0].introduction
+      );
     
     
-               fetch(url_5, {
-                    method: "POST",
-                    headers: {
-                        "Content-Type":"application/json",
-                    },
-                    body: JSON.stringify({
-                        username: user_name_3.value
-                    }),
-                }).then((response) => response.json())
-                .then(data => 
-                    user_intro_3.value = data[0].introduction
-                    );
+  fetch(url_5, {
+      method: "POST",
+      headers: {
+          "Content-Type":"application/json",
+      },
+      body: JSON.stringify({
+          username: user_name_3.value
+      }),
+  }).then((response) => response.json())
+  .then(data => 
+      user_intro_3.value = data[0].introduction
+      );
 
   // 팔로워 클릭했을 때 팔로워 읽어오는 코드
   const url_follower = window.location.origin + "/api/follower";
@@ -347,13 +340,14 @@ function following_delete(id) {
 }
 
 function Contents_update(id) {
+  console.log(id);
   // 본인 게시글 클릭했을 때 해당 게시글 읽어오는 코드
   const url_contentsdetail =
     window.location.origin + "/api/contents/show_contents";
   let post_subject = document.getElementById("post_subject");
   let post_detail = document.getElementById("post_detail");
 
-  list = fetch(url_contentsdetail)
+  fetch(url_contentsdetail)
     .then((response) => {
       return response.json();
     })

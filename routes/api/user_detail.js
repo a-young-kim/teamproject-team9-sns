@@ -39,9 +39,9 @@ router.post("/update", async (req, res) => {
     res.send(user_follow);
 });
 
-router.post("/indtroductions", async (req, res) => {
+router.post("/introductions", async (req, res) => {
 
-    const user_follow = await mysql.query("user_detail_introduction",[req.session.loginId,req.body.username]);
+    const user_follow = await mysql.query("user_detail_introduction",[req.session.loginId, req.body.username]);
 
     res.send(user_follow);
 });
