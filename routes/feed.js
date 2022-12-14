@@ -6,7 +6,7 @@ const router = express.Router();
 
 const multer = require("multer");
 
-var upload = multer({dest: 'profile_images/'});
+var upload = multer({dest: 'uploads/'});
 
 // get
 
@@ -128,6 +128,51 @@ router.get("/", function (req, res) {
         </div>
       </nav>
     </header>
+
+    <!-- 검색창 -->
+    <div
+      class="modal fade"
+      id="Modal_search"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="ModalLabelSearch"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <div
+              class="modal-title"
+              id="ModalLabelSearch"
+              style="margin: 0 auto"
+            >
+              <div class="input-group mb-3">
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="사용자 검색"
+                  aria-label="Search"
+                  aria-describedby="button-addon2"
+                  id="input_user"
+                  style="width: 350px"
+                />
+                <button
+                  class="btn btn-outline-success"
+                  type="submit"
+                  id="btn_search"
+                  onclick="searchF()"
+                >
+                  검색
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="modal-body">
+            <div id="div_users"></div>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <!-- 그 외 게시글 표시될 곳-->
     <main style="margin-left: 70px; padding-top: 80px">
@@ -459,7 +504,6 @@ router.get("/", function (req, res) {
 
     <!-- 게시글 생성 버튼 클릭 -->
     <form action="./feed/write" method="post" enctype="multipart/form-data" >
-
     <div class="modal fade" id="modal_new_post" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -475,9 +519,9 @@ router.get("/", function (req, res) {
                 aria-describedby="basic-addon1"
                 name="title"
                 id="title"
+                required
               />
             </div>
-
             <h5>게시글 내용</h5>
             <div class="input-group">
               <textarea
@@ -485,11 +529,13 @@ router.get("/", function (req, res) {
                 style="height: 250px"
                 name="subject"
                 id="subject"
+                required
               ></textarea>
             </div>
             <br/>
-            <input type="file"  class="form-control" name ="image" >
-
+              <input type="file"  class="form-control" id="image" name ="image" accept=".png, .jpeg, .jpg" required>
+              <br />
+              
           <div class="modal-footer">
             <button type="submit" class="btn btn-primary">저장</button>
             <button
@@ -505,48 +551,6 @@ router.get("/", function (req, res) {
     </div>
 </form>
     
-    <!-- 검색창 -->
-      <div
-        class="modal fade"
-        id="Modal_search"
-        tabindex="-1"
-        role="dialog"
-        aria-labelledby="ModalLabelSearch"
-        aria-hidden="true"
-      >
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <div
-                class="modal-title"
-                id="ModalLabelSearch"
-                style="margin: 0 auto"
-              >
-                <input
-                  class="form-control me-2"
-                  type="search"
-                  placeholder="사용자 검색"
-                  aria-label="Search"
-                  style="width: 450px"
-                />
-              </div>
-            </div>
-            <div class="modal-body">
-              <h5>게시글 제목</h5>
-              <p>게시글 내용 ...</p>
-            </div>
-            <div class="modal-footer">
-              <button
-                type="button"
-                class="btn btn-secondary"
-                data-dismiss="modal"
-              >
-                닫기
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
     </body>
 </html>
         `;
