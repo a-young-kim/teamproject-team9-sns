@@ -184,16 +184,8 @@ router.get("/", function (req, res) {
       
                   </div>
       
-                <div class = "container  justify-content-center mt-3">
-                  <div class = "row">
-                      <form class="d-flex" role="search">
-                          <input class="form-control" type="search" placeholder="게시글 검색" aria-label="Search">
-                          <button class="btn btn-outline-success" type="submit">
-                            Search
-                          </button>
-                        </form>
-                  </div>
-                </div>
+                  <div class='m-2'></div>
+                  <hr>
       
       
                 <!--아래에 적힌 내용은 모두 예시로 실제 js에 적용시 함수화 한다음 데이터를 받아와서 적용할 예정임-->
@@ -564,7 +556,6 @@ router.get("/", function (req, res) {
     res.redirect("/"); //세션에 로그인 아이디가 존재하지 않는 경우 로그인 페이지로 보낸다.
   }
 
-  
 });
 
 

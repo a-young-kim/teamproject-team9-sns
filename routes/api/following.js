@@ -28,6 +28,15 @@ router.get("/", async (req, res) => {
   res.send(followings);
 });
 
+router.post("/", async (req, res) => {
+  const followings = await mysql.query("followingList", [
+    req.body.id,
+    req.body.username,
+  ]);
+
+  res.send(followings);
+});
+
 router.post("/insert", async (req, res) => {
   const users = await mysql.query("followerInsert", req.body);
 
@@ -38,6 +47,17 @@ router.post("/update_num", async (req, res) => {
   const users = await mysql.query("user_detail_following_num_Update", [
     req.session.loginId,
     req.session.loginId,
+  ]);
+
+  res.send(JSON.stringify(users));
+});
+
+router.post("/update_num2", async (req, res) => {
+  const users = await mysql.query("user_detail_following_num_Update", [
+    req.body.id,
+    req.body.username,
+    req.body.id,
+    req.body.username,
   ]);
 
   res.send(JSON.stringify(users));
