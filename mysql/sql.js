@@ -41,12 +41,12 @@ module.exports = {
 
   followerList: `select * from follower where id = ? and username = ?`,
   followerInsert: `insert into follower values (?, ?, ?, ?)`,
-  followerDelete: `delete from follower where id = ? and follower_id = ?`,
+  followerDelete: `delete from follower where id = ? and username = ? and follower_id = ? and follower_username = ?`,
 
   followingList: `select * from following where id = ? and username = ?`,
   followingInsert: `insert into following values (?, ?, ?, ?)`,
-  followingDelete: `delete from following where id = ? and following_id = ?`,
-
+  followingDelete: `delete from following where id = ? and username = ? and following_id = ? and following_username = ?`,
+  followingCheck: `select * from following where id = ? and username = ? and following_id = ? and following_username = ?`,
 
   userSearch: `select * from user_detail where username like ?`,
 

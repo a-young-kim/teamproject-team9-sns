@@ -67,7 +67,21 @@ async function setFollowing(data){
                                 <div class="modal-header">
                                 <h5 class="modal-title" id="exampleModalLabel">${contents[time[i]][j].username}</h5>
                                 </div>
-                                <div class="modal-body">
+                                <div class="modal-body">`;
+
+
+                                if(contents[time[i]][j].image)
+                                {
+                                  output+=`
+                                  <div class="d-flex justify-content-center">
+                                  <img src="../uploads/${contents[time[i]][j].image}" alt="#" width="400">
+                                  </div>
+                                  `;
+                                }
+                        
+
+
+                  output+=      `
                                 <h5>${contents[time[i]][j].title}</h5>
                                 <p>${contents[time[i]][j].contents}</p>
                                 </div>

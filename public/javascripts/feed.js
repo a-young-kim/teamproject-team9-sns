@@ -66,8 +66,23 @@ window.onload = function () {
                                 <div class="modal-header">
                                   <h5 class="modal-title" id="exampleModalLabel">${data[i].username}</h5>
                                 </div>
-                                <div class="modal-body">
-                                  <h5>${data[i].title}</h5>
+                                <div class="modal-body">`;
+
+
+                                if(data[i].image)
+                                {
+                                  output+=`
+                                  <div class="d-flex justify-content-center">
+                                  <div class="align-self-center">
+                                  <img src="../uploads/${data[i].image}" alt="#" width="400">
+                                  </div>
+                                  </div>
+                                  `;
+                                }
+                        
+
+
+                  output+=      `<h5>${data[i].title}</h5>
                                   <p>${data[i].contents}</p>
                                 </div>
                                 <div class="modal-footer">
@@ -273,7 +288,7 @@ window.onload = function () {
           ` <div class="card" style="margin-bottom: 5px">
                 <div class="card-body">
                 ${data[i].following_id}
-                  <button type="button" class="btn btn-outline-dark" id="${i}" style="float: right" onclick="following_delete(this.id)">팔로우</button>
+                  <button type="button" class="btn btn-outline-dark" id="${i}" style="float: right" onclick="following_delete(this.id)">삭제</button>
                 
                 </div>
               </div>

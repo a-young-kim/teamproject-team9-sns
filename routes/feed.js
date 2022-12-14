@@ -6,7 +6,7 @@ const router = express.Router();
 
 const multer = require("multer");
 
-var upload = multer({dest: 'uploads/'});
+var upload = multer({dest: 'public/uploads/'});
 
 // get
 
@@ -304,6 +304,15 @@ router.get("/", function (req, res) {
                               <label for="user_intro_1"> </label>
                             </div>
                         </div>
+
+                        </br>
+
+                        <div class = "container  justify-content-center">
+                        <div class = "row">
+                        <button type="submit" class="btn btn-dark">저장</button>
+                        </form>
+                        </div>
+                        </div>
       
                         <div class = "container  justify-content-center">
                         <div class = "row">
@@ -311,12 +320,12 @@ router.get("/", function (req, res) {
                               게시글
                           </div>
       
-                          <div class = "col-10 mt-2"> 
-                              <a href="/switch" class="btn btn-dark" tabindex="-1" role="button">게시글 편집</a>
-                          </div>
-
-                          <button type="submit" class="btn btn-dark">저장</button>
+                          <div class = "col-10 mt-2">
+                          <form action="./switch" method="post">
+                              <button type="submit" class="btn btn-dark" >게시글 편집</button>
+                              <input type="hidden" id="username1_hidden" name="username_hidden" value="1">
                           </form>
+                          </div>
       
                         </div>
                         </div>              
@@ -362,6 +371,16 @@ router.get("/", function (req, res) {
                           <label for="user_intro_2"> </label>
                         </div>
                     </div>
+
+
+                    </br>
+
+                    <div class = "container  justify-content-center">
+                    <div class = "row">
+                    <button type="submit" class="btn btn-dark">저장</button>
+                    </form>
+                    </div>
+                    </div>
       
                     <div class = "container  justify-content-center">
                     <div class = "row">
@@ -370,11 +389,11 @@ router.get("/", function (req, res) {
                       </div>
       
                       <div class = "col-10 mt-2"> 
-                          <a href="/switch" class="btn btn-dark" tabindex="-1" role="button">게시글 편집</a>
-                      </div>
-
-                      <button type="submit" class="btn btn-dark">저장</button>
+                      <form action="./switch" method="post">
+                      <button type="submit" class="btn btn-dark" >게시글 편집</button>
+                      <input type="hidden" id="username2_hidden" name="username_hidden" value="2">
                       </form>
+                      </div>
       
                     </div>
                     </div>              
@@ -420,6 +439,15 @@ router.get("/", function (req, res) {
                           <label for="user_intro_3"> </label>
                         </div>
                     </div>
+
+                    </br>
+
+                    <div class = "container  justify-content-center">
+                    <div class = "row">
+                    <button type="submit" class="btn btn-dark">저장</button>
+                    </form>
+                    </div>
+                    </div>
       
                     <div class = "container  justify-content-center">
                     <div class = "row">
@@ -428,11 +456,11 @@ router.get("/", function (req, res) {
                       </div>
       
                       <div class = "col-10 mt-2"> 
-                          <a href="/switch" class="btn btn-dark" tabindex="-1" role="button">게시글 편집</a>
+                      <form action="./switch" method="post">
+                      <button type="submit" class="btn btn-dark" >게시글 편집</button>
+                      <input type="hidden" id="username3_hidden" name="username_hidden" value="3">
+                      </form>
                       </div>
-
-                      
-              <button type="submit" class="btn btn-dark">저장</button>
 
                     </div>
                     </div>              

@@ -38,7 +38,8 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 app.use("/public/images", express.static("images")); //이미지 로딩에 필요함
-app.use("/public/fonts", express.static("fonts")); //폰트 로딩에 필요함
+app.use("/public/fonts", express.static("fonts"));//폰트 로딩에 필요함
+app.use("/public/uploads", express.static("uploads")); 
 
 app.use(bodyParser.urlencoded({ extended: false }));
 
