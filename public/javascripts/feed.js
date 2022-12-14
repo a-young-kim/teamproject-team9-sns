@@ -286,7 +286,7 @@ window.onload = function () {
     });
 };
 
-//팔로워 삭제
+//팔로워 삭제기능
 function follower_delete(id) {
   const url_follower = window.location.origin + "/api/follower";
 
