@@ -1,3 +1,4 @@
+let list = [];
 
 window.onload = function () {
   //feed 화면 새로고침될 때마다 팔로워 수, 팔로잉 수 변경되도록 함
@@ -38,15 +39,22 @@ window.onload = function () {
       //output = output + `</div></div>`;
       var output = ``;
 
+      output += `<div class="row p-1">`;
 
-    const url = window.location.origin + '/api/contents/show_contents';
+      var i = 0;
 
-    list = fetch(url) //mysql에 담긴 데이터를 json형식으로 받아와서 조회하고 저장.
-    .then((response) => {return response.json();})
-    .then((data) => {
-        var output = ``;
+      contests_num.innerText = data.length;
 
-        output += `<div class="row p-1">`;
+      while (i < data.length) {
+        if (i % 2 == 0) {
+          output += `<div class="row p-1">`;
+        }
+
+        output =
+          output +
+          `<div class="col-6 card p-1 context" data-toggle="modal" data-target="#contentModal${data[i].contents_id}">
+              <div class="card-body" id="${i}" style="cursor: pointer">
+
               <h5 class="card-title">${data[i].title}</h5>
               <p class="card-text"></p>
               </div></div>
@@ -77,9 +85,10 @@ window.onload = function () {
           output += `</div>`;
         }
 
-        contests_num.innerText = data.length;
+        i = i + 1;
+      }
 
-        while(i<data.length){
+      output += `</div>`;
 
       output += `<!-- 게시글 수정 모달창 -->
       <div class="modal fade" id="modal_post_update" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -189,6 +198,7 @@ window.onload = function () {
           user_intro_2.value = data[0].introduction
           );
     
+    
       const res3 = fetch(url_3, {
           method: "POST",
           headers: {
@@ -224,20 +234,122 @@ window.onload = function () {
     .then((response) => {
       return response.json();
     })
-
-    const url_4 = window.location.origin + '/api/user_detail/check_follow';
-
-    let follower_num = document.getElementById("follower_num");
-    let following_num = document.getElementById("following_num");
-    let current_introduction = document.getElementById("instruction");
-
-    list = fetch(url_4) //mysql에 담긴 데이터를 json형식으로 받아와서 조회하고 저장.
-    .then((response) => {return response.json();})
     .then((data) => {
-        follower_num.innerText =data[0].follower_num;
-        following_num.innerText =data[0].following_num;
-        current_introduction.innerText = data[0].introduction;
+      var output = ``;
+
+      var i = 0;
+      while (i < data.length) {
+        output =
+          output +
+          ` <div class="card" style="margin-bottom: 5px">
+                <div class="card-body">${data[i].follower_id}
+                  <button type="button" class="btn btn-outline-dark" id="${i}" style="float: right" onclick="follower_delete(this.id)">삭제</button>
+                </div>
+              </div>
+              `;
+
+        i = i + 1;
+      }
+
+      follower_list.innerHTML = output;
+    });
+
+  // 팔로잉 클릭했을 때 팔로잉 읽어오는 코드
+  const url_following = window.location.origin + "/api/following";
+  let following_list = document.getElementById("following_view");
+
+  list = fetch(url_following)
+    .then((response) => {
+      return response.json();
     })
+    .then((data) => {
+      var output = ``;
+
+      var i = 0;
+
+      while (i < data.length) {
+        output =
+          output +
+          ` <div class="card" style="margin-bottom: 5px">
+                <div class="card-body">
+                ${data[i].following_id}
+                  <button type="button" class="btn btn-outline-dark" id="${i}" style="float: right" onclick="following_delete(this.id)">팔로우</button>
+                
+                </div>
+              </div>
+              `;
+
+        i = i + 1;
+      }
+
+      following_list.innerHTML = output;
+    });
+};
+
+//팔로워 삭제
+function follower_delete(id) {
+  const url_follower = window.location.origin + "/api/follower";
+
+  list = fetch(url_follower)
+    .then((response) => {
+      return response.json();
+    })
+    .then((data) => {
+      // alert(data[id].follower_id);
+      const url = window.location.origin + "/api/follower/delete";
+      const res1 = fetch(url, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          follower_id: data[id].follower_id,
+        }),
+      }).then((response) => response.json());
+    });
+
+  const url_following = window.location.origin + "/api/following";
+
+  list = fetch(url_following)
+    .then((response) => {
+      return response.json();
+    })
+    .then((data) => {
+      const url = window.location.origin + "/api/following/delete_2";
+      const res1 = fetch(url, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          id: data[id].following_id,
+        }),
+      }).then((response) => response.json());
+    });
+}
+
+//팔로잉 삭제
+function following_delete(id) {
+  const url_following = window.location.origin + "/api/following";
+
+  list = fetch(url_following)
+    .then((response) => {
+      return response.json();
+    })
+    .then((data) => {
+      const url = window.location.origin + "/api/following/delete";
+      const res1 = fetch(url, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          following_id: data[id].following_id,
+        }),
+      }).then((response) => response.json());
+    });
+
+  const url_follower = window.location.origin + "/api/follower";
 
   list = fetch(url_follower)
     .then((response) => {
@@ -315,4 +427,3 @@ function Contents_update(id) {
       };
     });
 }
-
