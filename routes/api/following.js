@@ -37,16 +37,31 @@ router.post("/", async (req, res) => {
   res.send(followings);
 });
 
+//팔로잉 추가할 때 팔로잉 추가됨
 router.post("/insert", async (req, res) => {
-  const users = await mysql.query("followerInsert", req.body);
+  const users = await mysql.query("followingInsert", [
+    req.session.loginId,
+    req.session.username,
+    req.body.following_id,
+    req.body.following_username,
+  ]);
 
-  res.send(JSON.stringify(users));
+  const users2 = await mysql.query("followerInsert", [
+    req.body.following_id,
+    req.body.following_username,
+    req.session.loginId,
+    req.session.username,
+  ]);
+
+  res.send(JSON.stringify(users, users2));
 });
 
 router.post("/update_num", async (req, res) => {
   const users = await mysql.query("user_detail_following_num_Update", [
     req.session.loginId,
+    req.session.username,
     req.session.loginId,
+    req.session.username,
   ]);
 
   res.send(JSON.stringify(users));
@@ -82,9 +97,12 @@ router.delete("/delete_2", async (req, res) => {
   res.send(JSON.stringify(result));
 });
 
-router.get('/getData', async(req, res) => {
-    const contents = await  mysql.query("followingList", [req.session.loginId, req.session.username]); //나중에 testid 부분을 req.session.id로 바꿔준다.
-    res.send(JSON.stringify(contents));
+router.get("/getData", async (req, res) => {
+  const contents = await mysql.query("followingList", [
+    req.session.loginId,
+    req.session.username,
+  ]); //나중에 testid 부분을 req.session.id로 바꿔준다.
+  res.send(JSON.stringify(contents));
 });
 
 module.exports = router;
