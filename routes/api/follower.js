@@ -10,8 +10,14 @@ router.get("/", async (req, res) => {
   res.send(JSON.stringify(contents));
 });
 
+//팔로잉 추가할 때 팔로워 추가됨
 router.post("/insert", async (req, res) => {
-  const users = await mysql.query("followerInsert", req.body);
+  const users = await mysql.query("followerInsert", [
+    req.body.others_id,
+    req.body.others_username,
+    req.session.loginId,
+    req.session.username,
+  ]);
 
   res.send(JSON.stringify(users));
 });
@@ -19,7 +25,9 @@ router.post("/insert", async (req, res) => {
 router.post("/update_num", async (req, res) => {
   const users = await mysql.query("user_detail_follower_num_Update", [
     req.session.loginId,
+    req.session.username,
     req.session.loginId,
+    req.session.username,
   ]);
 
   res.send(JSON.stringify(users));

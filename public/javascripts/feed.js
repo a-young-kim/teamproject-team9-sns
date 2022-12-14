@@ -111,7 +111,6 @@ window.onload = function () {
       user_name_1_label.innerText = data[0].username1;
       user_name_2_label.innerText = data[0].username2;
       user_name_3_label.innerText = data[0].username3;
-
     });
 
   const url_3 = window.location.origin + "/api/user_detail";
@@ -158,7 +157,6 @@ window.onload = function () {
       var output = ``;
 
       var i = 0;
-
 
       while (i < data.length) {
         output =
@@ -228,7 +226,6 @@ function follower_delete(id) {
           follower_id: data[id].follower_id,
         }),
       }).then((response) => response.json());
-
     });
 
   const url_following = window.location.origin + "/api/following";
@@ -250,6 +247,47 @@ function follower_delete(id) {
       }).then((response) => response.json());
     });
 }
+
+// function follower_delete(id) {
+//   const url_follower = window.location.origin + "/api/follower";
+
+//   list = fetch(url_follower)
+//     .then((response) => {
+//       return response.json();
+//     })
+//     .then((data) => {
+//       // alert(data[id].follower_id);
+//       const url = window.location.origin + "/api/follower/delete";
+//       const res1 = fetch(url, {
+//         method: "DELETE",
+//         headers: {
+//           "Content-Type": "application/json",
+//         },
+//         body: JSON.stringify({
+//           follower_id: data[id].follower_id,
+//         }),
+//       }).then((response) => response.json());
+//     });
+
+//   const url_following = window.location.origin + "/api/following";
+
+//   list = fetch(url_following)
+//     .then((response) => {
+//       return response.json();
+//     })
+//     .then((data) => {
+//       const url = window.location.origin + "/api/following/delete_2";
+//       const res1 = fetch(url, {
+//         method: "DELETE",
+//         headers: {
+//           "Content-Type": "application/json",
+//         },
+//         body: JSON.stringify({
+//           id: data[id].following_id,
+//         }),
+//       }).then((response) => response.json());
+//     });
+// }
 
 //팔로잉 삭제
 function following_delete(id) {
@@ -348,4 +386,97 @@ function Contents_update(id) {
         location.reload();
       };
     });
+}
+
+function searchF() {
+  let input_user = document.getElementById("input_user").value;
+  const url_search = window.location.origin + "/api/user_detail/search_user";
+  let search_view = document.getElementById("div_users");
+
+  const res = fetch(url_search, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      search_user: input_user,
+    }),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      var output = ``;
+
+      var i = 0;
+
+      while (i < data.length) {
+        output =
+          output +
+          ` <div class="card" style="margin-bottom: 5px">
+              <div class="card-body" id="${data[i].username}" onclick="alert(this.id)">${data[i].username}
+                
+              </div>
+            </div>
+            `;
+
+        i = i + 1;
+      }
+
+      search_view.innerHTML = output;
+    });
+}
+
+function btn_follow() {
+  // 팔로우 클릭
+  const other_id = "ex33";
+  const other_username = "username33";
+
+  const url_following = window.location.origin + "/api/following/insert";
+
+  const res2 = fetch(url_following, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      following_id: other_id,
+      following_username: other_username,
+    }),
+  }).then((response) => response.json());
+
+  location.reload();
+
+  // add_follower(other_id, other_username);
+  // add_following(other_id, other_username);
+}
+
+function add_follower(other_id, other_username) {
+  const url_follow = window.location.origin + "/api/follower/insert";
+
+  const res1 = fetch(url_follow, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      follower_id: other_id,
+      follower_username: other_username,
+    }),
+  }).then((response) => response.json());
+}
+
+function add_following(other_id, other_username) {
+  const url_following = window.location.origin + "/api/following/insert";
+
+  const res2 = fetch(url_following, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      following_id: other_id,
+      following_username: other_username,
+    }),
+  }).then((response) => response.json());
+
+  location.reload();
 }

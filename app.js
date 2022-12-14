@@ -12,6 +12,7 @@ var indexRouter = require("./routes/index");
 var signupRouter = require("./routes/signup");
 var switchRouter = require("./routes/switch");
 var feedRouter = require("./routes/feed");
+var feedOtherRouter = require("./routes/feed_other");
 var homeRouter = require("./routes/home");
 
 // DB
@@ -23,7 +24,6 @@ var user_detailRouter = require("./routes/api/user_detail");
 var followerRouter = require("./routes/api/follower");
 var followingRouter = require("./routes/api/following");
 var commentsRouter = require("./routes/api/comments");
-
 
 var app = express();
 
@@ -67,6 +67,7 @@ app.use("/", indexRouter);
 app.use("/signup", signupRouter);
 app.use("/switch", switchRouter);
 app.use("/feed", feedRouter);
+app.use("/feed_others", feedOtherRouter);
 app.use("/home", homeRouter);
 
 // DB
@@ -78,7 +79,6 @@ app.use("/api/user_detail", user_detailRouter);
 app.use("/api/follower", followerRouter);
 app.use("/api/following", followingRouter);
 app.use("/api/comments", commentsRouter);
-
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
