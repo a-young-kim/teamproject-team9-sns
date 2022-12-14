@@ -37,7 +37,9 @@ router.post("/insert", async (req, res) => {
 router.post("/update_num", async (req, res) => {
   const users = await mysql.query("user_detail_following_num_Update", [
     req.session.loginId,
+    req.session.username,
     req.session.loginId,
+    req.session.username,
   ]);
 
   res.send(JSON.stringify(users));

@@ -36,8 +36,8 @@ module.exports = {
   user_detail_List: `select * from user_detail where id = ?`,
   user_detail_Insert: `insert into user_detail set ?`, //회원가입하면 자동으로 user_detail 테이블에 생성되도록
   user_detail_follow_check: `select * from user_detail where id = ? and username = ?`,
-  user_detail_following_num_Update: `update user_detail, (select count(*) as cnt from following where id=?) as F set following_num = F.cnt where id=?`, //following 수 업데이트
-  user_detail_follower_num_Update: `update user_detail, (select count(*) as cnt from follower where id=?) as F set follower_num = F.cnt where id=?`, //follower 수 업데이트
+  user_detail_following_num_Update: `update user_detail, (select count(*) as cnt from following where id=? and username=?) as F set following_num = F.cnt where id=? and username=?`, //following 수 업데이트
+  user_detail_follower_num_Update: `update user_detail, (select count(*) as cnt from follower where id=? and username=?) as F set follower_num = F.cnt where id=? and username=?`, //follower 수 업데이트
 
   followerList: `select * from follower where id = ? and username = ?`,
   followerInsert: `insert into follower set ?`,
