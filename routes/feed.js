@@ -199,17 +199,17 @@ router.get("/", function (req, res) {
                 <!--아래에 적힌 내용은 모두 예시로 실제 js에 적용시 함수화 한다음 데이터를 받아와서 적용할 예정임-->
                 
             <div id = "contents">
-                1
+              
             </div>
       
                   
         <!-- Modal -->
-
-        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal fade" id="staticBackdrop" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
           <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-header">
                 <h5 class="modal-title" id="staticBackdropLabel">프로필 편집</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div class="modal-body">
                 <!--여기에 프로필 편집창 내용물을 삽입-->
@@ -225,12 +225,9 @@ router.get("/", function (req, res) {
                   </li>
                 </ul>
       
-
-      
                 <div class="tab-content" id="myTabContent">        
 
                 
-
                   <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab">
                 
                 
@@ -409,18 +406,6 @@ router.get("/", function (req, res) {
               </form>
       
               </div>
-
-              <div class="modal-footer">
-              <button type="button" class="btn btn-primary">저장</button>
-              <button
-                type="button"
-                class="btn btn-secondary"
-                data-bs-dismiss="modal"
-              >
-                취소
-              </button>
-              </div>
-
             </div>
           </div>
         </div>
@@ -483,14 +468,7 @@ router.get("/", function (req, res) {
     <!-- 게시글 생성 버튼 클릭 -->
     <form action="./feed/write" method="post" enctype="multipart/form-data" >
 
-    <div
-      class="modal fade"
-      id="modal_new_post"
-      tabindex="-1"
-      role="dialog"
-      aria-labelledby="exampleModalLabel"
-      aria-hidden="true"
-    >
+    <div class="modal fade" id="modal_new_post" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
@@ -499,7 +477,6 @@ router.get("/", function (req, res) {
           <div class="modal-body">
             <h5>게시글 제목</h5>
             <div class="input-group mb-3">
-
               <input
                 type="text"
                 class="form-control"
@@ -518,9 +495,7 @@ router.get("/", function (req, res) {
                 id="subject"
               ></textarea>
             </div>
-            <br />
-
-
+            <br/>
             <input type="file"  class="form-control" name ="image" >
 
           <div class="modal-footer">
@@ -536,57 +511,7 @@ router.get("/", function (req, res) {
         </div>
       </div>
     </div>
-
 </form>
-
-    <!-- 게시글 수정 모달창 -->
-    <div
-      class="modal fade"
-      id="modal_post_update"
-      tabindex="-1"
-      role="dialog"
-      aria-labelledby="exampleModalLabel"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">게시글 수정</h5>
-          </div>
-          <div class="modal-body">
-            <div class = "container  justify-content-center mt-3">
-              <h5 class = "mb-3">
-                게시글 제목
-              </h5>
-              <div class="form-floating">
-                <textarea class="form-control" placeholder="Leave a comment here" id="post_subject"></textarea>
-                <label for="post_subject"> </label>
-              </div>
-
-              <br />
-              <h5 class = "mb-3">
-                게시글 내용
-              </h5>
-              <div class="form-floating">
-                <textarea class="form-control" placeholder="Leave a comment here" id="post_detail"></textarea>
-                <label for="post_detail"> </label>
-              </div>
-            </div>
-          </div>
-          <div class="modal-footer">
-            <button type="submit" class="btn btn-primary" data-dismiss="modal" id="btn_post_update">저장</button>
-            <button type="button" class="btn btn-danger" data-dismiss="modal" id="btn_post_delete">삭제</button>
-            <button
-              type="button"
-              class="btn btn-secondary"
-              data-dismiss="modal"
-              id="btn_cancel"
-            >
-              취소
-            </button>
-        </div>
-      </div>
-    </div>
     
     <!-- 검색창 -->
       <div

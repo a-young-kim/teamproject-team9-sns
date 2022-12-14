@@ -62,22 +62,23 @@ window.onload = function () {
                         <!-- Modal -->
                         <div class="modal fade" id="contentModal${data[i].contents_id}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog" role="document">
-                            <div class="modal-content">
+                              <div class="modal-content">
                                 <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">${data[i].username}</h5>
+                                  <h5 class="modal-title" id="exampleModalLabel">${data[i].username}</h5>
                                 </div>
                                 <div class="modal-body">
-                                <h5>${data[i].title}</h5>
-                                <p>${data[i].contents}</p>
+                                  <h5>${data[i].title}</h5>
+                                  <p>${data[i].contents}</p>
                                 </div>
                                 <div class="modal-footer">
-                                <button type="button" class="btn btn-primary" data-toggle="modal"
-                                data-target="#modal_post_update" id=${i} onclick="Contents_update(this.id)" data-dismiss="modal">수정</button>
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal"> 닫기 </button>
+                                  <button type="button" class="btn btn-primary" data-toggle="modal"
+                                  data-target="#modal_post_update" id=${i} onclick="Contents_update(this.id)" data-dismiss="modal">수정</button>
+                                  <button type="button" class="btn btn-secondary" data-dismiss="modal"> 닫기 </button>
                                 </div>
+                              </div>
                             </div>
-                            </div>
-                        </div>             
+                          </div>
+                       
               `;
 
         if (i % 2 == 1) {
@@ -89,113 +90,142 @@ window.onload = function () {
 
       output += `</div>`;
 
+      output += `<!-- 게시글 수정 모달창 -->
+      <div class="modal fade" id="modal_post_update" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">게시글 수정</h5>
+            </div>
+            <div class="modal-body">
+              <div class = "container  justify-content-center mt-3">
+                <h5 class = "mb-3">
+                  게시글 제목
+                </h5>
+                <div class="form-floating">
+                  <textarea class="form-control" placeholder="Leave a comment here" id="post_subject"></textarea>
+                  <label for="post_subject"> </label>
+                </div>
+  
+                <br />
+                <h5 class = "mb-3">
+                  게시글 내용
+                </h5>
+                <div class="form-floating">
+                  <textarea class="form-control" placeholder="Leave a comment here" id="post_detail"></textarea>
+                  <label for="post_detail"> </label>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="submit" class="btn btn-primary" data-dismiss="modal" id="btn_post_update">저장</button>
+              <button type="button" class="btn btn-danger" data-dismiss="modal" id="btn_post_delete">삭제</button>
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-dismiss="modal"
+                id="btn_cancel"
+              >
+                취소
+              </button>
+          </div>
+        </div>
+      </div>`;
 
       contents_list.innerHTML = output;
     });
 
-  const url_2 = window.location.origin + "/api/profile/check";
+    const url_2 = window.location.origin + '/api/profile/check';
 
-  let user_name_1 = document.getElementById("user_name_1");
-  let user_name_2 = document.getElementById("user_name_2");
-  let user_name_3 = document.getElementById("user_name_3");
+    let user_name_1 = document.getElementById("user_name_1");
+    let user_name_2 = document.getElementById("user_name_2");
+    let user_name_3 = document.getElementById("user_name_3");
 
-  let user_name_1_label = document.getElementById("user_name1_label");
-  let user_name_2_label = document.getElementById("user_name2_label");
-  let user_name_3_label = document.getElementById("user_name3_label");
+    let user_name_1_hidden = document.getElementById("user_name_1_hidden");
+    let user_name_2_hidden = document.getElementById("user_name_2_hidden");
+    let user_name_3_hidden = document.getElementById("user_name_3_hidden");
 
-  list = fetch(url_2) //mysql에 담긴 데이터를 json형식으로 받아와서 조회하고 저장.
-    .then((response) => {
-      return response.json();
-    })
+    let user_name_1_label = document.getElementById("user_name1_label");
+    let user_name_2_label = document.getElementById("user_name2_label");
+    let user_name_3_label = document.getElementById("user_name3_label");
+
+
+
+    list = fetch(url_2) //mysql에 담긴 데이터를 json형식으로 받아와서 조회하고 저장.
+    .then((response) => {return response.json();})
     .then((data) => {
-      user_name_1.value = data[0].username1;
-      user_name_2.value = data[0].username2;
-      user_name_3.value = data[0].username3;
+        user_name_1.value = data[0].username1;
+        user_name_2.value = data[0].username2;
+        user_name_3.value = data[0].username3;
 
-      user_name_1_label.innerText = data[0].username1;
-      user_name_2_label.innerText = data[0].username2;
-      user_name_3_label.innerText = data[0].username3;
+        user_name_1_hidden.value = data[0].username1;
+        user_name_2_hidden.value = data[0].username2;
+        user_name_3_hidden.value = data[0].username3;
 
-    });
+        user_name_1_label.innerText = data[0].username1;
+        user_name_2_label.innerText = data[0].username2;
+        user_name_3_label.innerText = data[0].username3;
+
+        let user_intro_1 = document.getElementById("user_intro_1");
+        let user_intro_2 = document.getElementById("user_intro_2");
+        let user_intro_3 = document.getElementById("user_intro_3");
     
-  let user_name_1_hidden = document.getElementById("user_name_1_hidden");
-  let user_name_2_hidden = document.getElementById("user_name_2_hidden");
-  let user_name_3_hidden = document.getElementById("user_name_3_hidden");
+        const url_3 = window.location.origin + '/api/user_detail/introductions';
+    
+      const res = fetch(url_3, {
+          method: "POST",
+          headers: {
+              "Content-Type":"application/json",
+          },
+          body: JSON.stringify({
+              username: user_name_1.value
+          }),
+      }).then((response) => response.json())
+      .then(data => 
+          user_intro_1.value = data[0].introduction
+          );
+    
+      const res2 = fetch(url_3, {
+          method: "POST",
+          headers: {
+              "Content-Type":"application/json",
+          },
+          body: JSON.stringify({
+              username: user_name_2.value
+          }),
+      }).then((response) => response.json())
+      .then(data => 
+          user_intro_2.value = data[0].introduction
+          );
+    
+    
+      const res3 = fetch(url_3, {
+          method: "POST",
+          headers: {
+              "Content-Type":"application/json",
+          },
+          body: JSON.stringify({
+              username: user_name_3.value
+          }),
+      }).then((response) => response.json())
+      .then(data => 
+          user_intro_3.value = data[0].introduction
+          );
+    });
 
-  const url_4 = window.location.origin + "/api/user_detail/check_follow";
+    const url_4 = window.location.origin + '/api/user_detail/check_follow';
 
-  let follower_num = document.getElementById("follower_num");
-  let following_num = document.getElementById("following_num");
-  let current_introduction = document.getElementById("instruction");
+    let follower_num = document.getElementById("follower_num");
+    let following_num = document.getElementById("following_num");
+    let current_introduction = document.getElementById("instruction");
 
-  list = fetch(url_4) //mysql에 담긴 데이터를 json형식으로 받아와서 조회하고 저장.
-    .then((response) => {
-      return response.json();
-    })
+    list = fetch(url_4) //mysql에 담긴 데이터를 json형식으로 받아와서 조회하고 저장.
+    .then((response) => {return response.json();})
     .then((data) => {
-      follower_num.innerText = data[0].follower_num;
-      following_num.innerText = data[0].following_num;
-      current_introduction.innerText = data[0].introduction;
-
-      user_name_1_hidden.value = data[0].username1;
-      user_name_2_hidden.value = data[0].username2;
-      user_name_3_hidden.value = data[0].username3;
-
-      user_name_1_label.innerText = data[0].username1;
-      user_name_2_label.innerText = data[0].username2;
-      user_name_3_label.innerText = data[0].username3;
+        follower_num.innerText =data[0].follower_num;
+        following_num.innerText =data[0].following_num;
+        current_introduction.innerText = data[0].introduction;
     });
-
-  const url_5 = window.location.origin + '/api/user_detail/introductions';
-
-  let user_intro_1 = document.getElementById("user_intro_1");
-  let user_intro_2 = document.getElementById("user_intro_2");
-  let user_intro_3 = document.getElementById("user_intro_3");
-  
-  user_name_1 = document.getElementById("user_name_1");
-  user_name_2 = document.getElementById("user_name_2");
-  user_name_3 = document.getElementById("user_name_3");
-
-  fetch(url_5, {
-      method: "POST",
-      headers: {
-          "Content-Type":"application/json",
-      },
-      body: JSON.stringify({
-          username: user_name_1.value
-      }),
-  }).then((response) => response.json())
-  .then(data => 
-      user_intro_1.value = data[0].introduction
-      );
-    
-  fetch(url_5, {
-      method: "POST",
-      headers: {
-          "Content-Type":"application/json",
-      },
-      body: JSON.stringify({
-          username: user_name_2.value
-      }),
-  }).then((response) => response.json())
-  .then(data => 
-      user_intro_2.value = data[0].introduction
-      );
-    
-    
-  fetch(url_5, {
-      method: "POST",
-      headers: {
-          "Content-Type":"application/json",
-      },
-      body: JSON.stringify({
-          username: user_name_3.value
-      }),
-  }).then((response) => response.json())
-  .then(data => 
-      user_intro_3.value = data[0].introduction
-      );
-
   // 팔로워 클릭했을 때 팔로워 읽어오는 코드
   const url_follower = window.location.origin + "/api/follower";
   let follower_list = document.getElementById("follower_view");

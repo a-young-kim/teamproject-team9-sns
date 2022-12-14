@@ -201,7 +201,7 @@ function ShowComments(data, contents_id, time){
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#contentModal${contents_id}" 
                     data-dismiss="modal"> 뒤로 </button>
             
-                    <button type="button" class="btn btn-secondary" onclick='deleteComment()' data-dismiss="modal"> 
+                    <button type="button" class="btn btn-secondary" onclick='deleteComment(${contents_id})' data-dismiss="modal"> 
                     닫기 </button>
                        
                 </div>
@@ -243,7 +243,6 @@ function WriteComments(contents_id, timestamp){
     .then(data => newComments(data));
 
     comments.value = "";
-
 }
 
 function newComments(data){
