@@ -11,6 +11,8 @@
       crossorigin="anonymous"
     />
     <link rel="stylesheet" href="/stylesheets/style_yumin.css" />
+    <script src="/javascripts/searchuser.js"></script>
+    <script src="/javascripts/home.js"></script>
     <script>
       function post_expansion() {
         var contents = document.getElementById("post_contents");
@@ -101,14 +103,19 @@
 
           <!-- 검색창 -->
           <form class="d-flex" role="search">
-            <input
-              class="form-control me-2"
-              type="search"
-              placeholder="사용자 검색"
-              aria-label="Search"
-            />
-            <button class="btn btn-outline-success" type="submit">
-              Search
+            <button
+              type="button"
+              class="btn btn-light"
+              data-toggle="modal"
+              data-target="#Modal_search"
+              style="
+                width: 200px;
+                text-align: left;
+                border: 1px solid #b9b9b9;
+                color: #898989;
+              "
+            >
+              사용자 검색
             </button>
           </form>
         </div>
@@ -124,19 +131,19 @@
           <div id="profile_main">
             <div
               id="profile_mini"
-              onclick="confirm('프로필을 변경하시겠습니까?')"
+              onclick="confirm('프로필1로 변경하시겠습니까?')"
             >
               Profile1
             </div>
             <div
               id="profile_mini"
-              onclick="confirm('프로필을 변경하시겠습니까?')"
+              onclick="confirm('프로필2로 변경하시겠습니까?')"
             >
               Profile2
             </div>
             <div
               id="profile_mini"
-              onclick="confirm('프로필을 변경하시겠습니까?')"
+              onclick="confirm('프로필3으로 변경하시겠습니까?')"
             >
               Profile3
             </div>
@@ -144,66 +151,8 @@
         </aside>
       </div>
 
-      <!-- 아래의 container 하나하나가 게시글 하나 -->
-      <!-- <div class="container" id="post_box">
-        <div id="profile_circle"></div>
-        <h5 id="post_username">사용자 이름</h5>
-        <h3>게시글 제목</h3>
-        <p id="post_contents" style="display: none">
-          웹서비스설계및구현 team9 파이팅
-        </p>
-        <img
-          src="./src/icon/download.png"
-          id="view_more"
-          onclick="post_expansion()"
-        />
-      </div> -->
-
-      <div
-        class="card"
-        id="post_box"
-        data-toggle="modal"
-        data-target="#exampleModal"
-      >
-        <div class="card-header">
-          <div id="profile_circle"></div>
-          <h5 id="post_username">사용자 이름</h5>
-        </div>
-        <div class="card-body">
-          <h5 class="card-title">게시글 제목</h5>
-        </div>
-      </div>
-
-      <!-- Modal -->
-      <div
-        class="modal fade"
-        id="exampleModal"
-        tabindex="-1"
-        role="dialog"
-        aria-labelledby="exampleModalLabel"
-        aria-hidden="true"
-      >
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">사용자 이름</h5>
-            </div>
-            <div class="modal-body">
-              <h5>게시글 제목</h5>
-              <p>게시글 내용 ...</p>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-primary">댓글</button>
-              <button
-                type="button"
-                class="btn btn-secondary"
-                data-dismiss="modal"
-              >
-                닫기
-              </button>
-            </div>
-          </div>
-        </div>
+      <div id="contents">
+       
       </div>
 
       <!-- 게시글 생성 버튼 클릭 -->
@@ -258,6 +207,51 @@
               >
                 취소
               </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 검색창 -->
+      <div
+        class="modal fade"
+        id="Modal_search"
+        tabindex="-1"
+        role="dialog"
+        aria-labelledby="ModalLabelSearch"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <div
+                class="modal-title"
+                id="ModalLabelSearch"
+                style="margin: 0 auto"
+              >
+                <div class="input-group mb-3">
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="사용자 검색"
+                    aria-label="Search"
+                    aria-describedby="button-addon2"
+                    id="input_user"
+                    style="width: 350px"
+                  />
+                  <button
+                    class="btn btn-outline-success"
+                    type="submit"
+                    id="button-addon2"
+                    onclick="searchF()"
+                  >
+                    검색
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="modal-body">
+              <div id="div_users"></div>
             </div>
           </div>
         </div>
