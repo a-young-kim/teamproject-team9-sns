@@ -1,67 +1,100 @@
 let list = [];
 
 window.onload = function () {
+  const id = sessionStorage.getItem("id");
+  const username = sessionStorage.getItem("username");
 
-  const id = sessionStorage.getItem('id');
-  const username = sessionStorage.getItem('username');
-
-  if(id == null){
-    window.location.href = '/home';
+  if (id == null) {
+    window.location.href = "/home";
   }
-  document.getElementById('user_id').innerHTML = id;
-  document.getElementById('user_name').innerHTML = username;
+  document.getElementById("user_id").innerHTML = id;
+  document.getElementById("user_name").innerHTML = username;
 
   sessionStorage.clear();
 
   //feed 화면 새로고침될 때마다 팔로워 수, 팔로잉 수 변경되도록 함
-   const url_follower_num_update =
-      window.location.origin + "/api/follower/update_num2";
+  const url_follower_num_update =
+    window.location.origin + "/api/follower/update_num2";
 
-    fetch(url_follower_num_update, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        id : id,
-        username : username
-      }),
-    }).then((response) => response.json());
+  fetch(url_follower_num_update, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      id: id,
+      username: username,
+    }),
+  }).then((response) => response.json());
 
-    const url_following_num_update =
-      window.location.origin + "/api/following/update_num2";
+  const url_following_num_update =
+    window.location.origin + "/api/following/update_num2";
 
-    fetch(url_following_num_update, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        id : id,
-        username : username
-      }),
-    }).then((response) => response.json());
-   //여기까지 팔로워 수, 팔로잉 수 업데이트 코드
+  fetch(url_following_num_update, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      id: id,
+      username: username,
+    }),
+  }).then((response) => response.json());
+  //여기까지 팔로워 수, 팔로잉 수 업데이트 코드
+
+  //팔로우 버튼 관련
+  let follow_btn_view = document.getElementById("follow_btn_seat");
+  const url_follow_btn = window.location.origin + "/api/following/follow_check";
+
+  fetch(url_follow_btn, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      id: id,
+      username: username,
+    }),
+  })
+    .then((response) => {
+      return response.json();
+    })
+    .then((data) => {
+      if (data == "") {
+        var output = ``;
+        output += `<button type="button" class="btn btn-dark" id="${id}" onclick="add_following(this.id, '${username}')">
+          팔로우
+        </button>`;
+      } else {
+        var output = ``;
+
+        output += `<button type="button" class="btn btn-dark" id="${id}" onclick="following_delete(this.id, '${username}')">
+          언팔로우
+        </button>`;
+      }
+
+      follow_btn_view.innerHTML = output;
+    });
 
   let contents_list = document.getElementById("contents");
   let contests_num = document.getElementById("contents_num");
 
   const url = window.location.origin + "/api/contents/show_contents";
 
- fetch(url, {
-      method: "POST",
-      headers: {
-          "Content-Type":"application/json",
-      },
-      body: JSON.stringify({
-          id: id,
-          username: username,
-      }),
-    }).then((response) => {
+  fetch(url, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      id: id,
+      username: username,
+    }),
+  })
+    .then((response) => {
       return response.json();
     })
     .then((data) => {
-      
       console.log(data);
 
       var output = ``;
@@ -134,25 +167,28 @@ window.onload = function () {
       contents_list.innerHTML = output;
     });
 
-    const url_4 = window.location.origin + '/api/user_detail/check_follow';
+  const url_4 = window.location.origin + "/api/user_detail/check_follow";
 
-    let follower_num = document.getElementById("follower_num");
-    let following_num = document.getElementById("following_num");
-    let current_introduction = document.getElementById("instruction");
+  let follower_num = document.getElementById("follower_num");
+  let following_num = document.getElementById("following_num");
+  let current_introduction = document.getElementById("instruction");
 
-    fetch(url_4, {
-      method: "POST",
-      headers: {
-          "Content-Type":"application/json",
-      },
-      body: JSON.stringify({
-          id: id,
-          username: username,
-      }),
-    }).then((response) => {return response.json();})
+  fetch(url_4, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      id: id,
+      username: username,
+    }),
+  })
+    .then((response) => {
+      return response.json();
+    })
     .then((data) => {
-      follower_num.innerText =data[0].follower_num;
-      following_num.innerText =data[0].following_num;
+      follower_num.innerText = data[0].follower_num;
+      following_num.innerText = data[0].following_num;
       current_introduction.innerText = data[0].introduction;
     });
 
@@ -161,15 +197,16 @@ window.onload = function () {
   let follower_list = document.getElementById("follower_view");
 
   fetch(url_follower, {
-      method: "POST",
-      headers: {
-          "Content-Type":"application/json",
-      },
-      body: JSON.stringify({
-          id: id,
-          username: username,
-      }),
-    }).then((response) => {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      id: id,
+      username: username,
+    }),
+  })
+    .then((response) => {
       return response.json();
     })
     .then((data) => {
@@ -181,7 +218,7 @@ window.onload = function () {
           output +
           ` <div class="card" style="margin-bottom: 5px">
                 <div class="card-body">${data[i].follower_id}
-                  <button type="button" class="btn btn-outline-dark" id="${i}" style="float: right" onclick="follower_delete(this.id)">삭제</button>
+                  
                 </div>
               </div>
               `;
@@ -199,13 +236,14 @@ window.onload = function () {
   list = fetch(url_following, {
     method: "POST",
     headers: {
-        "Content-Type":"application/json",
+      "Content-Type": "application/json",
     },
     body: JSON.stringify({
-        id: id,
-        username: username,
+      id: id,
+      username: username,
     }),
-  }).then((response) => {
+  })
+    .then((response) => {
       return response.json();
     })
     .then((data) => {
@@ -220,6 +258,7 @@ window.onload = function () {
                 <div class="card-body">
                 ${data[i].following_id}
                   <button type="button" class="btn btn-outline-dark" id="${i}" style="float: right" onclick="following_delete(this.id)">삭제</button>
+
                 
                 </div>
               </div>
@@ -251,13 +290,13 @@ function Contents_update(id) {
     });
 }
 
-window.addEventListener('beforeunload', (event) => {
+window.addEventListener("beforeunload", (event) => {
   // 명세에 따라 preventDefault는 호출해야하며, 기본 동작을 방지합니다.
-  const id = document.getElementById('user_id').innerHTML;
-  const username = document.getElementById('user_name').innerHTML;
+  const id = document.getElementById("user_id").innerHTML;
+  const username = document.getElementById("user_name").innerHTML;
 
-  sessionStorage.setItem('id', id);
-  sessionStorage.setItem('username', username);
+  sessionStorage.setItem("id", id);
+  sessionStorage.setItem("username", username);
 
   event.preventDefault();
 });
@@ -299,12 +338,49 @@ function searchF() {
     });
 }
 
-function move(data){
-  const id = data.split('_')[0];
-  const username = data.split('_')[1];
+function move(data) {
+  const id = data.split("_")[0];
+  const username = data.split("_")[1];
 
-  sessionStorage.setItem('id', id);
-  sessionStorage.setItem('username', username);
+  sessionStorage.setItem("id", id);
+  sessionStorage.setItem("username", username);
 
-  window.location.href = '/feed2';
+  window.location.href = "/feed2";
+}
+
+function add_following(id, username) {
+  const url_following = window.location.origin + "/api/following/insert";
+
+  const res2 = fetch(url_following, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      following_id: id,
+      following_username: username,
+    }),
+  }).then((response) => response.json());
+
+  location.reload();
+}
+
+//팔로잉 삭제
+function following_delete(id, username) {
+  const delete_id = String(id);
+  const delete_username = String(username);
+
+  const url = window.location.origin + "/api/following/delete";
+  const res1 = fetch(url, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      following_id: delete_id,
+      following_username: delete_username,
+    }),
+  }).then((response) => response.json());
+
+  location.reload();
 }
