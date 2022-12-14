@@ -22,8 +22,6 @@ module.exports = {
   user_detail_introduction: `select * from user_detail where id = ? and username = ?`,
   user_detail_update: `update user_detail set username = ? , introduction = ? where id = ? and username = ?`,
 
-  comments_update_username:`update comments set username = ? where id = ? and username = ?`,
-
   follower_update_username:`update follower set username = ? where id = ? and username = ?`,
   follower_update_username2:`update follower set follower_username = ? where follower_id = ? and follower_username = ?`,
 
@@ -41,8 +39,6 @@ module.exports = {
   user_detail_following_num_Update: `update user_detail, (select count(*) as cnt from following where id=?) as F set following_num = F.cnt where id=?`, //following 수 업데이트
   user_detail_follower_num_Update: `update user_detail, (select count(*) as cnt from follower where id=?) as F set follower_num = F.cnt where id=?`, //follower 수 업데이트
 
-
-
   followerList: `select * from follower where id = ? and username = ?`,
   followerInsert: `insert into follower set ?`,
   followerDelete: `delete from follower where id = ? and follower_id = ?`,
@@ -52,4 +48,8 @@ module.exports = {
   followingDelete: `delete from following where id = ? and following_id = ?`,
 
   userSearch: `select * from user_detail where id like ?`,
+
+  commentsList: `select * from comments where contents_id = ? order by incre DESC `,
+  commentsInsert: `insert into comments set contents_id =?, id = ?, username = ?, contents = ?`,
+  comments_update_username:`update comments set username = ? where id = ? and username = ?`,
 };

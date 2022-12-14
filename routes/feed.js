@@ -5,16 +5,15 @@ const request = require("request");
 const router = express.Router();
 
 const multer = require("multer");
-const { isFloat32Array } = require("util/types");
 
-var upload = multer({dest: 'profile_images/'})
+var upload = multer({dest: 'profile_images/'});
 
 // get
 
 router.get("/", function (req, res) {
   //const url = req.headers.origin + '/api/profile/check';
 
-  console.log(req.url);
+  //console.log(req.url);
 
   if (req.session.loginId) {
     //세션에 로그인 아이디가 존재하는 경우 성공적으로 피드 화면 진입.

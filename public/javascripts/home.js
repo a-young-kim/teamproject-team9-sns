@@ -7,13 +7,13 @@ window.onload = function(){
     const res = fetch(url)
     .then((response) => response.json())
     .then(data => setFollowing(data));
-
 };
 
 function get(data, num){
     const url = window.location.origin + '/api/contents/show_contents';
 
     return new Promise((resolve, reject) => {
+     
         fetch(url, {
             method: "POST",
             headers: {
@@ -41,6 +41,7 @@ async function setFollowing(data){
     if(time.length > 1){
         time.sort(sortFunction);
     }
+    
     let contents_block = document.getElementById('contents');
     let output = '';
 
@@ -125,7 +126,7 @@ function sortFunction(a, b){
     else return -1;
 }
 function SaveContents(data){
-   
+    
     for(let i = 0; i < data.length ; i++){
         time.push(new Date(data[i].timestamp));
     
@@ -170,7 +171,7 @@ function ShowComments(data, contents_id, time){
             contents_data = contents[timestamp][i];
         }
     }
-    
+    console.log('comment');
     output += `
             <div class="modal fade" id="commentModal${contents_id}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
@@ -258,6 +259,6 @@ function newComments(data){
         div.remove();
     }
    
-    $('#main-body').prepend(`<p><b>${id} (${username}): </b>${contents} </p>`);
+    $('#main-body').prepend(`<p><b>${username}: </b>${contents} </p>`);
 }
 
