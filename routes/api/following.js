@@ -37,6 +37,7 @@ router.post("/", async (req, res) => {
   res.send(followings);
 });
 
+//팔로잉 추가할 때 팔로잉 추가됨
 router.post("/insert", async (req, res) => {
   const users = await mysql.query("followingInsert", [
     req.session.loginId,
