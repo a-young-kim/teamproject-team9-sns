@@ -2,8 +2,16 @@ let list = [];
 
 window.onload = function () {
 
-  const id = document.getElementById('user_id').innerHTML;
-  const username = document.getElementById('user_name').innerHTML;
+  const id = sessionStorage.getItem('id');
+  const username = sessionStorage.getItem('username');
+
+  if(id == null){
+    window.location.href = '/home';
+  }
+  document.getElementById('user_id').innerHTML = id;
+  document.getElementById('user_name').innerHTML = username;
+
+  sessionStorage.clear();
 
   //feed 화면 새로고침될 때마다 팔로워 수, 팔로잉 수 변경되도록 함
    const url_follower_num_update =
@@ -226,3 +234,14 @@ function Contents_update(id) {
       let content_id = data[id].contents_id;
     });
 }
+
+window.addEventListener('beforeunload', (event) => {
+  // 명세에 따라 preventDefault는 호출해야하며, 기본 동작을 방지합니다.
+  const id = document.getElementById('user_id').innerHTML;
+  const username = document.getElementById('user_name').innerHTML;
+
+  sessionStorage.setItem('id', id);
+  sessionStorage.setItem('username', username);
+
+  event.preventDefault();
+});

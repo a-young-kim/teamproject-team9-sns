@@ -8,17 +8,8 @@ const multer = require("multer");
 
 var upload = multer({dest: 'profile_images/'});
 
-// get
-
 router.get("/", function (req, res) {
-  /*const loginId = req.body.id;
-  const username = req.body.username;*/
-
-  const loginId = 'a';
-  const username = 'x';
-
-  //if (loginId & username) {
-    //세션에 로그인 아이디가 존재하는 경우 성공적으로 피드 화면 진입.
+  
     output = `
                 
 <!doctype html>
@@ -131,6 +122,51 @@ router.get("/", function (req, res) {
       </nav>
     </header>
 
+    <!-- 검색창 -->
+    <div
+      class="modal fade"
+      id="Modal_search"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="ModalLabelSearch"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <div
+              class="modal-title"
+              id="ModalLabelSearch"
+              style="margin: 0 auto"
+            >
+              <div class="input-group mb-3">
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="사용자 검색"
+                  aria-label="Search"
+                  aria-describedby="button-addon2"
+                  id="input_user"
+                  style="width: 350px"
+                />
+                <button
+                  class="btn btn-outline-success"
+                  type="submit"
+                  id="btn_search"
+                  onclick="searchF()"
+                >
+                  검색
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="modal-body">
+            <div id="div_users"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- 그 외 게시글 표시될 곳-->
     <main style="margin-left: 70px; padding-top: 80px">
               <div class = "container justify-content-center mt-3">
@@ -140,9 +176,9 @@ router.get("/", function (req, res) {
                       </div>
       
                       <div class = "col-7 mt-1">
-                          <p id = "user_id">${loginId}</p>`;
+                          <p id = "user_id"> </p>`;
 
-    output += `<p id = "user_name">${username}</p>
+    output += `<p id = "user_name"> </p>
 
                           <p id = "instruction"> </p>
                       </div>
@@ -288,57 +324,11 @@ router.get("/", function (req, res) {
     </div>
 </form>
     
-    <!-- 검색창 -->
-      <div
-        class="modal fade"
-        id="Modal_search"
-        tabindex="-1"
-        role="dialog"
-        aria-labelledby="ModalLabelSearch"
-        aria-hidden="true"
-      >
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <div
-                class="modal-title"
-                id="ModalLabelSearch"
-                style="margin: 0 auto"
-              >
-                <input
-                  class="form-control me-2"
-                  type="search"
-                  placeholder="사용자 검색"
-                  aria-label="Search"
-                  style="width: 450px"
-                />
-              </div>
-            </div>
-            <div class="modal-body">
-              <h5>게시글 제목</h5>
-              <p>게시글 내용 ...</p>
-            </div>
-            <div class="modal-footer">
-              <button
-                type="button"
-                class="btn btn-secondary"
-                data-dismiss="modal"
-              >
-                닫기
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
     </body>
 </html>
         `;
 
-    res.send(output);
- /* } else {
-    res.redirect("/home"); //세션에 로그인 아이디가 존재하지 않는 경우 로그인 페이지로 보낸다.
-  }*/
-
+        res.send(output);
 });
 
 module.exports = router;

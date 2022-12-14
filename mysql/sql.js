@@ -48,11 +48,10 @@ module.exports = {
   followingDelete: `delete from following where id = ? and following_id = ?`,
 
 
-  userSearch: `select * from user_detail where id like ?`,
+  userSearch: `select * from user_detail where username like ?`,
 
   commentsList: `select * from comments where contents_id = ? order by incre DESC `,
   commentsInsert: `insert into comments set contents_id =?, id = ?, username = ?, contents = ?`,
   comments_update_username:`update comments set username = ? where id = ? and username = ?`,
 
-  followingList: `select * from following where id = ? and username = ?`,
 };

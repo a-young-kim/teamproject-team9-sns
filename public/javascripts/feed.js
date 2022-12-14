@@ -452,7 +452,7 @@ function searchF() {
         output =
           output +
           ` <div class="card" style="margin-bottom: 5px">
-              <div class="card-body" id="${data[i].username}" onclick="alert(this.id)">${data[i].username}
+              <div class="card-body" id="${data[i].id}_${data[i].username}" onclick='move(this.id)'>${data[i].username}
                 
               </div>
             </div>
@@ -464,6 +464,17 @@ function searchF() {
       search_view.innerHTML = output;
     });
 }
+
+function move(data){
+  const id = data.split('_')[0];
+  const username = data.split('_')[1];
+
+  sessionStorage.setItem('id', id);
+  sessionStorage.setItem('username', username);
+
+  window.location.href = '/feed2';
+}
+
 
 function btn_follow() {
   // 팔로우 클릭

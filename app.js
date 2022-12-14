@@ -68,7 +68,6 @@ app.use("/", indexRouter);
 app.use("/signup", signupRouter);
 app.use("/switch", switchRouter);
 app.use("/feed", feedRouter);
-app.use("/feed_others", feedOtherRouter);
 app.use("/home", homeRouter);
 app.use("/feed2", feed2Router);
 
