@@ -30,7 +30,7 @@
 
 /* 게시글 하나하나 관련 */
 /* 게시글 박스 */
-.post_box {
+#post_box {
   /* border: 2px solid #666666; */
   width: 70%;
   float: left;

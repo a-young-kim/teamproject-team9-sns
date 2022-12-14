@@ -7,19 +7,23 @@ module.exports = {
   profileList: `select * from profile`,
   profileInsert: `insert into profile set ?`,
   profileCheck: `select * from profile where id = ?`,
-
   profileUpdate1: `update profile set username1 = ? where id = ? and username1 = ?`,
   profileUpdate2: `update profile set username2 = ? where id = ? and username2 = ?`,
   profileUpdate3: `update profile set username3 = ? where id = ? and username3 = ?`,
 
-  contentsList: `select * from contents where id = ? and username = ? order by incre DESC`,
+
+  contentsList: `select * from contents where id = ? and username = ? order by incre ASC`,
   contentsInsert: `insert into contents set ?`,
   contentsSwitch: `update contents set incre = ? where contents_id = ?`,
-
-  contentsUpdate_username: `update contents set username = ? where id = ? and username = ?`,
+  contentsUpdate: `update contents set username = ? where id = ? and username = ?`,
   select_last_insertid:`SELECT max(contents_id) FROM contents;`,
- 
+  
+  sessionList: `select * from sessions`,
+
+  user_detail_List:`select * from user_detail where id = ?`,
+  user_detail_insert:`insert into user_detail set ?`,
   user_detail_introduction: `select * from user_detail where id = ? and username = ?`,
+  user_detail_follow_check:`select * from user_detail where id = ? and username = ?`,
   user_detail_update: `update user_detail set username = ? , introduction = ? where id = ? and username = ?`,
 
   follower_update_username:`update follower set username = ? where id = ? and username = ?`,
@@ -53,3 +57,4 @@ module.exports = {
   commentsInsert: `insert into comments set contents_id =?, id = ?, username = ?, contents = ?`,
   comments_update_username:`update comments set username = ? where id = ? and username = ?`,
 };
+

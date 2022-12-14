@@ -1,21 +1,17 @@
 let switchID = [];
-let SaveID = [];
-let ContentsData = {};
-
 
 function readyToSwitch(id){
-    const context =  document.getElementById(id);
+    const context = document.getElementById(id);
+    const color = context.style.backgroundColor;
 
-    //console.log(switchID);
-    if(switchID.includes(id)){
+    if(id in switchID){
         context.style.backgroundColor = 'white';
 
-        switchID = switchID.filter((ele) => {
+        switchID = swichswitchIDID.filter((ele) => {
             return ele != id;
         });
     }
     else{
-        //console.log(id);
         context.style.backgroundColor = 'gray';
         switchID.push(id);
 
@@ -26,8 +22,6 @@ function readyToSwitch(id){
 }
 
 function Switch(){
-    //console.log(ContentsData);
-
     let firstID = switchID[0];
     let secondID = switchID[1];
 
@@ -36,12 +30,11 @@ function Switch(){
 
     document.getElementById(firstID).innerHTML = saved_second;
     document.getElementById(secondID).innerHTML = saved_first;
-    
+
+    switchID = [];
+
     document.getElementById(firstID).style.backgroundColor = 'white';
     document.getElementById(secondID).style.backgroundColor = 'white';
-
-    SaveID.push(switchID);
-    switchID = [];
 }
 
 window.onload = function(){
@@ -50,9 +43,6 @@ window.onload = function(){
     const res = fetch(url)
     .then((response) => response.json())
     .then(data => set_Contents(data));
-
-    switchID = [];
-    SaveID = [];
 };
 
 function set_Contents(data){
@@ -63,9 +53,10 @@ function set_Contents(data){
         ContentsData[data[i].incre] = data[i];
 
         if( i % 2 == 0){
-            output += `<div class="row p-1" id="div${data[i].incre}">`;
+            output += `<div class="row p-1" id="div${i}">`;
 
-            output += `<div class="col-6 card p-1 context" id="${data[i].incre}" onclick="readyToSwitch(this.id)">
+            output += `<div class="col-6 card p-1 context" id="${i}_1" onclick="readyToSwitch(this.id)">
+                        <div class="card-header">header${i}</div>
                         <div class="card-body">
                         <h5 class="card-title">${data[i].title}</h5>
                         <p class="card-text">${data[i].contents}</p>
@@ -74,7 +65,8 @@ function set_Contents(data){
         }
 
         else{
-            output += `<div class="col-6 card p-1 context" id="${data[i].incre}" onclick="readyToSwitch(this.id)">
+            output += `<div class="col-6 card p-1 context" id="${i}_2" onclick="readyToSwitch(this.id)">
+                        <div class="card-header">header${i}</div>
                         <div class="card-body">
                         <h5 class="card-title">${data[i].title}</h5>
                         <p class="card-text">${data[i].contents}</p>
@@ -90,18 +82,15 @@ function set_Contents(data){
 
     output += `</div>`;
     contents.innerHTML = output;
-    console.log(ContentsData);
 }
 
 function SaveData(){
+    SaveID = Array.from(new Set(SaveID));
    
     for(let i = 0; i < SaveID.length; i++){
 
         let firstID = SaveID[i][0];
         let secondID = SaveID[i][1];
-
-        let firstData = ContentsData[firstID];
-        let secondData = ContentsData[secondID];
 
         // firstID change
         const url = window.location.origin + '/api/contents/update_incre';
@@ -111,9 +100,7 @@ function SaveData(){
                 "Content-Type":"application/json",
             },
             body: JSON.stringify({
-            
                 incre: Number(secondID),
-
                 contents_id: ContentsData[firstID].contents_id
             }),
         }).then((response) => response.json());
@@ -125,16 +112,11 @@ function SaveData(){
                 "Content-Type":"application/json",
             },
             body: JSON.stringify({
-
-                incre:  Number(firstID),
+                incre: firstID,
                 contents_id: ContentsData[secondID].contents_id
             }),
         }).then((response) => response.json());
-
-        ContentsData[Number(secondID)] = firstData;
-        ContentsData[Number(firstID)] = secondData;
     }
 
-    console.log(ContentsData);
     SaveID = [];
 }
