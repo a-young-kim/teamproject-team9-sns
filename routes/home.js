@@ -79,10 +79,118 @@ router.post("/write", upload.single('image'),function (req, res, next) { //게�
     });
   });
 
-
-
-  
   res.redirect("/");
+});
+
+router.post("/profile1_change", function (req, res, next) {
+
+  let options = {
+    url: req.headers.origin + '/api/profile/check', 
+    method: 'POST',
+    form: {
+      id:req.session.loginId
+    }
+  };
+
+  request.post(options, function(err, httpResponse, body){
+    if(err) console.log(err);
+
+    let temp = JSON.parse(body.slice(1, -1));
+
+    username = Object.values(temp);
+
+    req.session.username = username[1];
+    req.session.save(error => {if(error) console.log(error);});
+    
+    let options12 = { //following의 username을 수정해주는 작업
+      url: req.headers.origin + '/api/user/update_username', 
+      method: 'POST',
+      form: {
+        id: req.session.loginId,
+        username: username[1]
+      }
+    };
+  
+    request.post(options12, function(err, httpResponse, body){
+      if(err) console.log(err);
+    });
+  });
+
+  res.redirect("/home");
+});
+
+router.post("/profile2_change", function (req, res, next) {
+
+  let options = {
+    url: req.headers.origin + '/api/profile/check', 
+    method: 'POST',
+    form: {
+      id:req.session.loginId
+    }
+  };
+
+  request.post(options, function(err, httpResponse, body){
+    if(err) console.log(err);
+
+    let temp = JSON.parse(body.slice(1, -1));
+
+    username = Object.values(temp);
+
+    req.session.username = username[3];
+    req.session.save(error => {if(error) console.log(error);});
+    
+    let options12 = { //following의 username을 수정해주는 작업
+      url: req.headers.origin + '/api/user/update_username', 
+      method: 'POST',
+      form: {
+        id: req.session.loginId, 
+        username: username[3]
+      }
+    };
+  
+    request.post(options12, function(err, httpResponse, body){
+      if(err) console.log(err);
+    });
+  });
+
+  res.redirect("/home");
+});
+
+router.post("/profile3_change", function (req, res, next) {
+
+  let options = {
+    url: req.headers.origin + '/api/profile/check', 
+    method: 'POST',
+    form: {
+      id:req.session.loginId
+    }
+  };
+
+  request.post(options, function(err, httpResponse, body){
+    if(err) console.log(err);
+
+    let temp = JSON.parse(body.slice(1, -1));
+
+    username = Object.values(temp);
+
+    req.session.username = username[5];
+    req.session.save(error => {if(error) console.log(error);});
+    
+    let options12 = { //following의 username을 수정해주는 작업
+      url: req.headers.origin + '/api/user/update_username', 
+      method: 'POST',
+      form: {
+        id: req.session.loginId,
+        username: username[5]
+      }
+    };
+  
+    request.post(options12, function(err, httpResponse, body){
+      if(err) console.log(err);
+    });
+  });
+
+  res.redirect("/home");
 });
 
 module.exports = router;
