@@ -1,4 +1,4 @@
-let list = [];
+
 
 function searchF() {
   let input_user = document.getElementById("input_user").value;
