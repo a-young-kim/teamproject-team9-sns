@@ -1,4 +1,3 @@
-
 let contents = [];
 let time = [];
 
