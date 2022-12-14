@@ -6,7 +6,7 @@ const router = express.Router();
 
 const multer = require("multer");
 
-var upload = multer({dest: 'profile_images/'});
+var upload = multer({dest: 'uploads/'});
 
 // get
 
@@ -483,6 +483,7 @@ router.get("/", function (req, res) {
                 aria-describedby="basic-addon1"
                 name="title"
                 id="title"
+                required
               />
             </div>
 
@@ -493,11 +494,15 @@ router.get("/", function (req, res) {
                 style="height: 250px"
                 name="subject"
                 id="subject"
+                required
               ></textarea>
             </div>
             <br/>
-            <input type="file"  class="form-control" name ="image" >
 
+              <input type="file"  class="form-control" id="image" name ="image" accept=".png, .jpeg, .jpg" required>
+
+              <br />
+              
           <div class="modal-footer">
             <button type="submit" class="btn btn-primary">저장</button>
             <button

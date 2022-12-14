@@ -129,24 +129,27 @@
         <aside>
           <!-- 이 속에 표시될 프로필 작성하면 됨 -->
           <div id="profile_main">
+            <form action="./home/profile1_change" method="post">
+            <div id="profile_mini">
+              <button type="submit" class="btn btn-dark">profile1</button>
+            </div>
+            </form>
+
+            <form action="./home/profile2_change" method="post">
             <div
               id="profile_mini"
-              onclick="confirm('프로필1로 변경하시겠습니까?')"
             >
-              Profile1
+            <button type="submit" class="btn btn-dark">profile2</button>
             </div>
+          </form>
+
+          <form action="./home/profile3_change" method="post">
             <div
               id="profile_mini"
-              onclick="confirm('프로필2로 변경하시겠습니까?')"
             >
-              Profile2
+            <button type="submit" class="btn btn-dark">profile3</button>
             </div>
-            <div
-              id="profile_mini"
-              onclick="confirm('프로필3으로 변경하시겠습니까?')"
-            >
-              Profile3
-            </div>
+          </form>
           </div>
         </aside>
       </div>
@@ -181,6 +184,7 @@
                   aria-describedby="basic-addon1"
                   name="title"
                   id="title"
+                  required
                 />
               </div>
 
@@ -191,12 +195,15 @@
                   style="height: 250px"
                   name="subject"
                   id="subject"
+                  required
                 ></textarea>
               </div>
               <br />
 
 
-              <input type="file"  class="form-control" name ="image" >
+              <input type="file"  class="form-control" id="image" name ="image" accept=".png, .jpeg, .jpg" required>
+
+              <br />
 
             <div class="modal-footer">
               <button type="submit" class="btn btn-primary">저장</button>

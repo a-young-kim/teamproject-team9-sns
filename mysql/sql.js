@@ -43,6 +43,8 @@ module.exports = {
   followerInsert: `insert into follower set ?`,
   followerDelete: `delete from follower where id = ? and follower_id = ?`,
 
+  followingList: `select * from following where id = ? and username = ?`,
+
   userSearch: `select * from user_detail where id like ?`,
 
   commentsList: `select * from comments where contents_id = ? order by incre DESC `,

@@ -51,13 +51,13 @@ app.use(
       expires: 60 * 60 * 24,
     },
     store: new MySQLStore({
-      //session 파일을 mysql에 저장해주는 작업
-      host: "localhost",
-      port: 3306,
-      user: "dev02", //본인이 사용하는 user 이름으로 바꿔주기!(예. root, dev01, ...)
-      password: "1234",
-      database: "team9", //본인이 사용하는 DB 이름으로 바꿔주기!(예. team9, kwic, ...)
-      path: "./sessions",
+        //session 파일을 mysql에 저장해주는 작업
+        host: process.env.MYSQL_HOST,
+        port: process.env.MYSQL_PORT,
+        user: process.env.MYSQL_USERNAME,
+        password: process.env.MYSQL_PASSWORD,
+        database: process.env.MYSQL_DB, //본인이 사용하는 DB 이름으로 바꿔주기!(예. team9)
+        path: "./sessions",
     }),
   })
 );
