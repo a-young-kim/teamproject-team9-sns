@@ -6,11 +6,10 @@ const router = express.Router();
 
 const multer = require("multer");
 
-var upload = multer({dest: 'profile_images/'});
+var upload = multer({ dest: "profile_images/" });
 
 router.get("/", function (req, res) {
-  
-    output = `
+  output = `
                 
 <!doctype html>
 <html lang="en">
@@ -178,7 +177,7 @@ router.get("/", function (req, res) {
                       <div class = "col-7 mt-1">
                           <p id = "user_id"> </p>`;
 
-    output += `<p id = "user_name"> </p>
+  output += `<p id = "user_name"> </p>
 
                           <p id = "instruction"> </p>
                       </div>
@@ -214,6 +213,8 @@ router.get("/", function (req, res) {
 
                             </div>
                           </div>
+
+                          <div id="follow_btn_seat">1</div>
       
                   </div>
                   <div class='m-2'></div>
@@ -328,7 +329,7 @@ router.get("/", function (req, res) {
 </html>
         `;
 
-        res.send(output);
+  res.send(output);
 });
 
 module.exports = router;
