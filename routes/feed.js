@@ -467,7 +467,6 @@ router.get("/", function (req, res) {
 
     <!-- 게시글 생성 버튼 클릭 -->
     <form action="./feed/write" method="post" enctype="multipart/form-data" >
-
     <div class="modal fade" id="modal_new_post" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -486,7 +485,6 @@ router.get("/", function (req, res) {
                 required
               />
             </div>
-
             <h5>게시글 내용</h5>
             <div class="input-group">
               <textarea
@@ -498,9 +496,7 @@ router.get("/", function (req, res) {
               ></textarea>
             </div>
             <br/>
-
               <input type="file"  class="form-control" id="image" name ="image" accept=".png, .jpeg, .jpg" required>
-
               <br />
               
           <div class="modal-footer">
@@ -517,7 +513,7 @@ router.get("/", function (req, res) {
       </div>
     </div>
 </form>
-    
+
     <!-- 검색창 -->
       <div
         class="modal fade"
@@ -535,31 +531,34 @@ router.get("/", function (req, res) {
                 id="ModalLabelSearch"
                 style="margin: 0 auto"
               >
-                <input
-                  class="form-control me-2"
-                  type="search"
-                  placeholder="사용자 검색"
-                  aria-label="Search"
-                  style="width: 450px"
-                />
+                <div class="input-group mb-3">
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="사용자 검색"
+                    aria-label="Search"
+                    aria-describedby="button-addon2"
+                    id="input_user"
+                    style="width: 350px"
+                  />
+                  <button
+                    class="btn btn-outline-success"
+                    type="submit"
+                    id="btn_search"
+                    onclick="searchF()"
+                  >
+                    검색
+                  </button>
+                </div>
               </div>
             </div>
             <div class="modal-body">
-              <h5>게시글 제목</h5>
-              <p>게시글 내용 ...</p>
-            </div>
-            <div class="modal-footer">
-              <button
-                type="button"
-                class="btn btn-secondary"
-                data-dismiss="modal"
-              >
-                닫기
-              </button>
+              <div id="div_users"></div>
             </div>
           </div>
         </div>
       </div>
+    
     </body>
 </html>
         `;

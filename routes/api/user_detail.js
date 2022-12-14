@@ -26,10 +26,10 @@ router.post("/insert", async (req, res) => {
   res.send(JSON.stringify(user_details));
 });
 
-router.get("/search_user", async (req, res) => {
-  const users = await mysql.query("userSearch", req.body + "%");
+router.post("/search_user", async (req, res) => {
+  const users = await mysql.query("userSearch", req.body.search_user + "%");
 
-  res.send(users);
+  res.send(JSON.stringify(users));
 });
 
 router.post("/update", async (req, res) => {

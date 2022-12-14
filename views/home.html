@@ -36,6 +36,7 @@
         $('[data-toggle="tooltip"]').tooltip();
       });
     </script>
+    <script src="/javascripts/searchuser.js"></script>
 
     <!-- 왼쪽 사이드바 -->
     <nav style="z-index: 2" id="nav_left">
@@ -154,9 +155,7 @@
         </aside>
       </div>
 
-      <div id="contents">
-       
-      </div>
+      <div id="contents"></div>
 
       <!-- 게시글 생성 버튼 클릭 -->
       <form action="./home/write" method="post" enctype="multipart/form-data" >
@@ -249,7 +248,7 @@
                   <button
                     class="btn btn-outline-success"
                     type="submit"
-                    id="button-addon2"
+                    id="btn_search"
                     onclick="searchF()"
                   >
                     검색

@@ -28,6 +28,7 @@ router.post("/update_contents", async (req, res) => {
   res.send(JSON.stringify(contents));
 });
 
+
 router.post('/show_contents', async(req, res) => {
     const contents = await  mysql.query("contentsList", [req.body.id, req.body.username]);
     res.send(JSON.stringify(contents));

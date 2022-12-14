@@ -40,10 +40,13 @@ module.exports = {
   user_detail_follower_num_Update: `update user_detail, (select count(*) as cnt from follower where id=? and username=?) as F set follower_num = F.cnt where id=? and username=?`, //follower 수 업데이트
 
   followerList: `select * from follower where id = ? and username = ?`,
-  followerInsert: `insert into follower set ?`,
+  followerInsert: `insert into follower values (?, ?, ?, ?)`,
   followerDelete: `delete from follower where id = ? and follower_id = ?`,
 
   followingList: `select * from following where id = ? and username = ?`,
+  followingInsert: `insert into following values (?, ?, ?, ?)`,
+  followingDelete: `delete from following where id = ? and following_id = ?`,
+
 
   userSearch: `select * from user_detail where id like ?`,
 
